@@ -18,7 +18,6 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends  State<Home> {
-  int count=0;
   @override
     Widget build(BuildContext context) {
       return Scaffold(
