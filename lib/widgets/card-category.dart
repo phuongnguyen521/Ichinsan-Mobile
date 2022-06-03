@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:now_ui_flutter/constants/Theme.dart';
+import 'package:ichinsan_mobile/constants/Theme.dart';
 
 class CardCategory extends StatelessWidget {
   CardCategory(
@@ -21,7 +21,7 @@ class CardCategory extends StatelessWidget {
         height: 252,
         width: null,
         child: GestureDetector(
-          onTap: tap,
+          //onTap: tap,
           child: Card(
               elevation: 0.4,
               shape: RoundedRectangleBorder(

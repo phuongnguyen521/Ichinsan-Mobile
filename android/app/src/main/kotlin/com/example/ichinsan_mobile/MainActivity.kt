@@ -1,4 +1,4 @@
-package com.example.now_ui_flutter
+package com.example.ichinsan_mobile
 
 import io.flutter.embedding.android.FlutterActivity
 

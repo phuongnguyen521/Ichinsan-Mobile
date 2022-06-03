@@ -5,12 +5,12 @@ import 'package:ichinsan_mobile/constants/Theme.dart';
 //widgets
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
 
-class Profile extends StatefulWidget{
+class Process extends StatefulWidget{
   @override
-  ProfileState createState() => ProfileState();
+  ProcessState createState() => ProcessState();
 }
 
-class ProfileState extends  State<Profile> {
+class ProcessState extends  State<Process> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,10 +20,10 @@ class ProfileState extends  State<Profile> {
             onPressed: (){},
             icon: Icon(Icons.menu) // Thay cho Icon App
         ),
-        title: Text('Profile'),
+        title: Text('Process'),
       ),
       body: Center(
-        child: Text("Profile"),
+        child: Text("Process"),
       ),
     );
   }

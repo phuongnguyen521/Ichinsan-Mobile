@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:now_ui_flutter/constants/Theme.dart';
+import 'package:ichinsan_mobile/constants/Theme.dart';
 
 class CardSquare extends StatelessWidget {
   CardSquare(
@@ -23,7 +23,7 @@ class CardSquare extends StatelessWidget {
         height: 250,
         width: null,
         child: GestureDetector(
-          onTap: tap,
+          //onTap: tap,
           child: Card(
               elevation: 3,
               shadowColor: NowUIColors.muted.withOpacity(0.22),

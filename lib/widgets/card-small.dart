@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:now_ui_flutter/constants/Theme.dart';
+import 'package:ichinsan_mobile/constants/Theme.dart';
 
 class CardSmall extends StatelessWidget {
   CardSmall(
@@ -23,7 +23,7 @@ class CardSmall extends StatelessWidget {
         child: Container(
       height: 235,
       child: GestureDetector(
-        onTap: tap,
+        //onTap: tap,
         child: Card(
             elevation: 3,
             shadowColor: NowUIColors.muted.withOpacity(0.22),

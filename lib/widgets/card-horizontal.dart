@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:now_ui_flutter/constants/Theme.dart';
+import 'package:ichinsan_mobile/constants/Theme.dart';
 
 class CardHorizontal extends StatelessWidget {
   CardHorizontal(
@@ -30,7 +30,7 @@ class CardHorizontal extends StatelessWidget {
     return Container(
         height: 200,
         child: GestureDetector(
-          onTap: tap,
+          //onTap: tap,
           child: Card(
             elevation: 3,
             shadowColor: NowUIColors.muted.withOpacity(0.22),
@@ -62,12 +62,14 @@ class CardHorizontal extends StatelessWidget {
                           Text(description,
                               style: TextStyle(
                                   color: NowUIColors.text, fontSize: 12)),
-
-                          Text(cta,
-                              style: TextStyle(
-                                  color: NowUIColors.primary,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600)),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Text(cta,
+                                style: TextStyle(
+                                    color: NowUIColors.primary,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600)),
+                          ),
                         ],
                       ),
                     )),
