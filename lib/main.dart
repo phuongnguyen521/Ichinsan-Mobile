@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.access_alarm_rounded),
-            label: 'Process',
+            label: 'Progress',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
