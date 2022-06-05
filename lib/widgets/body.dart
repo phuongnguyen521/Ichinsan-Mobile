@@ -2,80 +2,58 @@ import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/constants/Theme.dart';
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
 import 'package:ichinsan_mobile/widgets/navbar.dart';
-class Body extends StatelessWidget{
 
+import '../constants/articles.dart';
+import '../constants/network.dart';
 
+class Body extends StatefulWidget {
   @override
-  Widget build(BuildContext context){
-    Size size=MediaQuery.of(context).size;
-    return SingleChildScrollView(
-      child: Column(
-        children:<Widget>[
-          NavBar(size: size),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: CardHorizontal(
-                    cta: "Apply",
-                    title: "Article 1",
-                    language: "Language: " + "English-VietNam",
-                    coin: "Salary: " + "100",
-                    deadline:"Deadline: " + "20/8/2022",
-                    description:"Description " "It's better to have no cofounder than to have a bad cofounder, but it's still bad to be a solo founder",
-                    tap: () {
-                      Navigator.pushNamed(context, '/pro');
-                    }),
-              ),
-              SizedBox(height: 8.0),
-              CardHorizontal(
-                  cta: "Apply",
-                  title: "Article 2",
-                  language: "Language: " + "English-VietNam",
-                  coin: "Salary: " + "100",
-                  deadline:"Deadline: " + "20/8/2022",
-                  description:"Description: " "It's better to have no cofounder than to have a bad cofounder, but it's still bad to be a solo founder",
-                  tap: () {
-                    Navigator.pushNamed(context, '/pro');
-                  }),
-              SizedBox(height: 8.0),
-              CardHorizontal(
-                  cta: "Apply",
-                  title: "Article 3",
-                  language: "Language: " + "English-VietNam",
-                  coin: "Salary: " + "100",
-                  deadline:"Deadline: " + "20/8/2022",
-                  description:"Description: " "It's better to have no cofounder than to have a bad cofounder, but it's still bad to be a solo founder",
-                  tap: () {
-                    Navigator.pushNamed(context, '/pro');
-                  }),
-              SizedBox(height: 8.0),
-              CardHorizontal(
-                  cta: "Apply",
-                  title: "Article 4",
-                  language: "Language: " + "English-VietNam",
-                  coin: "Salary: " + "100",
-                  deadline:"Deadline: " + "20/8/2022",
-                  description:"Description: " "It's better to have no cofounder than to have a bad cofounder, but it's still bad to be a solo founder",
-                  tap: () {
-                    Navigator.pushNamed(context, '/pro');
-                  }),
-              SizedBox(height: 8.0),
-              CardHorizontal(
-                  cta: "Apply",
-                  title: "Article 5",
-                  language: "Language: " + "English-VietNam",
-                  coin: "Salary: " + "100",
-                  deadline:"Deadline: " + "20/8/2022",
-                  description:"Description: " "It's better to have no cofounder than to have a bad cofounder, but it's still bad to be a solo founder",
-                  tap: () {
-                    Navigator.pushNamed(context, '/pro');
-                  }),
-            ],
-          ),
-        ]
-      ),
+  BodyState createState() => BodyState();
+}
+
+class BodyState extends State<Body> {
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    return FutureBuilder(
+      future: ReadData(),
+      builder: (context, data) {
+        if (data.hasError) {
+          return Center(child: Text("Not Found"));
+        } else if (data.hasData) {
+          var items = data.data as List<Articles>;
+          return SingleChildScrollView(
+            physics: ScrollPhysics(),
+            child:
+                Column(
+                  children: <Widget>[
+                    ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: items == null ? 0 : items.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return CardHorizontal(
+                              cta: "Apply",
+                              title: items[index].title.toString(),
+                              language: "Language: " + (items[index].language.toString()),
+                              coin: "Salary: " + (items[index].coin.toString()),
+                              deadline: "Deadline: " + (items[index].deadline.toString()),
+                              description: "Description: " + (items[index].description.toString()),
+                              tap: () {
+                                Navigator.pushNamed(context, '/pro');
+                              });
+                        }),
+                  ],
+                ),
+
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
     );
   }
 }
-
