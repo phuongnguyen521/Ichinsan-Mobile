@@ -7,11 +7,10 @@ class CardHorizontal extends StatelessWidget {
       this.cta = "",
       this.img = "https://via.placeholder.com/200",
       this.tap = defaultFunc,
-      this.language="",
-      this.coin="",
-      this.deadline="",
-      this.description=""
-      });
+      this.language = "",
+      this.coin = "",
+      this.deadline = "",
+      this.description = ""});
 
   final String cta;
   final String img;
@@ -21,6 +20,7 @@ class CardHorizontal extends StatelessWidget {
   final String description;
   final String coin;
   final String deadline;
+
   static void defaultFunc() {
     print("the function works!");
   }
@@ -32,7 +32,7 @@ class CardHorizontal extends StatelessWidget {
         child: GestureDetector(
           //onTap: tap,
           child: Card(
-            elevation: 3,
+            elevation: 5,
             shadowColor: NowUIColors.muted.withOpacity(0.22),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(4.0))),
@@ -49,25 +49,28 @@ class CardHorizontal extends StatelessWidget {
                         children: [
                           Text(title,
                               style: TextStyle(
-                                  color: NowUIColors.text, fontSize: 12)),
-                          Text(deadline,
-                              style: TextStyle(
-                                  color: NowUIColors.text, fontSize: 12)),
+                                  color: NowUIColors.gradientEnd,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold)),
                           Text(coin,
+                              textAlign: TextAlign.end,
                               style: TextStyle(
-                                  color: NowUIColors.text, fontSize: 12)),
+                                  color: NowUIColors.text, fontSize: 15)),
                           Text(language,
                               style: TextStyle(
-                                  color: NowUIColors.text, fontSize: 12)),
-                          Text(description,
+                                  color: NowUIColors.text, fontSize: 15)),
+
+                              Text(description,
+                              overflow: TextOverflow.clip,
+                              maxLines: 3,
                               style: TextStyle(
-                                  color: NowUIColors.text, fontSize: 12)),
+                                  color: NowUIColors.text, fontSize: 13)),
                           Align(
                             alignment: Alignment.bottomRight,
                             child: Text(cta,
                                 style: TextStyle(
                                     color: NowUIColors.primary,
-                                    fontSize: 12,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.w600)),
                           ),
                         ],

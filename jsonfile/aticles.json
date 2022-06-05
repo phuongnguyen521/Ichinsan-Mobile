@@ -1,0 +1,65 @@
+﻿[
+  {
+    "title": "Article 1",
+    "language": "English-VietNam",
+    "coin": "100",
+    "deadline": "20/8/2022",
+    "description": "Description Articles 1"
+  },
+
+  {
+    "title": "Article 2",
+    "language": "VietNam-English",
+    "coin": "200",
+    "deadline": "20/8/2022",
+    "description": "Con chó của em tên là Milu, là một con chó cái, năm nay nó đã được hơn một tuổi rồi, chỉ mới nuôi được một năm nhưng trông nó rất cao và to lớn, là một chú chó lai nên thân hình nó trông rất vạm vỡ, hơn hẳn các chú chó ta khác. Milu có một bộ lông rất đẹp, lông của nó có màu vàng nâu vừa dài lại vừa bóng mượt khiến cho ai cũng muốn vuốt ve, đặc biệt là chiếc đuôi dài với lông xù ra trông như một chiếc chổi lông thực sự. Hai đôi chân to và chắc nịch, bàn chân dày cộp, to hơn cả bàn tay của em, ở mỗi bàn chân sau còn có thêm một ngón, mẹ em bảo đó là huyền đề, con chó có huyền đề là những con chó rất khôn. Milu nhà em chạy rất nhanh và khỏe, nhiều lần em đi học về Milu mừng nhảy chồm lên người em, khiến em ngã ngửa, em ngã cũng phải vì Milu còn nặng cân hơn em, nó phải 35 kg còn em mới được 30 kg. Điểm em thích nhất ở con chó chính là đôi tai của nó, Milu có một đôi tai rất không cân đối với khuôn mặt bởi vì quá to, đôi tai to dựng đứng hướng về phía trước trông rất oai nghiêm"
+  },
+
+  {
+    "title": "Article 3",
+    "language": "English-VietNam",
+    "coin": "300",
+    "deadline": "20/8/2022",
+    "description": "Description Articles 3"
+  },
+
+  {
+    "title": "Article 4",
+    "language": "English-VietNam",
+    "coin": "400",
+    "deadline": "20/8/2022",
+    "description": "Description Articles 4"
+  },
+
+  {
+    "title": "Article 5",
+    "language": "English-VietNam",
+    "coin": "500",
+    "deadline": "30/8/2022",
+    "description": "Description Articles 5"
+  },
+
+  {
+    "title": "Article 6",
+    "language": "English-VietNam",
+    "coin": "600",
+    "deadline": "28/8/2022",
+    "description": "Description Articles 6"
+  },
+
+  {
+    "title": "Article 7",
+    "language": "English-VietNam",
+    "coin": "350",
+    "deadline": "15/10/2022",
+    "description": "Description Articles 7"
+  },
+
+  {
+    "title": "Article 8",
+    "language": "English-VietNam",
+    "coin": "150",
+    "deadline": "20/8/2022",
+    "description": "Description Articles 8"
+  }
+]
