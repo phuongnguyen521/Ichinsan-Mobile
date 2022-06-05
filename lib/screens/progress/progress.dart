@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+//Body
+import 'body/bodyprogress.dart';
 import 'package:ichinsan_mobile/constants/Theme.dart';
 
 //widgets
@@ -21,9 +22,7 @@ class ProgressState extends State<Progress> {
             ),
         title: Text('Progress'),
       ),
-      body: Center(
-        child: Text("Progress"),
-      ),
+      body: const Body(),
     );
   }
 }

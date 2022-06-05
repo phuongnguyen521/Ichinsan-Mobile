@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 //Screen: package:ichinsan_mobile/
 import './screens/dashboard.dart';
 import './screens/home.dart';
-import 'screens/progress.dart';
+import 'screens/progress/progress.dart';
 import 'screens/profilescreen.dart';
 //Fire core
 import 'package:firebase_core/firebase_core.dart';

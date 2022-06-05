@@ -64,4 +64,8 @@ class NowUIColors {
   static const Color socialTwitter = Color.fromRGBO(91, 192, 222, 1.0);
 
   static const Color socialDribbble = Color.fromRGBO(234, 76, 137, 1.0);
+
+  static const Color firstItem = Color.fromRGBO(33, 158, 188, 1.0);
+
+  static const Color secondItem = Color.fromRGBO(255, 183, 3, 1.0);
 }
