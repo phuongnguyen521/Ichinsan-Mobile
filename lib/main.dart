@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:ichinsan_mobile/screens/dashboard.dart';
-import 'package:ichinsan_mobile/screens/home.dart';
-import 'package:ichinsan_mobile/screens/process.dart';
-import 'package:ichinsan_mobile/screens/profile.dart';
+//Screen: package:ichinsan_mobile/
+import './screens/dashboard.dart';
+import './screens/home.dart';
+import 'screens/progress.dart';
+import 'screens/profilescreen.dart';
+//Fire core
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const Ichinsan());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Ichinsan extends StatelessWidget {
+  const Ichinsan({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -18,27 +23,27 @@ class MyApp extends StatelessWidget {
       title: "Ichinsan-MobileApp",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Montserrat'),
-      home: const MyHomePage(title: 'Ichinsan-MobileApp'),
+      home: const IchinsanPage(title: 'Ichinsan-MobileApp'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class IchinsanPage extends StatefulWidget {
+  const IchinsanPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<IchinsanPage> createState() => _IchinsanState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _IchinsanState extends State<IchinsanPage> {
   int currentIndex = 0;
   final screens = [
     Home(),
     Dashboard(),
-    Process(),
-    Profile(),
+    Progress(),
+    ProfileScreen(),
   ];
 
   @override
@@ -47,9 +52,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
-        onTap: (index) =>setState(() => currentIndex = index),
+        onTap: (index) => setState(() => currentIndex = index),
         type: BottomNavigationBarType.fixed,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
