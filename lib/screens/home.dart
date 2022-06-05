@@ -7,6 +7,7 @@ import 'package:ichinsan_mobile/constants/articles.dart';
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
 import '../constants/network.dart';
 import '../widgets/body.dart';
+import '../widgets/navbar.dart';
 // import 'package:now_ui_flutter/screens/product.dart';
 
 class Home extends StatefulWidget {
@@ -18,6 +19,7 @@ class HomeState extends State<Home> {
   int count = 0;
   @override
   Widget build(BuildContext context) {
+    Size size=MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -28,7 +30,15 @@ class HomeState extends State<Home> {
       ),
 
       // key: _scaffoldKey,
-      body: Body(),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            NavBar(size: size),
+            Body()
+          ],
+        ),
+      )
     );
   }
 }
