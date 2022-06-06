@@ -5,12 +5,12 @@ import 'package:ichinsan_mobile/constants/Theme.dart';
 //widgets
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
 
-class Dashboard extends StatefulWidget {
+class Wallet extends StatefulWidget {
   @override
-  DashboardState createState() => DashboardState();
+  WalletState createState() => WalletState();
 }
 
-class DashboardState extends State<Dashboard> {
+class WalletState extends State<Wallet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,10 +19,10 @@ class DashboardState extends State<Dashboard> {
         leading: IconButton(
             onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
             ),
-        title: Text('Dashboard'),
+        title: Text('Wallet'),
       ),
       body: Center(
-        child: Text("DashBoard"),
+        child: Text("Wallet"),
       ),
     );
   }

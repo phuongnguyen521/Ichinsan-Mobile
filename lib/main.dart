@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 //Screen: package:ichinsan_mobile/
-import './screens/dashboard.dart';
+import './screens/wallet.dart';
 import './screens/home.dart';
 import 'screens/progress/progress.dart';
 import 'screens/profilescreen.dart';
@@ -41,8 +41,8 @@ class _IchinsanState extends State<IchinsanPage> {
   int currentIndex = 0;
   final screens = [
     Home(),
-    Dashboard(),
     Progress(),
+    Wallet(),
     ProfileScreen(),
   ];
 
@@ -60,12 +60,12 @@ class _IchinsanState extends State<IchinsanPage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            label: 'Dashboard',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.access_alarm_rounded),
             label: 'Progress',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance_wallet),
+            label: 'Wallet',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
