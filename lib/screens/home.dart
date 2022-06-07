@@ -23,16 +23,15 @@ class HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        leading: IconButton(
-            onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
-            ),
+        // leading: IconButton(
+        //     onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
+        //     ),
         title: Text('Home'),
       ),
 
       // key: _scaffoldKey,
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             NavBar(size: size),
             Body()

@@ -1,6 +1,8 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:ichinsan_mobile/constants/size_config.dart';
+import 'package:ichinsan_mobile/widgets/home_widget/seach.dart';
+
+import 'home_widget/category.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({
@@ -13,51 +15,24 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size.height * 0.2,
-      color: Colors.white,
+    height: size.height * 0.15,
+      color: Colors.blue,
       child: Stack(
         children: [
-          Container(
-            height: size.height * 0.2 ,
-            decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius:  BorderRadius.only(
-                  bottomRight: Radius.circular(30),
-                  bottomLeft: Radius.circular(30),
-
-                )
-            ),
-          ),
           Positioned(
-              top: 10,
               left: 0,
               right : 0,
-              child:Container(
-                alignment: Alignment.center,
-                margin:EdgeInsets.symmetric(horizontal: 20.0),
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                height: 40,
-                decoration: BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, 10),
-                        blurRadius: 40,
-                        color: Colors.grey.withOpacity(0.23),
-
-                      ),]
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Search...",
-                    suffixIcon: Icon(Icons.zoom_in),
-                  ),
-                ),
-              )
-          )
+              child:Column(
+                  children: [
+                    Search(),
+                    Category(),
+                  ],
+              ),
+          ),
         ],
       ),
     );
   }
 }
+
+

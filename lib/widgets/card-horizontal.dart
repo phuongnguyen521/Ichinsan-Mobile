@@ -28,7 +28,7 @@ class CardHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 200,
+        height: 180,
         child: GestureDetector(
           //onTap: tap,
           child: Card(
@@ -38,6 +38,18 @@ class CardHorizontal extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(4.0))),
             child: Row(
               children: [
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              bottomLeft: Radius.circular(4.0)),
+                          image: DecorationImage(
+                            image: NetworkImage(img),
+                            fit: BoxFit.cover,
+                          ))),
+                ),
                 Flexible(
                     flex: 1,
                     child: Padding(
@@ -52,15 +64,20 @@ class CardHorizontal extends StatelessWidget {
                                   color: NowUIColors.gradientEnd,
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold)),
-                          Text(coin,
-                              textAlign: TextAlign.end,
-                              style: TextStyle(
-                                  color: NowUIColors.text, fontSize: 15)),
-                          Text(language,
-                              style: TextStyle(
-                                  color: NowUIColors.text, fontSize: 15)),
-
-                              Text(description,
+                          Row(children: <Widget>[
+                            Icon(Icons.attach_money_outlined, size: 20),
+                            Text(coin,
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                    color: NowUIColors.text, fontSize: 15)),
+                          ]),
+                          Row(children: <Widget>[
+                            Icon(Icons.language_outlined, size: 18),
+                            Text(language,
+                                style: TextStyle(
+                                    color: NowUIColors.text, fontSize: 15)),
+                          ]),
+                          Text(description,
                               overflow: TextOverflow.clip,
                               maxLines: 3,
                               style: TextStyle(

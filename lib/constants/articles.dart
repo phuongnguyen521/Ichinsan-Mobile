@@ -4,9 +4,15 @@ class Articles {
   String? coin;
   String? deadline;
   String? description;
+  String? image;
 
   Articles(
-      {this.title, this.language, this.coin, this.deadline, this.description});
+      {this.title,
+        this.language,
+        this.coin,
+        this.deadline,
+        this.description,
+        this.image});
 
   Articles.fromJson(Map<String, dynamic> json) {
     title = json['title'];
@@ -14,6 +20,7 @@ class Articles {
     coin = json['coin'];
     deadline = json['deadline'];
     description = json['description'];
+    image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -23,6 +30,7 @@ class Articles {
     data['coin'] = this.coin;
     data['deadline'] = this.deadline;
     data['description'] = this.description;
+    data['image'] = this.image;
     return data;
   }
 }
