@@ -16,10 +16,12 @@ class WalletState extends State<Wallet> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        leading: IconButton(
-            onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
-            ),
-        title: Text('Wallet'),
+        // leading: IconButton(
+        //     onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
+        //     ),
+        title: Center(
+          child: Text('Wallet'),
+        ),
       ),
       body: Center(
         child: Text("Wallet"),
