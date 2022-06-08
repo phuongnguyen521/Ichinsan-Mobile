@@ -17,10 +17,12 @@ class ProgressState extends State<Progress> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        leading: IconButton(
-            onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
-            ),
-        title: Text('Progress'),
+        // leading: IconButton(
+        //     onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
+        //     ),
+        title: Center(
+          child: Text('Progress'),
+        ),
       ),
       body: const Body(),
     );

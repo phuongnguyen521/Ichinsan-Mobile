@@ -48,6 +48,9 @@ class BodyState extends State<Body> {
                               (items[index].description.toString()),
                           tap: () {});
                     }),
+                SizedBox(
+                  height: 20,
+                ),
                 TitleText(title: "Technology"),
                 ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
@@ -67,6 +70,9 @@ class BodyState extends State<Body> {
                               (items[index].description.toString()),
                           tap: () {});
                     }),
+                SizedBox(
+                  height: 20,
+                ),
                 TitleText(title: "Finance"),
                 ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
@@ -86,6 +92,9 @@ class BodyState extends State<Body> {
                               (items[index].description.toString()),
                           tap: () {});
                     }),
+                SizedBox(
+                  height: 20,
+                ),
                 TitleText(title: "Tourism"),
                 ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
@@ -105,6 +114,9 @@ class BodyState extends State<Body> {
                               (items[index].description.toString()),
                           tap: () {});
                     }),
+                SizedBox(
+                  height: 20,
+                ),
                 TitleText(title: "Education"),
                 ListView.builder(
                     physics: NeverScrollableScrollPhysics(),

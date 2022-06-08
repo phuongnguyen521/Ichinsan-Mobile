@@ -19,25 +19,23 @@ class HomeState extends State<Home> {
   int count = 0;
   @override
   Widget build(BuildContext context) {
-    Size size=MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        // leading: IconButton(
-        //     onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
-        //     ),
-        title: Text('Home'),
-      ),
-
-      // key: _scaffoldKey,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            NavBar(size: size),
-            Body()
-          ],
+        appBar: AppBar(
+          elevation: 0,
+          // leading: IconButton(
+          //     onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
+          //     ),
+          title: Center(
+            child: Text('Home'),
+          ),
         ),
-      )
-    );
+
+        // key: _scaffoldKey,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [NavBar(size: size), Body()],
+          ),
+        ));
   }
 }

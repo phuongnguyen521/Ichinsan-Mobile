@@ -47,10 +47,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          leading: IconButton(
-              onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
-              ),
-          title: Text('Profile'),
+          // leading: IconButton(
+          //     onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
+          //     ),
+          title: Center(
+            child: Text('Profile'),
+          ),
         ),
         body: ListView(
           physics: BouncingScrollPhysics(),
