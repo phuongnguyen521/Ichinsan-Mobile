@@ -1,36 +1,40 @@
 class Articles {
-  String? title;
-  String? language;
-  String? coin;
-  String? deadline;
-  String? description;
-  String? image;
+  late String title;
+  late String languagefrom;
+  late String languageto;
+  late String coin;
+  late String deadline;
+  late String description;
+  late String category;
 
   Articles(
-      {this.title,
-        this.language,
+      this.title,
+      this.languagefrom,
+      this.languageto,
         this.coin,
         this.deadline,
         this.description,
-        this.image});
+        this.category);
 
   Articles.fromJson(Map<String, dynamic> json) {
     title = json['title'];
-    language = json['language'];
+    languagefrom = json['languagefrom'];
+    languageto = json['languageto'];
     coin = json['coin'];
     deadline = json['deadline'];
     description = json['description'];
-    image = json['image'];
+    category = json['category'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['title'] = this.title;
-    data['language'] = this.language;
+    data['languagefrom'] = this.languagefrom;
+    data['languageto'] = this.languageto;
     data['coin'] = this.coin;
     data['deadline'] = this.deadline;
     data['description'] = this.description;
-    data['image'] = this.image;
+    data['category'] = this.category;
     return data;
   }
 }
