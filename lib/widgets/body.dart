@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/constants/Theme.dart';
 import 'package:ichinsan_mobile/constants/size_config.dart';
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
+import 'package:ichinsan_mobile/widgets/home_widget/listarticles.dart';
 import 'package:ichinsan_mobile/widgets/navbar.dart';
 
 import '../constants/articles.dart';
@@ -42,131 +43,32 @@ class BodyState extends State<Body> {
   Widget build(BuildContext context) {
 
     Size size = MediaQuery.of(context).size;
-    return FutureBuilder(
-      future: ReadData(),
-      builder: (context, data) {
-        if (data.hasError) {
-          return Center(child: Text("Not Found"));
-        } else if (data.hasData) {
-          var items = data.data as List<Articles>;
-          return SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                TitleText(title: "Top Recent"),
-                ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: items == null ? 0 : 4,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return CardHorizontal(
-                          cta: "Apply",
-                          category: items[index].category.toString(),
-                          title: items[index].title.toString(),
-                          languagefrom: returnLanguageData(items[index],items[index].languagefrom),
-                          languageto: returnLanguageData(items[index],items[index].languageto.toString()),
-                          coin:  (items[index].coin.toString()),
-                          deadline: (items[index].deadline.toString()),
-                          description: (items[index].description.toString()),
-                          tap: () {});
-                    }),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TitleText(title: "Top Recent"),
+          ListArticles(numarticle: 2),
 
-                SizedBox(
-                  height: 20,
-                ),
+          SizedBox(height:5),
+          TitleText(title: "Technology"),
+          ListArticles(numarticle: 2),
 
-                TitleText(title: "Technology"),
-                ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: items == null ? 0 : 2,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return CardHorizontal(
-                          cta: "Apply",
-                          category: items[index].category.toString(),
-                          title: items[index].title.toString(),
-                          languagefrom: returnLanguageData(items[index],items[index].languagefrom),
-                          languageto: returnLanguageData(items[index],items[index].languageto.toString()),
-                          coin:  (items[index].coin.toString()),
-                          deadline: (items[index].deadline.toString()),
-                          description: (items[index].description.toString()),
-                          tap: () {});
-                    }),
+          SizedBox(height:5),
+          TitleText(title: "Finance"),
+          ListArticles(numarticle: 2),
 
-                SizedBox(
-                  height: 20,
-                ),
+          SizedBox(height:5),
+          TitleText(title: "Tourism"),
+          ListArticles(numarticle: 2),
 
-                TitleText(title: "Finance"),
-                ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: items == null ? 0 : 2,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return CardHorizontal(
-                          cta: "Apply",
-                          category: items[index].category.toString(),
-                          title: items[index].title.toString(),
-                          languagefrom: returnLanguageData(items[index],items[index].languagefrom),
-                          languageto: returnLanguageData(items[index],items[index].languageto.toString()),
-                          coin:  (items[index].coin.toString()),
-                          deadline: (items[index].deadline.toString()),
-                          description: (items[index].description.toString()),
-                          tap: () {});
-                    }),
-
-                SizedBox(
-                  height: 20,
-                ),
-                TitleText(title: "Tourism"),
-                ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: items == null ? 0 : 2,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return CardHorizontal(
-                          cta: "Apply",
-                          category: items[index].category.toString(),
-                          title: items[index].title.toString(),
-                          languagefrom: returnLanguageData(items[index],items[index].languagefrom),
-                          languageto: returnLanguageData(items[index],items[index].languageto.toString()),
-                          coin:  (items[index].coin.toString()),
-                          deadline: (items[index].deadline.toString()),
-                          description: (items[index].description.toString()),
-                          tap: () {});
-                    }),
-
-                SizedBox(
-                  height: 20,
-                ),
-
-                TitleText(title: "Education"),
-                ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: items == null ? 0 : 2,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return CardHorizontal(
-                          cta: "Apply",
-                          category: items[index].category.toString(),
-                          title: items[index].title.toString(),
-                          languagefrom: returnLanguageData(items[index],items[index].languagefrom),
-                          languageto: returnLanguageData(items[index],items[index].languageto.toString()),
-                          coin:  (items[index].coin.toString()),
-                          deadline: (items[index].deadline.toString()),
-                          description: (items[index].description.toString()),
-                          tap: () {});
-                    }),
-              ],
-            ),
-          );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
+          SizedBox(height:5),
+          TitleText(title: "Education"),
+          ListArticles(numarticle: 2),
+        ],
+      ),
     );
   }
 

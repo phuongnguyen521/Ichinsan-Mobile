@@ -34,6 +34,8 @@ class HomeState extends State<Home> {
         // key: _scaffoldKey,
         body: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [NavBar(size: size), Body()],
           ),
         ));
