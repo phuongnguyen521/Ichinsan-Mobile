@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:ichinsan_mobile/widgets/Search_Page/search_page.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -10,9 +12,7 @@ class SearchState extends State<Search>{
   @override
   Widget build(BuildContext context){
     return Padding(
-      padding: const EdgeInsets.only(
-        top: 10,
-      ),
+      padding: const EdgeInsets.only(bottom: 5),
       child: Container(
         alignment: Alignment.center,
         margin:EdgeInsets.symmetric(horizontal: 20.0),
@@ -29,12 +29,24 @@ class SearchState extends State<Search>{
 
               ),]
         ),
-        child: TextField(
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: ListTile(
+
+            title: const Text("Search..."),
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage() )
+              );
+            },
+          ),
+        )
+        /*TextField(
           decoration: InputDecoration(
             hintText: "Search...",
-            suffixIcon: Icon(Icons.zoom_in),
+            suffixIcon: Icon(Icons.search),
           ),
-        ),
+        ),*/
+
       ),
     );
   }

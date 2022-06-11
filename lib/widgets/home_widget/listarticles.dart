@@ -52,7 +52,7 @@ class ListArticles extends StatelessWidget{
                         cta: "Apply",
                         category: items[index].category.toString(),
                         title: items[index].title.toString(),
-                        languagefrom: returnLanguageData(items[index],items[index].languagefrom),
+                        languagefrom: returnLanguageData(items[index],items[index].languagefrom.toString()),
                         languageto: returnLanguageData(items[index],items[index].languageto.toString()),
                         coin:  (items[index].coin.toString()),
                         deadline: (items[index].deadline.toString()),

@@ -1,20 +1,20 @@
 class Articles {
-  late String title;
-  late String languagefrom;
-  late String languageto;
-  late String coin;
-  late String deadline;
-  late String description;
-  late String category;
+  String? title;
+  String? languagefrom;
+  String? languageto;
+  String? coin;
+  String? deadline;
+  String? description;
+  String? category;
 
   Articles(
-      this.title,
-      this.languagefrom,
-      this.languageto,
+      {this.title,
+        this.languagefrom,
+        this.languageto,
         this.coin,
         this.deadline,
         this.description,
-        this.category);
+        this.category});
 
   Articles.fromJson(Map<String, dynamic> json) {
     title = json['title'];
