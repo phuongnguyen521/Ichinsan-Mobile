@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:ichinsan_mobile/constants/api_constants.dart';
-import 'package:ichinsan_mobile/model/User/user_mode.dart';
+import 'package:ichinsan_mobile/model/User/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class UserClient {

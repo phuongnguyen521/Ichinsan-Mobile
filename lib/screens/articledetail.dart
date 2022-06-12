@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class FeedbackList extends StatefulWidget {
-  const FeedbackList({Key? key}) : super(key: key);
+class ArticleDetail extends StatefulWidget {
+  const ArticleDetail({Key? key}) : super(key: key);
   @override
-  State<FeedbackList> createState() => _FeedbackListState();
+  State<ArticleDetail> createState() => _ArticleDetailState();
 }
 
-class _FeedbackListState extends State<FeedbackList> {
+class _ArticleDetailState extends State<ArticleDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,10 +18,10 @@ class _FeedbackListState extends State<FeedbackList> {
         leading: IconButton(
             onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
             ),
-        title: Text('Feeback List'),
+        title: Text('Article Detail'),
       ),
       body: Center(
-        child: Text("Feeback List"),
+        child: Text("Article Detail"),
       ),
     );
   }

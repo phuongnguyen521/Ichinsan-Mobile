@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/constants/size_config.dart';
 import 'package:ichinsan_mobile/model/progress_item.dart';
 
+import '../../../constants/common.dart';
 import 'bodyprogress_item.dart';
 
 class Body extends StatelessWidget {
@@ -33,7 +34,7 @@ class Body extends StatelessWidget {
                 itemBuilder: (context, index) => ItemDetail(
                       item: ProgressItem.items[index],
                       press: () {
-                        _itemNavigator(
+                        IchinsanCommon.itemNavigator(
                             ProgressItem.items[index].builder, context);
                       },
                     )),
@@ -41,9 +42,5 @@ class Body extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Future _itemNavigator(WidgetBuilder widget, dynamic context) {
-    return Navigator.push(context, MaterialPageRoute(builder: widget));
   }
 }

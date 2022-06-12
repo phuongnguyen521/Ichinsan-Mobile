@@ -63,9 +63,10 @@ class CardHorizontal extends StatelessWidget {
                                 Text(coin,
                                     textAlign: TextAlign.end,
                                     style: TextStyle(
-                                        color: NowUIColors.info,
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold,)),
+                                      color: NowUIColors.info,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    )),
                               ]),
                             ],
                           ),
@@ -88,28 +89,22 @@ class CardHorizontal extends StatelessWidget {
                               Container(
                                 height: 40,
                                 width: 40,
-                                child: Image(image:
-                                AssetImage(languagefrom)),
+                                child: Image(image: AssetImage(languagefrom)),
                               ),
                               SizedBox(width: 5),
-                              Text(">",
-                                  style: TextStyle(
-                                      color: NowUIColors.text,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold)),
+                              const Icon(Icons.arrow_right, size: 50),
                               SizedBox(width: 5),
                               Container(
                                 height: 40,
                                 width: 40,
-                                child: Image(image:
-                                AssetImage(languageto)),
+                                child: Image(image: AssetImage(languageto)),
                               ),
                             ]),
                           ),
                           SizedBox(height: 10),
                           Text(deadline,
-                              style:
-                              TextStyle(color: NowUIColors.error, fontSize: 20)),
+                              style: TextStyle(
+                                  color: NowUIColors.error, fontSize: 20)),
                         ],
                       ),
                     )),

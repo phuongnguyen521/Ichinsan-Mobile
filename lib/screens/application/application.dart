@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:ichinsan_mobile/screens/progress/body/tabbodyprogress.dart';
+import 'package:ichinsan_mobile/screens/application/body/tabbodyapplication.dart';
 
-class Progress extends StatefulWidget {
+class IchinsanApplication extends StatefulWidget {
+  const IchinsanApplication({Key? key}) : super(key: key);
+
   @override
-  State<Progress> createState() => _ProgressState();
+  State<IchinsanApplication> createState() => _IchinsanApplicationState();
 }
 
-class _ProgressState extends State<Progress>
+class _IchinsanApplicationState extends State<IchinsanApplication>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late ScrollController _scrollViewController;
@@ -28,7 +30,7 @@ class _ProgressState extends State<Progress>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TabBodyProgress(
+      body: TabBodyApplication(
           scrollViewController: _scrollViewController,
           tabController: _tabController),
     );

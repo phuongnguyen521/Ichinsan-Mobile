@@ -2,6 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:ichinsan_mobile/constants/common.dart';
+
+import '../constants/articles.dart';
+import '../widgets/home_widget/listarticles.dart';
+import '../widgets/home_widget/titletext.dart';
 
 class Project extends StatefulWidget {
   const Project({Key? key}) : super(key: key);
@@ -13,17 +18,23 @@ class Project extends StatefulWidget {
 class _ProjectState extends State<Project> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-            onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
-            ),
-        title: Text('Project'),
-      ),
-      body: Center(
-        child: Text("Project"),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [ListArticles(numarticle: 5)],
       ),
     );
+  }
+
+  String returnLanguageData(Articles detail, String s) {
+    var result = "";
+    IchinsanCommon.Flag.forEach((key, value) {
+      if (key.contains(s)) {
+        result = value;
+      }
+    });
+    return result;
   }
 }

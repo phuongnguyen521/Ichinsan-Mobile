@@ -1,4 +1,4 @@
-part of 'user_mode.dart';
+part of 'user_model.dart';
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       email: json["email"] as String?,

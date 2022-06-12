@@ -1,12 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ichinsan_mobile/screens/progress/body/tabbodyprogress.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
 
-class Progress extends StatefulWidget {
+import 'bodyfeedbacklist.dart';
+
+class FeedbackList extends StatefulWidget {
+  const FeedbackList({Key? key}) : super(key: key);
   @override
-  State<Progress> createState() => _ProgressState();
+  State<FeedbackList> createState() => _FeedbackListState();
 }
 
-class _ProgressState extends State<Progress>
+class _FeedbackListState extends State<FeedbackList>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late ScrollController _scrollViewController;
@@ -28,9 +33,7 @@ class _ProgressState extends State<Progress>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TabBodyProgress(
-          scrollViewController: _scrollViewController,
-          tabController: _tabController),
+      body: BodyFeedbackList(),
     );
   }
 }

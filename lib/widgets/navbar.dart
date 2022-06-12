@@ -15,24 +15,24 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-    height: size.height * 0.15,
-      color: Colors.blue,
+      height: size.height * 0.20,
       child: Stack(
         children: [
           Positioned(
-              left: 0,
-              right : 0,
-              child:Column(
-                  children: [
-                    Search(),
-                    Category(),
-                  ],
-              ),
+            left: 0,
+            right: 0,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 40,
+                ),
+                Search(),
+                Category(),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 }
-
-

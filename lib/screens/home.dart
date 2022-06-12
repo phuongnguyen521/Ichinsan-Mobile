@@ -21,23 +21,13 @@ class HomeState extends State<Home> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          // leading: IconButton(
-          //     onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
-          //     ),
-          title: Center(
-            child: Text('Home'),
-          ),
-        ),
-
         // key: _scaffoldKey,
         body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [NavBar(size: size), Body()],
-          ),
-        ));
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [NavBar(size: size), Body()],
+      ),
+    ));
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
-part 'user_mode.g.dart';
+part 'user_model.g.dart';
 
 @JsonSerializable()
 List<UserModel> userModelFromJson(String str) =>

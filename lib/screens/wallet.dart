@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:ichinsan_mobile/constants/Theme.dart';
-import 'package:ichinsan_mobile/model/User/user_mode.dart';
+import 'package:ichinsan_mobile/model/User/user_model.dart';
 import 'package:ichinsan_mobile/utils/user_client.dart';
 
 //widgets
@@ -13,7 +13,6 @@ class Wallet extends StatefulWidget {
 }
 
 class WalletState extends State<Wallet> {
-
   late List<UserModel>? _userModel = [];
 
   @override
@@ -32,16 +31,7 @@ class WalletState extends State<Wallet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        // leading: IconButton(
-        //     onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
-        //     ),
-        title: Center(
-          child: Text('Wallet'),
-        ),
-      ),
-      body: _userModel == null || _userModel!.isEmpty
+        body: _userModel == null || _userModel!.isEmpty
             ? const Center(
                 child: CircularProgressIndicator(),
               )
@@ -61,7 +51,6 @@ class WalletState extends State<Wallet> {
                       ],
                     ),
                   );
-                })
-    );
+                }));
   }
 }

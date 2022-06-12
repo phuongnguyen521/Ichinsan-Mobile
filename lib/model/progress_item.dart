@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/constants/Theme.dart';
-import 'package:ichinsan_mobile/screens/feedbacklist.dart';
 import 'package:ichinsan_mobile/screens/project.dart';
+import '../screens/feedback/feedbacklist.dart';
 
 class ProgressItem {
   String name;

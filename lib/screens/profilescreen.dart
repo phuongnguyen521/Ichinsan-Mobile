@@ -45,34 +45,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     initState();
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          // leading: IconButton(
-          //     onPressed: () {}, icon: Icon(Icons.menu) // Thay cho Icon App
-          //     ),
-          title: Center(
-            child: Text('Profile'),
-          ),
-        ),
         body: ListView(
-          physics: BouncingScrollPhysics(),
-          children: [
-            ProfileWidget(
-              avatarImage: userProfile.avatarImage,
-              onClicked: () async {},
-            ),
-            const SizedBox(height: 20),
-            buildName(userProfile),
-            const SizedBox(height: 20),
-            buildAbout(userProfile),
-            const SizedBox(height: 20),
-            Center(
-              child: ButtonWidget(
-                  onClicked: isAnonymous() ? _signIn : _signOut,
-                  text: textOfButton()),
-            ),
-          ],
-        ));
+      physics: BouncingScrollPhysics(),
+      children: [
+        ProfileWidget(
+          avatarImage: userProfile.avatarImage,
+          onClicked: () async {},
+        ),
+        const SizedBox(height: 20),
+        buildName(userProfile),
+        const SizedBox(height: 20),
+        buildAbout(userProfile),
+        const SizedBox(height: 20),
+        Center(
+          child: ButtonWidget(
+              onClicked: isAnonymous() ? _signIn : _signOut,
+              text: textOfButton()),
+        ),
+      ],
+    ));
   }
 
   Widget buildName(Profile userProfile) => Column(

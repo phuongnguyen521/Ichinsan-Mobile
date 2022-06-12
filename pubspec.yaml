@@ -35,6 +35,12 @@ dependencies:
   firebase_messaging: ^11.4.1
   flutter_local_notifications: ^9.6.0
 
+  #auto_size_text
+  auto_size_text: any
+
+  #percent_indicator
+  percent_indicator: any
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
