@@ -34,7 +34,8 @@ Future<List<Articles>> fetchArticles() async {
   final response = await http.get(Uri.parse(
       'https://raw.githubusercontent.com/midokido28/Article_Json/main/aticles.json?fbclid=IwAR3f2ZvVU6Dqfj-u9sA2kGLEMZgTWyKQyfqdPwFd-0dv8AQDKoFLCLnRjy4'));
   if (response.statusCode == 200) {
-    return compute(parseArticles, response.body);
+    var result = compute(parseArticles, response.body);
+    return result;
   } else {
     throw Exception("Request API fail");
   }
