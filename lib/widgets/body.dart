@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ichinsan_mobile/constants/Theme.dart';
-import 'package:ichinsan_mobile/constants/size_config.dart';
-import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
+import 'package:ichinsan_mobile/widgets/home_widget/list_bytitle.dart';
 import 'package:ichinsan_mobile/widgets/home_widget/listarticles.dart';
-import 'package:ichinsan_mobile/widgets/navbar.dart';
-
 import '../constants/articles.dart';
-import '../constants/network.dart';
 import 'home_widget/titletext.dart';
 
 final Map<String, Map<String, String>> Flags = {
@@ -42,19 +37,24 @@ class BodyState extends State<Body> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           TitleText(title: "Top Recent"),
-          ListArticles(numarticle: 5),
+          ListArticles(numarticle: 1),
           SizedBox(height: 5),
+
           TitleText(title: "Technology"),
-          ListArticles(numarticle: 2),
+          ListbyTitle(numarticle: 2, check: 'Technology'),
           SizedBox(height: 5),
+
           TitleText(title: "Finance"),
-          ListArticles(numarticle: 2),
+          ListbyTitle(numarticle: 2, check: 'Finance'),
           SizedBox(height: 5),
+
           TitleText(title: "Tourism"),
-          ListArticles(numarticle: 2),
+          ListbyTitle(numarticle: 2, check: 'Tourism'),
           SizedBox(height: 5),
+
           TitleText(title: "Education"),
-          ListArticles(numarticle: 2),
+          ListbyTitle(numarticle: 2, check: 'Education'),
+          SizedBox(height: 5),
         ],
       ),
     );

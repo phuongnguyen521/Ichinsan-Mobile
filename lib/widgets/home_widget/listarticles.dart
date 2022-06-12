@@ -22,6 +22,7 @@ class ListArticles extends StatelessWidget {
     /*required this.title,*/
   }) : super(key: key);
   final int numarticle;
+
   /*final String title;*/
   @override
   Widget build(BuildContext context) {
@@ -33,24 +34,28 @@ class ListArticles extends StatelessWidget {
           } else if (data.hasData) {
             var items = data.data as List<Articles>;
             return SingleChildScrollView(
-              child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: numarticle,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return CardHorizontal(
-                        cta: "Apply",
-                        category: items[index].category.toString(),
-                        title: items[index].title.toString(),
-                        languagefrom: returnLanguageData(
-                            items[index], items[index].languagefrom.toString()),
-                        languageto: returnLanguageData(
-                            items[index], items[index].languageto.toString()),
-                        coin: (items[index].coin.toString()),
-                        deadline: (items[index].deadline.toString()),
-                        description: (items[index].description.toString()),
-                        tap: () {});
-                  }),
+              child: Column(
+                children: [
+                  ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: numarticle,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return CardHorizontal(
+                            cta: "Apply",
+                            category: items[index].category.toString(),
+                            title: items[index].title.toString(),
+                            languagefrom: returnLanguageData(items[index],
+                                items[index].languagefrom.toString()),
+                            languageto: returnLanguageData(items[index],
+                                items[index].languageto.toString()),
+                            coin: (items[index].coin.toString()),
+                            deadline: (items[index].deadline.toString()),
+                            description: (items[index].description.toString()),
+                            tap: () {});
+                      }),
+                ],
+              ),
             );
           } else {
             return Center(

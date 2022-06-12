@@ -20,7 +20,7 @@ class SearchPageState extends State<SearchPage> {
   List<Articles> list = <Articles>[];
   List<Articles> display_list = <Articles>[];
 
-  FetchArticles _list = FetchArticles();
+  /*FetchArticles _list = FetchArticles();*/
 
   @override
   void initState() {
