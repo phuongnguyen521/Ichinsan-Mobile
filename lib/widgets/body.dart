@@ -50,7 +50,7 @@ class BodyState extends State<Body> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TitleText(title: "Top Recent"),
-          ListArticles(numarticle: 2),
+          ListArticles(numarticle: 5),
 
           SizedBox(height:5),
           TitleText(title: "Technology"),
@@ -81,4 +81,45 @@ class BodyState extends State<Body> {
     });
     return result;
   }
+
+  /*list_itembytitle(num, title){
+    return FutureBuilder(
+        future: ReadData(),
+        builder: (context, data){
+          if (data.hasError) {
+            return Center(child: Text("Not Found"));
+          } else if (data.hasData) {
+            var items = data.data as List<Articles>;
+            return SingleChildScrollView(
+              child:
+              ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: items.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    if(items[index].title.toString().toLowerCase() == title.toString().toLowerCase()){
+                      return CardHorizontal(
+                          cta: "Apply",
+                          category: items[index].category.toString(),
+                          title: items[index].title.toString(),
+                          languagefrom: returnLanguageData(items[index],items[index].languagefrom.toString()),
+                          languageto: returnLanguageData(items[index],items[index].languageto.toString()),
+                          coin:  (items[index].coin.toString()),
+                          deadline: (items[index].deadline.toString()),
+                          description: (items[index].description.toString()),
+                          tap: () {});
+                    }else{
+                      return Text("Not Found");
+                      *//*SizedBox(width: 20);*//*
+                    }
+                  }),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        }
+    );
+  }*/
 }
