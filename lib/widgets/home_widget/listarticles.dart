@@ -30,8 +30,10 @@ class ListArticles extends StatelessWidget{
   const ListArticles({
     Key? key,
     required this.numarticle,
+    /*required this.title,*/
   }) : super(key: key);
   final int numarticle;
+  /*final String title;*/
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -78,7 +80,5 @@ class ListArticles extends StatelessWidget{
     });
     return result;
   }
-
-
 }
 
