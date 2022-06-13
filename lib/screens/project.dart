@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:ichinsan_mobile/constants/common.dart';
 
 import '../constants/articles.dart';
+import '../constants/size_config.dart';
 import '../widgets/home_widget/listarticles.dart';
 import '../widgets/home_widget/titletext.dart';
 
@@ -16,6 +17,9 @@ class Project extends StatefulWidget {
 }
 
 class _ProjectState extends State<Project> {
+  SizeConfig sizeConfig = SizeConfig();
+  double? defaultSize = SizeConfig.defaultSize;
+  var _dropdownValue = "In-progress";
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,7 +27,14 @@ class _ProjectState extends State<Project> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [ListArticles(numarticle: 5)],
+        children: <Widget>[
+          Padding(
+            padding:
+                EdgeInsets.only(left: defaultSize! * 3, top: defaultSize! * 2),
+            child: buildProjectDropDownButton(),
+          ),
+          const ListArticles(numarticle: 2)
+        ],
       ),
     );
   }
@@ -36,5 +47,26 @@ class _ProjectState extends State<Project> {
       }
     });
     return result;
+  }
+
+  Widget buildProjectDropDownButton() {
+    return DropdownButton(
+      items: const [
+        DropdownMenuItem(
+            child: const Text("In-progress"), value: "In-progress"),
+        DropdownMenuItem(child: Text("Done"), value: "Done"),
+        DropdownMenuItem(child: Text("Postponed"), value: "Postponed"),
+      ],
+      onChanged: (Object? value) {
+        dropdownCallback(value);
+      },
+      value: _dropdownValue,
+    );
+  }
+
+  void dropdownCallback(var selectedValue) {
+    setState(() {
+      _dropdownValue = selectedValue;
+    });
   }
 }

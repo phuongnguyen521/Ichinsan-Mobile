@@ -4,10 +4,18 @@ import 'package:flutter/material.dart';
 import '../../constants/common.dart';
 import '../../constants/size_config.dart';
 import '../../model/feedback/feedback_model.dart';
-import 'feedbackDetail.dart';
+import 'feedbackdetail.dart';
 import 'feedbackitems.dart';
 
-class BodyFeedbackList extends StatelessWidget {
+class BodyFeebackList extends StatefulWidget {
+  const BodyFeebackList({Key? key}) : super(key: key);
+
+  @override
+  State<BodyFeebackList> createState() => _BodyFeebackListState();
+}
+
+class _BodyFeebackListState extends State<BodyFeebackList> {
+  var _dropdownValue = "In-progress";
   @override
   Widget build(BuildContext context) {
     var list = InchisanFeedbackDetail.FeedbackList;
@@ -28,7 +36,13 @@ class BodyFeedbackList extends StatelessWidget {
     double? defaultSize = SizeConfig.defaultSize;
     return SafeArea(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Padding(
+            padding:
+                EdgeInsets.only(left: defaultSize * 3, bottom: defaultSize * 2),
+            child: buildProjectDropDownButton(),
+          ),
           Expanded(
               child: Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultSize * 2),
@@ -50,9 +64,30 @@ class BodyFeedbackList extends StatelessWidget {
                             (context) => const FeedbackDetail(), context);
                       },
                     )),
-          ))
+          )),
         ],
       ),
     );
+  }
+
+  Widget buildProjectDropDownButton() {
+    return DropdownButton(
+      items: const [
+        DropdownMenuItem(
+            child: const Text("In-progress"), value: "In-progress"),
+        DropdownMenuItem(child: Text("Review"), value: "Review"),
+        DropdownMenuItem(child: Text("Done"), value: "Postponed"),
+      ],
+      onChanged: (Object? value) {
+        dropdownCallback(value);
+      },
+      value: _dropdownValue,
+    );
+  }
+
+  void dropdownCallback(var selectedValue) {
+    setState(() {
+      _dropdownValue = selectedValue;
+    });
   }
 }
