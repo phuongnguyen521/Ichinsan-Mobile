@@ -33,20 +33,19 @@ class CardHorizontal extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-        height: 250,
-        /*height: 300,*/
-        constraints: BoxConstraints(maxHeight: double.infinity, maxWidth: double.infinity),
+        height: 300,
+        constraints: BoxConstraints(maxHeight: 350),
         child: GestureDetector(
           onTap: tap,
           child: Card(
-            elevation: 2,
+            elevation: 3,
             // shadowColor: NowUIColors.muted.withOpacity(0.25),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),
             child: Column(
               children: [
                 Flexible(
-                    flex: 4,
+                    flex: 2,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
@@ -80,13 +79,16 @@ class CardHorizontal extends StatelessWidget {
                                   fontWeight: FontWeight.bold)),
                           SizedBox(height: 5),
                           Expanded(
-                            child: Text(description,
-                                overflow: TextOverflow.clip,
-                                maxLines: 3,
-                                style: TextStyle(
-                                    color: NowUIColors.text, fontSize: 18)),
+                            child: SizedBox(
+                              height: 90,
+                              child: Text(description,
+                                  overflow: TextOverflow.clip,
+                                  maxLines: 3,
+                                  style: TextStyle(
+                                      color: NowUIColors.text, fontSize: 18)),
+                            ),
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 5),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Row(children: <Widget>[
@@ -105,7 +107,7 @@ class CardHorizontal extends StatelessWidget {
                               ),
                             ]),
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 5),
                           Text(deadline,
                               style: TextStyle(
                                   color: NowUIColors.error, fontSize: 20)),
