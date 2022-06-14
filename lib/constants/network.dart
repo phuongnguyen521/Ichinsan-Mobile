@@ -13,17 +13,6 @@ import 'package:http/http.dart' as http;
 //   return articles;
 // }
 
-Future<List<Articles>> ReadData() async {
-  final response = await rootBundle.rootBundle.loadString('jsonfile/aticles.json');
-
-  final list = json.decode(response) as List<dynamic>;
-  if(list.isNotEmpty)
-  return list.map((e) => Articles.fromJson(e)).toList();
-  else{
-    throw Exception("Not Found");
-  }
-}
-
 List<Articles> parseArticles (String responseBody){
   var list = json.decode(responseBody) as List<dynamic>;
   List<Articles> articles = list.map((model) => Articles.fromJson(model)).toList();

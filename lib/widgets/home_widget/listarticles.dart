@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ichinsan_mobile/widgets/home_widget/articleview.dart';
 
 import '../../constants/articles.dart';
 import '../../constants/common.dart';
@@ -27,7 +28,7 @@ class ListArticles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: ReadData(),
+        future: fetchArticles(),
         builder: (context, data) {
           if (data.hasError) {
             return Center(child: Text("Not Found"));
@@ -52,7 +53,14 @@ class ListArticles extends StatelessWidget {
                             coin: (items[index].coin.toString()),
                             deadline: (items[index].deadline.toString()),
                             description: (items[index].description.toString()),
-                            tap: () {});
+                            tap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ArticleView(articles: items[index],)
+                                ),
+                              );
+                            });
                       }),
                 ],
               ),

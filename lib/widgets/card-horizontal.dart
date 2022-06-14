@@ -17,7 +17,7 @@ class CardHorizontal extends StatelessWidget {
 
   final String cta;
   final String img;
-  final Function tap;
+  final void Function()? tap;
   final String title;
   final String languagefrom;
   final String languageto;
@@ -35,7 +35,7 @@ class CardHorizontal extends StatelessWidget {
     return Container(
         height: 275,
         child: GestureDetector(
-          //onTap: tap,
+          onTap: tap,
           child: Card(
             elevation: 5,
             // shadowColor: NowUIColors.muted.withOpacity(0.25),

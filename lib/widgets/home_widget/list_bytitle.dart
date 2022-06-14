@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/constants/network.dart';
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
 import '../../constants/articles.dart';
+import 'articleview.dart';
 
 final Map<String, String> Flag = {
   "VietNam": "assets/imgs/vietnam.png",
@@ -71,7 +72,14 @@ class ListbyTitleState extends State<ListbyTitle> {
         coin: display_list[index].coin.toString(),
         deadline: display_list[index].deadline.toString(),
         description: display_list[index].description.toString(),
-        tap: () {});
+        tap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ArticleView(articles: display_list[index],)
+            ),
+          );
+        });
   }
   String returnLanguageData(Articles detail, String s) {
     var result = "";
