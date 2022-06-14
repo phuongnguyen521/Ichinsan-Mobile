@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/constants/network.dart';
+import 'package:ichinsan_mobile/widgets/Search_Page/FilterPage.dart';
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
 import '../../constants/articles.dart';
 import '../home_widget/articleview.dart';
@@ -37,49 +38,62 @@ class SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Search"),
       ),
       body: SingleChildScrollView(
-
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                alignment: Alignment.center,
-                margin:EdgeInsets.symmetric(horizontal: 20.0),
-                padding: EdgeInsets.symmetric(horizontal: 5.0),
-                height: 45,
-                decoration: BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, 10),
-                        blurRadius: 40,
-                        color: Colors.grey.withOpacity(0.23),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    margin:EdgeInsets.symmetric(horizontal: 10.0),
+                    padding: EdgeInsets.symmetric(horizontal: 5.0),
+                    height: 45,
+                    width: size.width *0.8,
+                    decoration: BoxDecoration(
+                        color: Colors.white70,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 10),
+                            blurRadius: 40,
+                            color: Colors.grey.withOpacity(0.23),
 
-                      ),]
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: TextField(
-                    decoration: InputDecoration(hintText: 'Search...'),
-                    onChanged: (text) {
-                      text = text.toLowerCase();
-                      setState(() {
-                        display_list = list.where((list) {
-                          var title = list.title!.toLowerCase();
-                          return title.contains(text);
-                        }).toList();
-                      });
-                    },
+                          ),]
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: TextField(
+                        decoration: InputDecoration(hintText: 'Search...'),
+                        onChanged: (text) {
+                          text = text.toLowerCase();
+                          setState(() {
+                            display_list = list.where((list) {
+                              var title = list.title!.toLowerCase();
+                              return title.contains(text);
+                            }).toList();
+                          });
+                        },
+                      ),
+                    ),
                   ),
-                ),
+                  IconButton(
+                    icon: Icon(Icons.filter_alt_rounded),
+                    onPressed: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const FilterPage()),
+                      );
+                    },
+                      )
+                ],
               ),
               ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
@@ -90,7 +104,6 @@ class SearchPageState extends State<SearchPage> {
                   })
             ],
           ),
-        ),
       ),
     );
   }

@@ -42,37 +42,76 @@ class ArticleViewState extends State<ArticleView> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Icon(Icons.account_circle, size: 50),
-                  Text("Customer Name",
-                      style: TextStyle(
-                          color: NowUIColors.text,
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold)),
+                  Container(
+                    child: Row(
+                      children: [
+                        const Icon(Icons.account_circle, size: 50),
+                        Text("Customer Name",
+                            style: TextStyle(
+                                color: NowUIColors.text,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Row(children: <Widget>[
+                      Icon(Icons.attach_money_outlined, size: 20),
+                      Text(widget.articles.coin.toString(),
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                            color: NowUIColors.info,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ]),
+                  ),
                 ],
               ),
-              Text("Date Post: 20/5/2022",
+              Text("Project name: Project xxxx",
                   style: TextStyle(
                       color: NowUIColors.text,
                       fontSize: 20,
-                      fontWeight: FontWeight.bold)),
+                      /*fontWeight: FontWeight.bold*/)),
               SizedBox(height: 10),
-              Text("Project Title: " + widget.articles.title.toString(),
+
+              Row(
+                children: [
+                  Text("Date Post: 20/5/2022",
+                      style: TextStyle(
+                          color: NowUIColors.text,
+                          fontSize: 20,
+                      )),
+                  SizedBox(width: 20),
+
+                  Text("|",
+                      style: TextStyle(
+                        color: NowUIColors.text,
+                        fontSize: 20,
+                      )),
+
+                  SizedBox(width: 20),
+                  Text("10 Applicants",
+                      style: TextStyle(
+                          color: NowUIColors.text,
+                          fontSize: 20,
+                      )),
+                ],
+              ),
+              SizedBox(height: 10),
+              Text("Category: " +widget.articles.category.toString(),
                   style: TextStyle(
-                      color: NowUIColors.text,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold)),
+                    color: NowUIColors.text,
+                    fontSize: 20,
+                  )),
               SizedBox(height: 10),
-              Text("Deadline: " + widget.articles.deadline.toString(),
-                  style: TextStyle(
-                      color: NowUIColors.text,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold)),
-              SizedBox(height: 10),
+
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Row(children: <Widget>[
@@ -91,6 +130,13 @@ class ArticleViewState extends State<ArticleView> {
                   ),
                 ]),
               ),
+              Text("Deadline: " + widget.articles.deadline.toString(),
+                  style: TextStyle(
+                    color: NowUIColors.text,
+                    fontSize: 20,
+                  )),
+              SizedBox(height: 10),
+
 
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,19 +146,22 @@ class ArticleViewState extends State<ArticleView> {
                       style: TextStyle(
                         color: NowUIColors.text,
                         fontSize: 20,
-                          fontWeight: FontWeight.bold
                       )),
                   SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(widget.articles.description.toString(),
-                        style: TextStyle(
-                          color: NowUIColors.text,
-                          fontSize: 16,
-                        )),
+                  Card(
+                    elevation: 3,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(widget.articles.description.toString(),
+                          style: TextStyle(
+                            color: NowUIColors.text,
+                            fontSize: 16,
+                          )),
+                    ),
                   ),
                 ],
               ),
+              SizedBox(height: 10),
                  Container(
                    width: size.width,
                    color: colorOn ? NowUIColors.muted : NowUIColors.primary,
