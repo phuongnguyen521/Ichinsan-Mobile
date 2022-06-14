@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/constants/Theme.dart';
 
@@ -32,19 +31,22 @@ class CardHorizontal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
-        height: 275,
+        height: 250,
+        /*height: 300,*/
+        constraints: BoxConstraints(maxHeight: double.infinity, maxWidth: double.infinity),
         child: GestureDetector(
           onTap: tap,
           child: Card(
-            elevation: 5,
+            elevation: 2,
             // shadowColor: NowUIColors.muted.withOpacity(0.25),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),
             child: Column(
               children: [
                 Flexible(
-                    flex: 1,
+                    flex: 4,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
@@ -77,11 +79,13 @@ class CardHorizontal extends StatelessWidget {
                                   fontSize: 26,
                                   fontWeight: FontWeight.bold)),
                           SizedBox(height: 5),
-                          Text(description,
-                              overflow: TextOverflow.clip,
-                              maxLines: 3,
-                              style: TextStyle(
-                                  color: NowUIColors.text, fontSize: 18)),
+                          Expanded(
+                            child: Text(description,
+                                overflow: TextOverflow.clip,
+                                maxLines: 3,
+                                style: TextStyle(
+                                    color: NowUIColors.text, fontSize: 18)),
+                          ),
                           SizedBox(height: 10),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10),
