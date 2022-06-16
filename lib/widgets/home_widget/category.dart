@@ -23,11 +23,12 @@ class CategoryState extends State<Category> {
     fetchCategories().then((value) {
       setState(() {
         category.addAll(value);
+        category.forEach((element) {
+          list.add(element.name);
+        });
       });
     });
-    category.forEach((element) {
-      list.add(element.name);
-    });
+
     super.initState();
   }
 
