@@ -52,7 +52,7 @@ class ArticleViewState extends State<ArticleView> {
                     child: Row(
                       children: [
                         const Icon(Icons.account_circle, size: 50),
-                        Text("Customer Name",
+                        Text(widget.articles.customer.toString(),
                             style: TextStyle(
                                 color: NowUIColors.text,
                                 fontSize: 20,
@@ -74,7 +74,7 @@ class ArticleViewState extends State<ArticleView> {
                   ),
                 ],
               ),
-              Text("Project name: Project xxxx",
+              Text("Project name: " +widget.articles.coin.toString(),
                   style: TextStyle(
                       color: NowUIColors.text,
                       fontSize: 20,
@@ -97,7 +97,7 @@ class ArticleViewState extends State<ArticleView> {
                       )),
 
                   SizedBox(width: 20),
-                  Text("10 Applicants",
+                  Text( widget.articles.applicant.toString()+" Applicants",
                       style: TextStyle(
                           color: NowUIColors.text,
                           fontSize: 20,
