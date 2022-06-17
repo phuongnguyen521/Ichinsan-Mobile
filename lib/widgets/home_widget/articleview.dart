@@ -74,26 +74,47 @@ class ArticleViewState extends State<ArticleView> {
                   ),
                 ],
               ),
-              Text("Project name: " +widget.articles.coin.toString(),
-                  style: TextStyle(
-                      color: NowUIColors.text,
-                      fontSize: 20,
-                      /*fontWeight: FontWeight.bold*/)),
-              SizedBox(height: 10),
-
               Row(
                 children: [
-                  Text("Date Post: 20/5/2022",
+                  Text("Project name: ",
+                      style: TextStyle(
+                          color: NowUIColors.text,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
+                          )),
+                  Text(widget.articles.coin.toString(),
                       style: TextStyle(
                           color: NowUIColors.text,
                           fontSize: 20,
                       )),
+                ],
+              ),
+              SizedBox(height: 10),
+
+              Row(
+                children: [
+                  Row(
+                    children: const [
+                      Text("Date Post: ",
+                          style: TextStyle(
+                              color: NowUIColors.text,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                          )),
+                      Text("20/5/2022",
+                          style: TextStyle(
+                              color: NowUIColors.text,
+                              fontSize: 20,
+                          )),
+                    ],
+                  ),
                   SizedBox(width: 20),
 
-                  Text("|",
+                  const Text("|",
                       style: TextStyle(
                         color: NowUIColors.text,
                         fontSize: 20,
+                          fontWeight: FontWeight.bold
                       )),
 
                   SizedBox(width: 20),
@@ -105,11 +126,21 @@ class ArticleViewState extends State<ArticleView> {
                 ],
               ),
               SizedBox(height: 10),
-              Text("Category: " +widget.articles.category.toString(),
-                  style: TextStyle(
-                    color: NowUIColors.text,
-                    fontSize: 20,
-                  )),
+              Row(
+                children: [
+                  const Text("Category: ",
+                      style: TextStyle(
+                        color: NowUIColors.text,
+                        fontSize: 20,
+                          fontWeight: FontWeight.bold
+                      )),
+                  Text(widget.articles.category.toString(),
+                      style: const TextStyle(
+                          color: NowUIColors.text,
+                          fontSize: 20,
+                      )),
+                ],
+              ),
               SizedBox(height: 10),
 
               Padding(
@@ -130,11 +161,21 @@ class ArticleViewState extends State<ArticleView> {
                   ),
                 ]),
               ),
-              Text("Deadline: " + widget.articles.deadline.toString(),
-                  style: TextStyle(
-                    color: NowUIColors.text,
-                    fontSize: 20,
-                  )),
+              Row(
+                children: [
+                  Text("Deadline: ",
+                      style: TextStyle(
+                        color: NowUIColors.text,
+                        fontSize: 20,
+                          fontWeight: FontWeight.bold
+                      )),
+                  Text( widget.articles.deadline.toString(),
+                      style: TextStyle(
+                          color: NowUIColors.text,
+                          fontSize: 20,
+                      )),
+                ],
+              ),
               SizedBox(height: 10),
 
 
@@ -146,6 +187,7 @@ class ArticleViewState extends State<ArticleView> {
                       style: TextStyle(
                         color: NowUIColors.text,
                         fontSize: 20,
+                          fontWeight: FontWeight.bold
                       )),
                   SizedBox(height: 10),
                   Card(
