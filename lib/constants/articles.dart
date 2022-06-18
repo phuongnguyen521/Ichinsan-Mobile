@@ -6,6 +6,8 @@ class Articles {
   String? deadline;
   String? description;
   String? category;
+  String? customer;
+  String? applicant;
 
   Articles(
       {this.title,
@@ -14,7 +16,9 @@ class Articles {
         this.coin,
         this.deadline,
         this.description,
-        this.category});
+        this.category,
+        this.customer,
+        this.applicant});
 
   Articles.fromJson(Map<String, dynamic> json) {
     title = json['title'];
@@ -24,6 +28,8 @@ class Articles {
     deadline = json['deadline'];
     description = json['description'];
     category = json['category'];
+    customer = json['customer'];
+    applicant = json['applicant'];
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +41,8 @@ class Articles {
     data['deadline'] = this.deadline;
     data['description'] = this.description;
     data['category'] = this.category;
+    data['customer'] = this.customer;
+    data['applicant'] = this.applicant;
     return data;
   }
 }

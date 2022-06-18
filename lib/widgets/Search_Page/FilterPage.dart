@@ -102,12 +102,10 @@ class FilterPageState extends State<FilterPage> {
               }),
             ),
             SizedBox(height: 5),
-
-            /*TitleText(title: "Salary"),
-
+            TitleText(title: "Salary"),
             SizedBox(height: 5),
 
-            TitleText(title: "Date Post"),
+            /*TitleText(title: "Date Post"),
 
             SizedBox(height: 5),*/
           ],
