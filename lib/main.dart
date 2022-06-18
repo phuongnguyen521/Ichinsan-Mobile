@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 //Screen: package:ichinsan_mobile/
 import './screens/wallet.dart';
 import './screens/home.dart';
+import './store/AppStore.dart';
+import 'constants/Ichinsan_constant.dart';
 import 'screens/progress/progress.dart';
-import 'screens/profilescreen.dart';
+import 'screens/profile/profilescreen.dart';
 //Fire core
 import 'package:firebase_core/firebase_core.dart';
+
+AppStore appStore = AppStore();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

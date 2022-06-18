@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 //Screen
+import '../constants/common.dart';
 import '../main.dart';
 //Firebase Auth
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,12 +15,7 @@ import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-class SignIn extends StatefulWidget {
-  @override
-  State<SignIn> createState() => _SignInState();
-}
-
-class _SignInState extends State<SignIn> {
+class SignIn extends StatelessWidget {
   late User user;
   @override
   Widget build(BuildContext context) {
@@ -36,7 +33,7 @@ class _SignInState extends State<SignIn> {
                 Buttons.Google,
                 text: "Sign in with Google",
                 onPressed: () {
-                  _signInWithGoogle();
+                  _signInWithGoogle(context);
                 },
               ),
             ),
@@ -46,7 +43,7 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  Future<void> _signInWithGoogle() async {
+  Future<void> _signInWithGoogle(BuildContext context) async {
     try {
       // Trigger the authentication flow
       final googleUser = await GoogleSignIn().signIn();
@@ -65,14 +62,11 @@ class _SignInState extends State<SignIn> {
         await _auth.signInWithCredential(credential);
         user = FirebaseAuth.instance.currentUser!;
         print(await user.getIdToken());
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const Ichinsan()),
-            ((route) => false));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const Ichinsan()));
       }
     } on FirebaseAuthException catch (e) {
-      setState(() {
-        print('${e.message}');
-      });
+      print('${e.message}');
     }
   }
 }

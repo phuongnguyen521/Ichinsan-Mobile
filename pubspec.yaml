@@ -42,6 +42,17 @@ dependencies:
   #percent_indicator
   percent_indicator: any
 
+  #nb_utils
+  nb_utils: ^4.6.1
+
+  #mobx
+  mobx: ^2.0.7+3
+  flutter_mobx: ^2.0.6+1
+  google_fonts: ^3.0.1
+
+  #intl
+  intl: ^0.17.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

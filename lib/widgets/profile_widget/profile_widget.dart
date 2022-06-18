@@ -6,9 +6,15 @@ import 'package:ichinsan_mobile/constants/Theme.dart';
 class ProfileWidget extends StatelessWidget {
   final String avatarImage;
   final VoidCallback onClicked;
+  final double widthImage;
+  final double heightImage;
 
   const ProfileWidget(
-      {Key? key, required this.avatarImage, required this.onClicked})
+      {Key? key,
+      required this.avatarImage,
+      required this.onClicked,
+      required this.heightImage,
+      required this.widthImage})
       : super(key: key);
 
   @override
@@ -19,7 +25,7 @@ class ProfileWidget extends StatelessWidget {
       child: Stack(
         children: [
           buildImage(),
-          Positioned(bottom: 0, right: 4, child: buildEditIcon(color)),
+          //Positioned(bottom: 0, right: 4, child: buildEditIcon(color)),
         ],
       ),
     );
@@ -34,8 +40,8 @@ class ProfileWidget extends StatelessWidget {
         child: Ink.image(
           image: image,
           fit: BoxFit.cover,
-          width: 128,
-          height: 128,
+          width: widthImage,
+          height: heightImage,
           child: InkWell(onTap: onClicked),
         ),
       ),

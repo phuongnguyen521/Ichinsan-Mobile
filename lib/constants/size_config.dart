@@ -1,5 +1,16 @@
 import 'package:flutter/widgets.dart';
 
+/* margin */
+
+const double spacing_control_half = 2.0;
+const double spacing_control = 4.0;
+const double spacing_standard = 8.0;
+const double spacing_middle = 10.0;
+const double spacing_standard_new = 16.0;
+const double spacing_large = 24.0;
+const double spacing_xlarge = 32.0;
+const double spacing_xxLarge = 40.0;
+
 class SizeConfig {
   static late MediaQueryData _mediaQueryData;
   static late double screenWidth;

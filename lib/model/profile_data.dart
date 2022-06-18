@@ -2,6 +2,7 @@ import 'package:ichinsan_mobile/model/profile.dart';
 import 'package:ichinsan_mobile/model/skill.dart';
 
 class Profile_Data {
+  static String? id;
   static String? avatarImage;
   static String? email;
 
@@ -10,6 +11,7 @@ class Profile_Data {
     new Skill.withDetails('English', 'Intermediate')
   ];
   static var myProfile = Profile.withDetails(
+      id!,
       avatarImage!,
       'Translator',
       'Beginner',
@@ -22,10 +24,11 @@ class Profile_Data {
       'This is about me');
 
   static var myDefaultProfile = Profile.withDetails(
+      id!,
       avatarImage!,
       'Not Yet',
       'Not Yet',
-      'Not Yet',
+      'Unknown',
       email!,
       DateTime.utc(2001, 1, 1),
       'Not Yet',
