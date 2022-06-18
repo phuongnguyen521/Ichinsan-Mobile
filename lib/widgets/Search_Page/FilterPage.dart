@@ -79,7 +79,7 @@ class FilterPageState extends State<FilterPage>{
                           }
                         });
                     },
-                      );
+                  );
                 }),
               ),
               SizedBox(height: 5),
@@ -207,8 +207,6 @@ class FilterPageState extends State<FilterPage>{
                       ),
                     ),
                   ),
-
-
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
