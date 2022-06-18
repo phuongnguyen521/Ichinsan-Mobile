@@ -120,7 +120,7 @@ class ArticleViewState extends State<ArticleView> {
                   SizedBox(width: 20),
                   Text( widget.articles.applicant.toString()+" Applicants",
                       style: TextStyle(
-                          color: NowUIColors.text,
+                          color: NowUIColors.info,
                           fontSize: 20,
                       )),
                 ],
@@ -171,7 +171,7 @@ class ArticleViewState extends State<ArticleView> {
                       )),
                   Text( widget.articles.deadline.toString(),
                       style: TextStyle(
-                          color: NowUIColors.text,
+                        color: NowUIColors.primary,
                           fontSize: 20,
                       )),
                 ],
