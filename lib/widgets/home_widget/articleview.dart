@@ -6,7 +6,6 @@ import 'package:ichinsan_mobile/constants/articles.dart';
 
 import '../../constants/Theme.dart';
 import '../../constants/common.dart';
-import '../card-horizontal.dart';
 
 final Map<String, Map<String, String>> Flags = {
   "VietNam": {"image": "assets/imgs/vietnam.png"},
@@ -211,17 +210,17 @@ class ArticleViewState extends State<ArticleView> {
                      setState(() => colorOn = !colorOn);
                      setState(() => textOn = !textOn);
                    },
-                       child: textOn ? Text("Applied",
+                       child: textOn ? const Text("Applied",
                            style: TextStyle(
-                               color: NowUIColors.priceColor,
+                               color: NowUIColors.white,
                                fontSize: 20,
-                               fontWeight: FontWeight.bold
+                               fontWeight: FontWeight.bold,
                            ))
-                           : Text("Apply",
+                           : const Text("Apply",
                            style: TextStyle(
-                               color: NowUIColors.input,
+                               color: NowUIColors.white,
                                fontSize: 20,
-                               fontWeight: FontWeight.bold
+                               fontWeight: FontWeight.bold,
                            )),
                    ),
                  )

@@ -13,17 +13,13 @@ class FilterPage extends StatefulWidget {
   FilterPageState createState() => FilterPageState();
 }
 
-class FilterPageState extends State<FilterPage>{
-
-
+class FilterPageState extends State<FilterPage> {
   List<Categories> listcategory = <Categories>[];
   List<Language> listlanguage = <Language>[];
 
   List<int> selectedCategories = [];
   List<int> selectedLanguages = [];
 
-  List<String> salarylist = ["100", "200", "300"];
-  List<int> selectedSalary = [];
   @override
   void initState() {
     // TODO: inplement initState
@@ -32,7 +28,6 @@ class FilterPageState extends State<FilterPage>{
         listcategory.addAll(value);
       });
     });
-
     fetchLanguage().then((value) {
       setState(() {
         listlanguage.addAll(value);
@@ -40,12 +35,11 @@ class FilterPageState extends State<FilterPage>{
     });
     super.initState();
   }
-
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text ('Filter Search'),
+        title: Text('Filter Search'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -56,28 +50,26 @@ class FilterPageState extends State<FilterPage>{
               TitleText(title: "Category"),
               Wrap(
                 spacing: 10,
-                children: List<Widget>.generate(listcategory.length, (index){
+                children: List<Widget>.generate(listcategory.length, (index) {
                   final listitem = listcategory[index];
                   final isSelected = selectedCategories.contains(listitem.id);
                   return FilterChip(
-                      label: Text(listitem.name.toString()),
+                    label: Text(listitem.name.toString()),
                     labelStyle: TextStyle(
-                      color: isSelected
-                        ? NowUIColors.white
-                        : NowUIColors.muted,
+                      color: isSelected ? NowUIColors.white : NowUIColors.muted,
                       fontWeight: FontWeight.bold,
                     ),
                     selected: isSelected,
-                    selectedColor: NowUIColors.active,
+                    selectedColor: NowUIColors.info,
                     checkmarkColor: Colors.white,
                     onSelected: (bool selected) {
-                        setState((){
-                          if(selected){
-                            selectedCategories.add(listitem.id);
-                          }else{
-                            selectedCategories.remove(listitem.id);
-                          }
-                        });
+                      setState(() {
+                        if (selected) {
+                          selectedCategories.add(listitem.id);
+                        } else {
+                          selectedCategories.remove(listitem.id);
+                        }
+                      });
                     },
                   );
                 }),
@@ -86,34 +78,30 @@ class FilterPageState extends State<FilterPage>{
               TitleText(title: "Language"),
               Wrap(
                 spacing: 10,
-                children: List<Widget>.generate(listlanguage.length, (index){
+                children: List<Widget>.generate(listlanguage.length, (index) {
                   final listitem = listlanguage[index];
                   final isSelected = selectedLanguages.contains(listitem.id);
                   return FilterChip(
                     label: Text(listitem.name.toString()),
                     labelStyle: TextStyle(
-                      color: isSelected
-                          ? NowUIColors.white
-                          : NowUIColors.muted,
+                      color: isSelected ? NowUIColors.white : NowUIColors.muted,
                       fontWeight: FontWeight.bold,
                     ),
                     selected: isSelected,
-                    selectedColor: NowUIColors.active,
+                    selectedColor: NowUIColors.info,
                     checkmarkColor: Colors.white,
                     onSelected: (bool selected) {
-                      setState((){
-                        if(selected){
+                      setState(() {
+                        if (selected) {
                           selectedLanguages.add(listitem.id!);
-                        }else{
+                        } else {
                           selectedLanguages.remove(listitem.id!);
-                        }
-                      });
+                        }});
                     },
                   );
                 }),
               ),
               SizedBox(height: 5),
-
               TitleText(title: "Salary"),
               Padding(
                 padding: const EdgeInsets.all(8),
@@ -121,19 +109,21 @@ class FilterPageState extends State<FilterPage>{
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Text("Type Salary Here",
+                    Container(
+                      child: const Text("Type Salary Here",
                           style: TextStyle(
                             color: NowUIColors.text,
                             fontSize: 16,
-                            fontWeight: FontWeight.bold
+                            fontWeight: FontWeight.bold,
                           )),
+                    ),
                     SizedBox(height: 10),
                     Row(
                       children: [
                         Container(
                           height: 35,
-                          width: size.width *0.3,
-                          child: TextField(
+                          width: size.width * 0.4,
+                          child: const TextField(
                             decoration: InputDecoration(
                               filled: true,
                               hintText: "From",
@@ -143,12 +133,11 @@ class FilterPageState extends State<FilterPage>{
                         SizedBox(width: 50),
                         Container(
                           height: 35,
-                          width: size.width *0.3,
-                          child: TextField(
+                          width: size.width * 0.4,
+                          child: const TextField(
                             decoration: InputDecoration(
                               filled: true,
                               hintText: "To",
-
                             ),
                           ),
                         ),
@@ -158,28 +147,24 @@ class FilterPageState extends State<FilterPage>{
                 ),
               ),
               SizedBox(height: 5),
-
               TitleText(title: "Date Post"),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: const [
                   Text("Date Post",
                       style: TextStyle(
-                          color: NowUIColors.text,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold
+                        color: NowUIColors.text,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       )),
                   DatePicker(),
-
                   SizedBox(height: 5),
-
                   Text("Deadline Apply",
                       style: TextStyle(
                           color: NowUIColors.text,
                           fontSize: 16,
-                          fontWeight: FontWeight.bold
-                      )),
+                          fontWeight: FontWeight.bold)),
                   SizedBox(height: 5),
                   DatePicker(),
                 ],
@@ -192,18 +177,22 @@ class FilterPageState extends State<FilterPage>{
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                        width: size.width * 0.4,
-                        color: NowUIColors.primary,
-                      child:
-                      TextButton(
-                          onPressed: (){},
-                          child:
-                          Text("Reset",
-                              style: TextStyle(
-                                  color: NowUIColors.text,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold
-                              )),
+                      width: size.width * 0.4,
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      height: 45,
+                      decoration: BoxDecoration(
+                        color: NowUIColors.info,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: TextButton(
+                        onPressed: () {},
+                        child: const Text("Reset",
+                            style: TextStyle(
+                                color: NowUIColors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold)),
                       ),
                     ),
                   ),
@@ -211,23 +200,26 @@ class FilterPageState extends State<FilterPage>{
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       width: size.width * 0.4,
-                      color: NowUIColors.primary,
-                      child:
-                      TextButton(
-                        onPressed: (){},
-                        child:
-                        Text("Apply",
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      height: 45,
+                      decoration: BoxDecoration(
+                        color: NowUIColors.info,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: TextButton(
+                        onPressed: () {},
+                        child: const Text("Apply",
                             style: TextStyle(
-                                color: NowUIColors.text,
+                                color: NowUIColors.white,
                                 fontSize: 20,
-                                fontWeight: FontWeight.bold
-                            )),
+                                fontWeight: FontWeight.bold)),
                       ),
                     ),
                   )
                 ],
               ),
-
             ],
           ),
         ),
@@ -235,4 +227,3 @@ class FilterPageState extends State<FilterPage>{
     );
   }
 }
-
