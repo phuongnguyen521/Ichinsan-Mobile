@@ -13,20 +13,20 @@ class ItemDetail extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    SizeConfig sizeConfig = SizeConfig();
-    double? defaultSize = SizeConfig.defaultSize;
+    IchinsanSizeConfig sizeConfig = IchinsanSizeConfig();
+    double? defaultSize = IchinsanSizeConfig.defaultSize;
     return GestureDetector(
       onTap: press,
       child: Container(
         decoration: BoxDecoration(
           color: item.color,
-          borderRadius: BorderRadius.circular(defaultSize * 1.8),
+          borderRadius: BorderRadius.circular(defaultSize! * 1.8),
         ),
         child: Row(
           children: <Widget>[
             Expanded(
                 child: Padding(
-                    padding: EdgeInsets.all(defaultSize * 2),
+                    padding: EdgeInsets.all(defaultSize! * 2),
                     child: Center(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +35,7 @@ class ItemDetail extends StatelessWidget {
                           Text(
                             item.name,
                             style: TextStyle(
-                                fontSize: defaultSize * 2.2,
+                                fontSize: defaultSize! * 2.2,
                                 color: NowUIColors.white),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -53,7 +53,7 @@ class ItemDetail extends StatelessWidget {
                         ],
                       ),
                     ))),
-            SizedBox(width: defaultSize * 0.5),
+            SizedBox(width: defaultSize! * 0.5),
           ],
         ),
       ),

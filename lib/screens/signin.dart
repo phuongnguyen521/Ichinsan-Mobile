@@ -63,7 +63,7 @@ class SignIn extends StatelessWidget {
         user = FirebaseAuth.instance.currentUser!;
         print(await user.getIdToken());
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const Ichinsan()));
+            context, MaterialPageRoute(builder: (context) => Ichinsan()));
       }
     } on FirebaseAuthException catch (e) {
       print('${e.message}');

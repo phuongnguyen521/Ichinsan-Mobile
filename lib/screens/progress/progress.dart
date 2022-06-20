@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ichinsan_mobile/screens/progress/body/tabbodyprogress.dart';
 
 class Progress extends StatefulWidget {
   @override
@@ -28,9 +27,15 @@ class _ProgressState extends State<Progress>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TabBodyProgress(
-          scrollViewController: _scrollViewController,
-          tabController: _tabController),
-    );
+        body: SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [],
+      ),
+      // TabBodyProgress(
+      //     scrollViewController: _scrollViewController,
+      //     tabController: _tabController),
+    ));
   }
 }

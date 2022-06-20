@@ -27,13 +27,15 @@ class Ichinsan extends StatelessWidget {
       title: "Ichinsan-MobileApp",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Montserrat'),
-      home: const IchinsanPage(title: 'Ichinsan-MobileApp'),
+      home: IchinsanPage(title: 'Ichinsan-MobileApp', index: 0),
     );
   }
 }
 
 class IchinsanPage extends StatefulWidget {
-  const IchinsanPage({Key? key, required this.title}) : super(key: key);
+  final int index;
+  IchinsanPage({Key? key, required this.title, required this.index})
+      : super(key: key);
 
   final String title;
 
@@ -42,6 +44,7 @@ class IchinsanPage extends StatefulWidget {
 }
 
 class _IchinsanState extends State<IchinsanPage> {
+  var firstTime = true;
   int currentIndex = 0;
   final screens = [
     Home(),
@@ -52,6 +55,10 @@ class _IchinsanState extends State<IchinsanPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.index > 0 && firstTime) {
+      currentIndex = widget.index;
+      firstTime = false;
+    }
     return Scaffold(
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(

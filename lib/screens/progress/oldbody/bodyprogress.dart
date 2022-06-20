@@ -11,24 +11,26 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig sizeConfig = SizeConfig();
+    IchinsanSizeConfig sizeConfig = IchinsanSizeConfig();
     sizeConfig.init(context);
-    double? defaultSize = SizeConfig.defaultSize;
+    double? defaultSize = IchinsanSizeConfig.defaultSize;
     return SafeArea(
       child: Column(
         children: <Widget>[
           Expanded(
               child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: defaultSize * 2),
+            padding: EdgeInsets.symmetric(horizontal: defaultSize! * 2),
             child: GridView.builder(
                 itemCount: ProgressItem.items.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount:
-                        SizeConfig.orientation == Orientation.landscape ? 2 : 1,
+                        IchinsanSizeConfig.orientation == Orientation.landscape
+                            ? 2
+                            : 1,
                     mainAxisSpacing: 20,
                     crossAxisSpacing:
-                        SizeConfig.orientation == Orientation.landscape
-                            ? defaultSize * 2
+                        IchinsanSizeConfig.orientation == Orientation.landscape
+                            ? defaultSize! * 2
                             : 0,
                     childAspectRatio: 1.65),
                 itemBuilder: (context, index) => ItemDetail(

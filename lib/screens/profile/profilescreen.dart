@@ -18,6 +18,8 @@ import 'package:ichinsan_mobile/constants/Theme.dart';
 //widgets
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
 
+import 'skill/skilldetail.dart';
+
 const placeholderImage =
     'https://upload.wikimedia.org/wikipedia/commons/c/cd/Portrait_Placeholder_Square.png';
 
@@ -92,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   onTap: () {
                     IchinsanCommon.itemNavigator(
                         (context) =>
-                            ProfileDetailScreen(userProfile: userProfile),
+                            SkillDetailScreen(userProfile: userProfile),
                         context);
                   }),
               16.height,
@@ -333,7 +335,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     } else {
       Profile_Data.id = '1';
       Profile_Data.avatarImage = placeholderImage;
-      Profile_Data.email = 'unknown';
+      Profile_Data.email = Ichinsan_label_unknown;
       return Profile_Data.myDefaultProfile;
     }
   }

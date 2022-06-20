@@ -22,9 +22,9 @@ class TabBodyApplication extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig sizeConfig = SizeConfig();
+    IchinsanSizeConfig sizeConfig = IchinsanSizeConfig();
     sizeConfig.init(context);
-    double? defaultSize = SizeConfig.defaultSize;
+    double? defaultSize = IchinsanSizeConfig.defaultSize;
     return NestedScrollView(
       controller: scrollViewController,
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -104,11 +104,14 @@ class TabBodyApplication extends StatelessWidget {
           itemCount: list.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount:
-                  SizeConfig.orientation == Orientation.landscape ? 2 : 1,
+                  IchinsanSizeConfig.orientation == Orientation.landscape
+                      ? 2
+                      : 1,
               mainAxisSpacing: 20,
-              crossAxisSpacing: SizeConfig.orientation == Orientation.landscape
-                  ? defaultSize * 2
-                  : 0,
+              crossAxisSpacing:
+                  IchinsanSizeConfig.orientation == Orientation.landscape
+                      ? defaultSize * 2
+                      : 0,
               childAspectRatio: 1.65),
           itemBuilder: (context, index) => TranslatorApplicationDetail(
                 item: list[index],

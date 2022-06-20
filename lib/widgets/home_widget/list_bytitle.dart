@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ichinsan_mobile/constants/common.dart';
 import 'package:ichinsan_mobile/constants/network.dart';
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
 import '../../constants/articles.dart';
@@ -11,7 +12,8 @@ final Map<String, String> Flag = {
 };
 
 class ListbyTitle extends StatefulWidget {
-  const ListbyTitle({Key? key, required this.numarticle, required this.check}) : super(key: key);
+  const ListbyTitle({Key? key, required this.numarticle, required this.check})
+      : super(key: key);
   final int numarticle;
   final String check;
   @override
@@ -65,10 +67,10 @@ class ListbyTitleState extends State<ListbyTitle> {
         cta: "Apply",
         category: display_list[index].category.toString(),
         title: display_list[index].title.toString(),
-        languagefrom: returnLanguageData(
-            display_list[index], display_list[index].languagefrom.toString()),
-        languageto: returnLanguageData(
-            display_list[index], display_list[index].languageto.toString()),
+        languagefrom: IchinsanCommon.returnLanguageData(
+            display_list[index].languagefrom.toString()),
+        languageto: IchinsanCommon.returnLanguageData(
+            display_list[index].languageto.toString()),
         coin: display_list[index].coin.toString(),
         deadline: display_list[index].deadline.toString(),
         description: display_list[index].description.toString(),
@@ -76,18 +78,10 @@ class ListbyTitleState extends State<ListbyTitle> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ArticleView(articles: display_list[index],)
-            ),
+                builder: (context) => ArticleView(
+                      articles: display_list[index],
+                    )),
           );
         });
-  }
-  String returnLanguageData(Articles detail, String s) {
-    var result = "";
-    Flag.forEach((key, value) {
-      if (key.contains(s)) {
-        result = value;
-      }
-    });
-    return result;
   }
 }

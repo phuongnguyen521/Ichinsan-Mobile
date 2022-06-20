@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:ichinsan_mobile/constants/Theme.dart';
 import 'package:ichinsan_mobile/constants/common.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -10,27 +7,37 @@ import '../../../constants/IchinsanColors.dart';
 import '../../../constants/Ichinsan_constant.dart';
 import '../../../constants/Ichinsan_string.dart';
 import '../../../constants/size_config.dart';
+import '../../../main.dart';
 import '../../../model/profile.dart';
 import '../../../model/skill.dart';
 import '../../../widgets/appwidget.dart';
 import '../../../widgets/profile_widget/button_widget.dart';
-import '../../../widgets/profile_widget/profile_widget.dart';
+import '../../../widgets/profile_widget/profile_edit_widget.dart';
 import '../Ichinsanprofiledetail.dart';
+import '../profilescreen.dart';
 
 class EditProfileDetail extends StatefulWidget {
-  final Profile userProfile;
+  late Profile userProfile;
   GlobalKey<FormState> form;
   final ValueChanged<Profile> onChanged;
   EditProfileDetail(
-      {required this.userProfile, required this.form, required this.onChanged});
+      {Key? key,
+      required this.userProfile,
+      required this.form,
+      required this.onChanged})
+      : super(key: key);
 
   @override
   State<EditProfileDetail> createState() => _EditProfileDetailState();
 }
 
 class _EditProfileDetailState extends State<EditProfileDetail> {
-  String? selectedValue = null;
   late List<Skill> skillList;
+  var fullNameController = TextEditingController();
+  var contactNumberController = TextEditingController();
+
+  FocusNode fullNameFocusNode = FocusNode();
+  FocusNode contactNumberFocusNode = FocusNode();
   List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
       DropdownMenuItem(child: Text("Male"), value: "Male"),
@@ -60,6 +67,15 @@ class _EditProfileDetailState extends State<EditProfileDetail> {
   var _isLoading = false;
 
   @override
+  void dispose() {
+    fullNameController.dispose();
+    contactNumberController.dispose();
+    fullNameFocusNode.dispose();
+    contactNumberFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   void didChangeDependencies() {
     if (_isInit) {
       final profile = widget.userProfile;
@@ -78,14 +94,13 @@ class _EditProfileDetailState extends State<EditProfileDetail> {
           'skillList': _editedProfile.skillList,
           'aboutMe': _editedProfile.aboutMe,
         };
-        selectedValue = profile.gender;
       }
     }
     _isInit = false;
     super.didChangeDependencies();
   }
 
-  Future<void> _saveForm() async {
+  Future _saveForm() async {
     final isValid = widget.form.currentState!.validate();
     if (!isValid) {
       return;
@@ -97,6 +112,7 @@ class _EditProfileDetailState extends State<EditProfileDetail> {
     });
 
     if (_editedProfile.id != null) {
+      widget.userProfile = _editedProfile;
       // await Provider.of<Products>(context, listen: false)
       //     .updateProduct(_editedProduct.id, _editedProduct);
     } else {
@@ -126,8 +142,9 @@ class _EditProfileDetailState extends State<EditProfileDetail> {
       _isLoading = false;
     });
 
-    IchinsanCommon.itemNavigator(
-        (context) => ProfileDetailScreen(userProfile: _editedProfile), context);
+    return IchinsanCommon.itemNavigator(
+        (context) => ProfileDetailScreen(userProfile: widget.userProfile),
+        context);
   }
 
   Row rowHeading1(var label) {
@@ -135,84 +152,51 @@ class _EditProfileDetailState extends State<EditProfileDetail> {
       children: <Widget>[
         Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: text(label, fontFamily: fontMedium)),
+            child: Text(label, style: boldTextStyle(size: 16))),
       ],
     );
   }
 
-  Widget rowHeadingSkillText(var label, var subLabel) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: text(label, textColor: appTextColorSecondary),
-          ),
-          Expanded(
-              flex: 3, child: text(subLabel, textColor: appTextColorSecondary)),
-          IconButton(
-            icon: const Icon(Icons.clear_rounded, color: appTextColorPrimary),
-            onPressed: () {
-              Skill _skill = Skill.withDetails(label, subLabel);
-              skillList.remove(_skill);
-              widget.userProfile.skillList = skillList;
-              setState(() {});
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget rowHeading(var label, var subLabel) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: text(label, textColor: appTextColorSecondary),
-          ),
-          Expanded(
-            flex: 3,
-            child: TextField(
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(0.0),
-                isDense: true,
-                hintText: subLabel,
-                border: InputBorder.none,
-              ),
-            ),
-          )
-        ],
-      ),
+  Row rowField(var label) {
+    return Row(
+      children: <Widget>[
+        Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: Text(label, style: boldTextStyle(size: 14))),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
     skillList = widget.userProfile.skillList;
-
+    var selectedGender = widget.userProfile.gender;
+    var fullnameValue = _editedProfile.fullName;
+    var dobValue = _editedProfile.dob;
+    var phonenumberValue = _editedProfile.phonenumber;
     return Scaffold(
       appBar: AppBar(
         //backgroundColor: NowUIColors.white,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: appTextColorPrimary),
           onPressed: () {
-            finish(context);
+            IchinsanCommon.itemNavigator(
+                (context) =>
+                    ProfileDetailScreen(userProfile: widget.userProfile),
+                context);
           },
         ),
         title: const Align(
-          child: Text(Ichisan_title_edit_profile),
           alignment: Alignment.centerRight,
+          child: Text(Ichisan_title_edit_profile),
         ),
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.arrow_back, color: appTextColorPrimary),
-            onPressed: () {
-              finish(context);
-            },
+          GestureDetector(
+            child: ButtonWidget(
+                onClicked: () async {
+                  await _saveForm();
+                },
+                text: Inchisan_label_save),
           ),
         ],
       ),
@@ -228,169 +212,170 @@ class _EditProfileDetailState extends State<EditProfileDetail> {
                       Expanded(
                           child: SingleChildScrollView(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
+                            //Personal
                             Container(
-                                margin: const EdgeInsets.only(
-                                    left: spacing_standard_new,
-                                    right: spacing_standard_new,
-                                    top: spacing_standard_new),
-                                decoration: boxDecoration(
-                                  showShadow: true,
-                                  bgColor: context.cardColor,
-                                  radius: spacing_middle,
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      spacing_standard,
-                                      spacing_standard,
-                                      spacing_standard,
-                                      spacing_standard_new),
-                                  child: Column(
-                                    children: <Widget>[
-                                      //Personal
-                                      rowHeading1(Ichinsan_title_personal),
-                                      SizedBox(height: spacing_standard),
-                                      //Gender
-                                      DropdownButtonFormField(
-                                        items: dropdownItems,
-                                        value: selectedValue,
-                                        validator: (value) => value == null
-                                            ? "Select a gender"
-                                            : null,
-                                        onChanged: (String? newValue) {
-                                          _editedProfile = Profile.withDetails(
-                                              _editedProfile.id,
-                                              _editedProfile.avatarImage,
-                                              _editedProfile.role,
-                                              _editedProfile.level,
-                                              _editedProfile.fullName,
-                                              _editedProfile.email,
-                                              _editedProfile.dob,
-                                              newValue!,
-                                              _editedProfile.phonenumber,
-                                              _editedProfile.skillList,
-                                              _editedProfile.aboutMe);
-                                          setState(() {
-                                            selectedValue = newValue;
-                                          });
-                                        },
-                                      ),
-                                      const SizedBox(height: 8),
-                                      //Date of Birth
-                                      DateFormField(
-                                          currentDateValue: _initValues['dob'],
-                                          dateLabel: Ichinsan_label_dob,
-                                          dateValidator: widget
-                                              .userProfile.birthDateIsValid,
-                                          onDateChanged: (dob) => widget
-                                              .onChanged(widget.userProfile
-                                                  .copyWith(dob: dob))),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            16, 10, 16, 0),
-                                        child: view(),
-                                      ),
-                                      const SizedBox(height: 8),
-                                    ],
+                              padding: EdgeInsets.all(spacing_standard_new),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      width: 0.5)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  rowHeading1(Ichinsan_title_personal),
+                                  const SizedBox(height: spacing_standard_new),
+                                  rowField(Ichinsan_label_fullname),
+                                  const SizedBox(height: spacing_standard),
+                                  //Full name
+                                  AppTextField(
+                                    decoration: ichinsanInputDecoration(
+                                      hint: 'Enter your full name here',
+                                    ),
+                                    initialValue: fullnameValue,
+                                    textFieldType: TextFieldType.NAME,
+                                    keyboardType: TextInputType.name,
+                                    focus: fullNameFocusNode,
+                                    onChanged: (String? newValue) {
+                                      _editedProfile = Profile.withDetails(
+                                          _editedProfile.id,
+                                          _editedProfile.avatarImage,
+                                          _editedProfile.role,
+                                          _editedProfile.level,
+                                          newValue!,
+                                          _editedProfile.email,
+                                          _editedProfile.dob,
+                                          _editedProfile.gender,
+                                          _editedProfile.phonenumber,
+                                          _editedProfile.skillList,
+                                          _editedProfile.aboutMe);
+                                    },
                                   ),
-                                )),
-                            Container(
-                              margin: const EdgeInsets.only(
-                                  left: spacing_standard_new,
-                                  right: spacing_standard_new,
-                                  top: spacing_standard_new,
-                                  bottom: spacing_standard_new),
-                              decoration: boxDecoration(
-                                showShadow: true,
-                                bgColor: context.cardColor,
-                                radius: spacing_middle,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    spacing_standard,
-                                    spacing_standard,
-                                    spacing_standard,
-                                    spacing_standard_new),
-                                child: Column(
-                                  children: <Widget>[
-                                    rowHeading1(Ichinsan_title_contacts),
-                                    8.height,
-                                    rowHeading(Ichinsan_label_phone_number,
-                                        widget.userProfile.phonenumber),
-                                    view().paddingOnly(
-                                        left: 16, top: 8, right: 16, bottom: 8),
-                                    8.height,
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(
-                                  left: spacing_standard_new,
-                                  right: spacing_standard_new,
-                                  top: spacing_standard_new,
-                                  bottom: spacing_standard_new),
-                              decoration: boxDecoration(
-                                showShadow: true,
-                                bgColor: context.cardColor,
-                                radius: spacing_middle,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    spacing_standard,
-                                    spacing_standard,
-                                    spacing_standard,
-                                    spacing_standard_new),
-                                child: Column(
-                                  children: <Widget>[
-                                    Row(
-                                      children: [
-                                        rowHeading1(Ichinsan_title_skill),
-                                        IconButton(
-                                          icon: const Icon(
-                                              Icons.add_circle_outline,
-                                              color: appTextColorPrimary),
-                                          onPressed: () {
-                                            Skill _skill = Skill.withDetails(
-                                                'label', 'subLabel');
-                                            skillList.remove(_skill);
-                                            widget.userProfile.skillList =
-                                                skillList;
-                                            setState(() {});
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                    8.height,
-                                    GridView.builder(
-                                      itemCount: skillList.length,
-                                      itemBuilder: (context, index) =>
-                                          rowHeadingSkillText(
-                                              skillList[index].languageName,
-                                              skillList[index].languageLevel),
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 2,
-                                              mainAxisSpacing: 20,
-                                              childAspectRatio: 1.65),
-                                    ),
-                                    view().paddingOnly(
-                                        left: 16, top: 8, right: 16, bottom: 8),
-                                    8.height,
-                                  ],
-                                ),
+                                  //Gender
+                                  const SizedBox(height: spacing_standard_new),
+                                  rowField(Ichinsan_label_gender),
+                                  const SizedBox(height: spacing_standard),
+                                  DropdownButtonFormField(
+                                    isExpanded: true,
+                                    decoration: ichinsanInputDecoration(
+                                        hint: "Select your gender"),
+                                    items: dropdownItems,
+                                    validator: (value) => value == null
+                                        ? "Select a gender"
+                                        : null,
+                                    value: selectedGender,
+                                    onChanged: (String? newValue) {
+                                      _editedProfile = Profile.withDetails(
+                                          _editedProfile.id,
+                                          _editedProfile.avatarImage,
+                                          _editedProfile.role,
+                                          _editedProfile.level,
+                                          _editedProfile.fullName,
+                                          _editedProfile.email,
+                                          _editedProfile.dob,
+                                          newValue!,
+                                          _editedProfile.phonenumber,
+                                          _editedProfile.skillList,
+                                          _editedProfile.aboutMe);
+                                      setState(() {
+                                        selectedGender = newValue;
+                                      });
+                                    },
+                                  ),
+                                  //Date of birth
+                                  const SizedBox(height: spacing_standard_new),
+                                  rowField(Ichinsan_label_dob),
+                                  const SizedBox(height: spacing_standard),
+                                  // DateFormField(
+                                  //     currentDateValue: dobValue,
+                                  //     dateLabel: Ichinsan_label_dob,
+                                  //     dateValidator:
+                                  //         widget.userProfile.birthDateIsValid,
+                                  //     onDateChanged: (dob) => widget.onChanged(
+                                  //         _editedProfile.copyWith(dob: dob))),
+                                ],
                               ),
                             ),
+                            //Contacts
                             Container(
-                              margin: const EdgeInsets.only(
-                                  left: spacing_standard_new,
-                                  right: spacing_standard_new),
-                              // child: QIBusAppButton(
-                              //   textContent: QIBus_text_save,
-                              //   onPressed: () {
-                              //     finish(context);
-                              //   },
-                              // ),
+                              padding: EdgeInsets.all(spacing_standard_new),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      width: 0.5)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  rowHeading1(Ichinsan_title_contacts),
+                                  const SizedBox(height: spacing_standard_new),
+                                  rowField(Ichinsan_label_phone_number),
+                                  const SizedBox(height: spacing_standard),
+                                  //Phone number
+                                  AppTextField(
+                                    decoration: ichinsanInputDecoration(
+                                      hint: 'Enter your contact number here',
+                                    ),
+                                    initialValue: phonenumberValue,
+                                    textFieldType: TextFieldType.PHONE,
+                                    keyboardType: TextInputType.phone,
+                                    focus: contactNumberFocusNode,
+                                    onChanged: (String? newValue) {
+                                      _editedProfile = Profile.withDetails(
+                                          _editedProfile.id,
+                                          _editedProfile.avatarImage,
+                                          _editedProfile.role,
+                                          _editedProfile.level,
+                                          _editedProfile.fullName,
+                                          _editedProfile.email,
+                                          _editedProfile.dob,
+                                          _editedProfile.gender,
+                                          newValue!,
+                                          _editedProfile.skillList,
+                                          _editedProfile.aboutMe);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            //About me
+                            Container(
+                              padding: EdgeInsets.all(spacing_standard_new),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      width: 0.5)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  rowHeading1(Ichinsan_label_about_me),
+                                  const SizedBox(height: spacing_standard_new),
+                                  TextFieldWidget(
+                                      label: 'About Me',
+                                      maxLines: 5,
+                                      maxLength: 255,
+                                      content:
+                                          _initValues['aboutMe'].toString(),
+                                      hint: 'Enter your information here',
+                                      onChanged: (aboutMe) {
+                                        _editedProfile = Profile.withDetails(
+                                            _editedProfile.id,
+                                            _editedProfile.avatarImage,
+                                            _editedProfile.role,
+                                            _editedProfile.level,
+                                            _editedProfile.fullName,
+                                            _editedProfile.email,
+                                            _editedProfile.dob,
+                                            _editedProfile.gender,
+                                            _editedProfile.phonenumber,
+                                            _editedProfile.skillList,
+                                            aboutMe);
+                                      }),
+                                ],
+                              ),
                             ),
                             16.height,
                           ],
@@ -400,258 +385,22 @@ class _EditProfileDetailState extends State<EditProfileDetail> {
                   )),
             ),
     );
-
-    // return Scaffold(
-    //     //backgroundColor: qIBus_app_background,
-    //     body: Column(
-    //   children: <Widget>[
-    //     Expanded(
-    //       child: SingleChildScrollView(
-    //         child: Column(
-    //           children: <Widget>[
-    //             Row(
-    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //               crossAxisAlignment: CrossAxisAlignment.center,
-    //               children: <Widget>[
-    //                 IconButton(
-    //                   icon: const Icon(Icons.arrow_back,
-    //                       color: appTextColorPrimary),
-    //                   onPressed: () {
-    //                     finish(context);
-    //                   },
-    //                 ),
-    //                 ProfileWidget(
-    //                   avatarImage: widget.userProfile.avatarImage,
-    //                   onClicked: () async {},
-    //                 ),
-    //                 GestureDetector(
-    //                   child: ButtonWidget(
-    //                       onClicked: () {
-    //                         EditProfileDetail(userProfile: widget.userProfile)
-    //                             .launch(context);
-    //                       },
-    //                       text: Inchisan_label_edit),
-    //                 ),
-    //               ],
-    //             ),
-    //             Container(
-    //                 margin: EdgeInsets.only(
-    //                     left: spacing_standard_new,
-    //                     right: spacing_standard_new,
-    //                     top: spacing_standard_new),
-    //                 decoration: boxDecoration(
-    //                   showShadow: true,
-    //                   bgColor: context.cardColor,
-    //                   radius: spacing_middle,
-    //                 ),
-    //                 child: Padding(
-    //                   padding: EdgeInsets.fromLTRB(
-    //                       spacing_standard,
-    //                       spacing_standard,
-    //                       spacing_standard,
-    //                       spacing_standard_new),
-    //                   child: Column(
-    //                     children: <Widget>[
-    //                       rowHeading1(Ichinsan_title_personal),
-    //                       SizedBox(height: spacing_standard),
-    //                       Padding(
-    //                         padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
-    //                         child: Row(
-    //                           children: <Widget>[
-    //                             Expanded(
-    //                               flex: 2,
-    //                               child: text(Ichinsan_label_gender,
-    //                                   textColor: IchinsanColors_textChild),
-    //                             ),
-    //                             Expanded(
-    //                               flex: 3,
-    //                               child: DropdownButtonHideUnderline(
-    //                                 child: DropdownButton<String>(
-    //                                   value: _selectedLocation,
-    //                                   items: <String>['Female', 'Male']
-    //                                       .map((String value) {
-    //                                     return new DropdownMenuItem<String>(
-    //                                       value: value,
-    //                                       child: text(value,
-    //                                           fontSize: textSizeMedium,
-    //                                           textColor:
-    //                                               IchinsanColors_textChild),
-    //                                     );
-    //                                   }).toList(),
-    //                                   onChanged: (newValue) {
-    //                                     setState(() {
-    //                                       _selectedLocation = newValue;
-    //                                     });
-    //                                   },
-    //                                 ),
-    //                               ),
-    //                             )
-    //                           ],
-    //                         ),
-    //                       ),
-    //                       SizedBox(height: 8),
-    //                       Padding(
-    //                         padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
-    //                         child: Column(
-    //                           children: [
-    //                             Expanded(
-    //                               flex: 2,
-    //                               child: text(Ichinsan_label_dob,
-    //                                   textColor: appTextColorSecondary),
-    //                             ),
-    //                             Row(
-    //                               children: <Widget>[
-    //                                 Expanded(
-    //                                     flex: 3,
-    //                                     child: text(
-    //                                         '${dob.day}/${dob.month}/${dob.year}',
-    //                                         textColor: appTextColorSecondary)),
-    //                                 IconButton(
-    //                                   icon: const Icon(Icons.edit_calendar,
-    //                                       color: appTextColorPrimary),
-    //                                   onPressed: () async {
-    //                                     DateTime? newDate =
-    //                                         await showDatePicker(
-    //                                             context: context,
-    //                                             initialDate: dob,
-    //                                             firstDate: DateTime(1900),
-    //                                             lastDate: DateTime(2100));
-
-    //                                     if (newDate == null) return;
-
-    //                                     setState(() => dob = newDate);
-    //                                   },
-    //                                 ),
-    //                               ],
-    //                             ),
-    //                           ],
-    //                         ),
-    //                       ),
-    //                       Padding(
-    //                         padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
-    //                         child: view(),
-    //                       ),
-    //                       SizedBox(height: 8),
-    //                     ],
-    //                   ),
-    //                 )),
-    //             Container(
-    //               margin: const EdgeInsets.only(
-    //                   left: spacing_standard_new,
-    //                   right: spacing_standard_new,
-    //                   top: spacing_standard_new,
-    //                   bottom: spacing_standard_new),
-    //               decoration: boxDecoration(
-    //                 showShadow: true,
-    //                 bgColor: context.cardColor,
-    //                 radius: spacing_middle,
-    //               ),
-    //               child: Padding(
-    //                 padding: const EdgeInsets.fromLTRB(
-    //                     spacing_standard,
-    //                     spacing_standard,
-    //                     spacing_standard,
-    //                     spacing_standard_new),
-    //                 child: Column(
-    //                   children: <Widget>[
-    //                     rowHeading1(Ichinsan_title_contacts),
-    //                     8.height,
-    //                     rowHeading(Ichinsan_label_phone_number,
-    //                         widget.userProfile.phonenumber),
-    //                     view().paddingOnly(
-    //                         left: 16, top: 8, right: 16, bottom: 8),
-    //                     8.height,
-    //                   ],
-    //                 ),
-    //               ),
-    //             ),
-    //             Container(
-    //               margin: const EdgeInsets.only(
-    //                   left: spacing_standard_new,
-    //                   right: spacing_standard_new,
-    //                   top: spacing_standard_new,
-    //                   bottom: spacing_standard_new),
-    //               decoration: boxDecoration(
-    //                 showShadow: true,
-    //                 bgColor: context.cardColor,
-    //                 radius: spacing_middle,
-    //               ),
-    //               child: Padding(
-    //                 padding: const EdgeInsets.fromLTRB(
-    //                     spacing_standard,
-    //                     spacing_standard,
-    //                     spacing_standard,
-    //                     spacing_standard_new),
-    //                 child: Column(
-    //                   children: <Widget>[
-    //                     Row(
-    //                       children: [
-    //                         rowHeading1(Ichinsan_title_skill),
-    //                         IconButton(
-    //                           icon: const Icon(Icons.add_circle_outline,
-    //                               color: appTextColorPrimary),
-    //                           onPressed: () {
-    //                             Skill _skill =
-    //                                 Skill.withDetails(label, subLabel);
-    //                             skillList.remove(_skill);
-    //                             widget.userProfile.skillList = skillList;
-    //                             setState(() {});
-    //                           },
-    //                         ),
-    //                       ],
-    //                     ),
-    //                     8.height,
-    //                     GridView.builder(
-    //                       itemCount: skillList.length,
-    //                       itemBuilder: (context, index) => rowHeadingSkillText(
-    //                           skillList[index].languageName,
-    //                           skillList[index].languageLevel),
-    //                       gridDelegate:
-    //                           const SliverGridDelegateWithFixedCrossAxisCount(
-    //                               crossAxisCount: 2,
-    //                               mainAxisSpacing: 20,
-    //                               childAspectRatio: 1.65),
-    //                     ),
-    //                     view().paddingOnly(
-    //                         left: 16, top: 8, right: 16, bottom: 8),
-    //                     8.height,
-    //                   ],
-    //                 ),
-    //               ),
-    //             ),
-    //             Container(
-    //               margin: EdgeInsets.only(
-    //                   left: spacing_standard_new, right: spacing_standard_new),
-    //               child: QIBusAppButton(
-    //                 textContent: QIBus_text_save,
-    //                 onPressed: () {
-    //                   finish(context);
-    //                 },
-    //               ),
-    //             ),
-    //             16.height,
-    //           ],
-    //         ),
-    //       ),
-    //     )
-    //   ],
-    // ));
   }
 }
 
 class DateFormField extends StatelessWidget {
   //Date of Birth
-  late ValueChanged<DateTime> onDateChanged;
-  late DateTime? currentDateValue;
-  late FormFieldValidator<DateTime>? dateValidator;
-  late String dateLabel;
+  ValueChanged<DateTime>? onDateChanged;
+  DateTime? currentDateValue;
+  FormFieldValidator<DateTime>? dateValidator;
+  String? dateLabel;
 
   DateFormField(
       {Key? key, onDateChanged, currentDateValue, dateValidator, dateLabel})
       : super(key: key);
 
   String get _label {
-    if (currentDateValue == null) return dateLabel;
+    if (currentDateValue == null) return dateLabel!;
     return DateFormat.yMMMMd().format(currentDateValue!);
   }
 
@@ -662,19 +411,19 @@ class DateFormField extends StatelessWidget {
         initialValue: currentDateValue,
         validator: dateValidator,
         builder: (formState) {
-          late InputBorder shape;
+          late InputBorder? shape;
 
           if (formState.hasError) {
-            shape = Theme.of(context).inputDecorationTheme.errorBorder!;
+            shape = Theme.of(context).inputDecorationTheme.errorBorder;
           } else {
-            shape = Theme.of(context).inputDecorationTheme.enabledBorder!;
+            shape = Theme.of(context).inputDecorationTheme.enabledBorder;
           }
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
                 children: [
-                  _buildDateSelectListTile(shape, context, formState),
+                  _buildDateSelectListTile(shape!, context, formState),
                   if (currentDateValue != null) _buildFloatingLabel(context),
                 ],
               ),
@@ -701,7 +450,7 @@ class DateFormField extends StatelessWidget {
               firstDate: DateTime(1900),
               lastDate: DateTime(2100));
           if (date != null) {
-            onDateChanged(date);
+            onDateChanged!(date);
             formState.didChange(date);
           }
         },
@@ -717,7 +466,7 @@ class DateFormField extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 6.0),
         color: Theme.of(context).scaffoldBackgroundColor,
         child: Text(
-          dateLabel,
+          dateLabel!,
           style: Theme.of(context).inputDecorationTheme.helperStyle,
         ),
       ),

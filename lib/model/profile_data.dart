@@ -1,15 +1,19 @@
 import 'package:ichinsan_mobile/model/profile.dart';
 import 'package:ichinsan_mobile/model/skill.dart';
 
+import '../constants/Ichinsan_string.dart';
+
 class Profile_Data {
   static String? id;
   static String? avatarImage;
   static String? email;
 
-  static List<Skill> list = [
-    new Skill.withDetails('Vietnamese', 'Fluent'),
-    new Skill.withDetails('English', 'Intermediate')
+  static List<Skill> listdetail = [
+    Skill.withDetails('VietNam', 'Fluent'),
+    Skill.withDetails('English', 'Intermediate')
   ];
+
+  static List<Skill> list = [];
   static var myProfile = Profile.withDetails(
       id!,
       avatarImage!,
@@ -18,21 +22,21 @@ class Profile_Data {
       'Nguyen Ngoc Phuong',
       email!,
       DateTime.utc(2001, 1, 1),
-      'female',
+      'Female',
       '0101010101',
-      list,
+      listdetail,
       'This is about me');
 
   static var myDefaultProfile = Profile.withDetails(
       id!,
       avatarImage!,
-      'Not Yet',
-      'Not Yet',
-      'Unknown',
+      Ichinsan_label_unknown,
+      Ichinsan_label_unknown,
+      Ichinsan_label_unknown,
       email!,
       DateTime.utc(2001, 1, 1),
-      'Not Yet',
-      'Not Yet',
+      Ichinsan_label_unknown,
+      Ichinsan_label_unknown,
       list,
-      'Not Yet');
+      Ichinsan_label_unknown);
 }

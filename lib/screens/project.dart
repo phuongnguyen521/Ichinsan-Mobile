@@ -17,8 +17,8 @@ class Project extends StatefulWidget {
 }
 
 class _ProjectState extends State<Project> {
-  SizeConfig sizeConfig = SizeConfig();
-  double? defaultSize = SizeConfig.defaultSize;
+  IchinsanSizeConfig sizeConfig = IchinsanSizeConfig();
+  double? defaultSize = IchinsanSizeConfig.defaultSize;
   var _dropdownValue = "In-progress";
   @override
   Widget build(BuildContext context) {

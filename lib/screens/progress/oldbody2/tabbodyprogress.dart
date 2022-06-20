@@ -19,7 +19,7 @@ class TabBodyProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig sizeConfig = SizeConfig();
+    IchinsanSizeConfig sizeConfig = IchinsanSizeConfig();
     sizeConfig.init(context);
     return NestedScrollView(
       controller: scrollViewController,

@@ -31,9 +31,9 @@ class _BodyFeebackListState extends State<BodyFeebackList> {
         ),
       );
     }
-    SizeConfig sizeConfig = SizeConfig();
+    IchinsanSizeConfig sizeConfig = IchinsanSizeConfig();
     sizeConfig.init(context);
-    double? defaultSize = SizeConfig.defaultSize;
+    double? defaultSize = IchinsanSizeConfig.defaultSize;
     return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,10 +50,12 @@ class _BodyFeebackListState extends State<BodyFeebackList> {
                 itemCount: list.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount:
-                        SizeConfig.orientation == Orientation.landscape ? 2 : 1,
+                        IchinsanSizeConfig.orientation == Orientation.landscape
+                            ? 2
+                            : 1,
                     mainAxisSpacing: 20,
                     crossAxisSpacing:
-                        SizeConfig.orientation == Orientation.landscape
+                        IchinsanSizeConfig.orientation == Orientation.landscape
                             ? defaultSize * 2
                             : 0,
                     childAspectRatio: 1.65),

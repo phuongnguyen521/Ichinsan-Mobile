@@ -46,9 +46,9 @@ class ListArticles extends StatelessWidget {
                             cta: "Apply",
                             category: items[index].category.toString(),
                             title: items[index].title.toString(),
-                            languagefrom: returnLanguageData(items[index],
+                            languagefrom: IchinsanCommon.returnLanguageData(
                                 items[index].languagefrom.toString()),
-                            languageto: returnLanguageData(items[index],
+                            languageto: IchinsanCommon.returnLanguageData(
                                 items[index].languageto.toString()),
                             coin: (items[index].coin.toString()),
                             deadline: (items[index].deadline.toString()),
@@ -57,8 +57,9 @@ class ListArticles extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ArticleView(articles: items[index],)
-                                ),
+                                    builder: (context) => ArticleView(
+                                          articles: items[index],
+                                        )),
                               );
                             });
                       }),
@@ -71,15 +72,5 @@ class ListArticles extends StatelessWidget {
             );
           }
         });
-  }
-
-  String returnLanguageData(Articles detail, String s) {
-    var result = "";
-    IchinsanCommon.Flag.forEach((key, value) {
-      if (key.contains(s)) {
-        result = value;
-      }
-    });
-    return result;
   }
 }

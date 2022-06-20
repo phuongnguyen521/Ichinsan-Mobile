@@ -1,9 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
+import 'package:ichinsan_mobile/constants/Theme.dart';
+import 'package:nb_utils/nb_utils.dart';
+import '../../../constants/IchinsanColors.dart';
+import '../../../constants/Ichinsan_string.dart';
+import '../../../constants/common.dart';
+import '../../../main.dart';
 import '../../../model/profile.dart';
+import '../../../widgets/profile_widget/button_widget.dart';
+import '../profilescreen.dart';
 import 'InchinsanProfileDetail_edit.dart';
 
 class EditProfile extends StatefulWidget {
@@ -20,14 +24,13 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-          child: EditProfileDetail(
+      body: EditProfileDetail(
         form: formKey,
         userProfile: widget.userProfile,
         onChanged: (value) => setState(() {
           widget.userProfile = value;
         }),
-      )),
+      ),
     );
   }
 }

@@ -16,8 +16,8 @@ class IchinsanFeedbackItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig sizeConfig = SizeConfig();
-    double? defaultSize = SizeConfig.defaultSize;
+    IchinsanSizeConfig sizeConfig = IchinsanSizeConfig();
+    double? defaultSize = IchinsanSizeConfig.defaultSize;
     return GestureDetector(
       onTap: press,
       child: Container(

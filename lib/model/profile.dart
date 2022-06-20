@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:ichinsan_mobile/model/skill.dart';
+import 'package:intl/intl.dart';
 
 @immutable
 class Profile {
@@ -15,11 +16,11 @@ class Profile {
   late List<Skill> skillList;
   late String aboutMe;
 
-  Profile copyWith({
-    DateTime? dob,
-  }) {
+  Profile copyWith({DateTime? dob, String? aboutMe}) {
+    dob ??= this.dob;
+    aboutMe = aboutMe ?? this.aboutMe;
     return Profile.withDetails(id, avatarImage, role, level, fullName, email,
-        dob!, gender, phonenumber, skillList, aboutMe);
+        dob, gender, phonenumber, skillList, aboutMe);
   }
 
   Profile.withDetails(
@@ -36,7 +37,7 @@ class Profile {
       this.aboutMe);
   bool get birthDateIsValid => _birthDateValidator(dob) == null;
 
-  String get getDob => this.dob.toString();
+  String get getDob => DateFormat.yMMMMd().format(dob).toString();
 
   bool isValid() => birthDateIsValid;
 
