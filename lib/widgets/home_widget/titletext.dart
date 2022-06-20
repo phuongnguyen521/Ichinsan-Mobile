@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants/Theme.dart';
+
 class TitleText extends StatelessWidget {
   const TitleText({
     Key? key,
@@ -17,7 +19,7 @@ class TitleText extends StatelessWidget {
         style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
-          color: Color(0x5D5B45FF),
+          color: NowUIColors.firstItem,
         ),
       ),
     );

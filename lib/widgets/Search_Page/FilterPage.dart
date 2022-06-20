@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ichinsan_mobile/widgets/Search_Page/DatePicker.dart';
 import 'package:ichinsan_mobile/widgets/Search_Page/categories.dart';
 import 'package:ichinsan_mobile/widgets/home_widget/titletext.dart';
 
@@ -14,10 +15,11 @@ class FilterPage extends StatefulWidget {
 
 class FilterPageState extends State<FilterPage> {
   List<Categories> listcategory = <Categories>[];
-  List<int> selectedCategories = [];
-
   List<Language> listlanguage = <Language>[];
+
+  List<int> selectedCategories = [];
   List<int> selectedLanguages = [];
+
   @override
   void initState() {
     // TODO: inplement initState
@@ -26,7 +28,6 @@ class FilterPageState extends State<FilterPage> {
         listcategory.addAll(value);
       });
     });
-
     fetchLanguage().then((value) {
       setState(() {
         listlanguage.addAll(value);
@@ -41,74 +42,188 @@ class FilterPageState extends State<FilterPage> {
       appBar: AppBar(
         title: Text('Filter Search'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TitleText(title: "Category"),
-            Wrap(
-              spacing: 10,
-              children: List<Widget>.generate(listcategory.length, (index) {
-                final listitem = listcategory[index];
-                final isSelected = selectedCategories.contains(listitem.id);
-                return FilterChip(
-                  label: Text(listitem.name.toString()),
-                  labelStyle: TextStyle(
-                    color: isSelected ? NowUIColors.white : NowUIColors.muted,
-                    fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TitleText(title: "Category"),
+              Wrap(
+                spacing: 10,
+                children: List<Widget>.generate(listcategory.length, (index) {
+                  final listitem = listcategory[index];
+                  final isSelected = selectedCategories.contains(listitem.id);
+                  return FilterChip(
+                    label: Text(listitem.name.toString()),
+                    labelStyle: TextStyle(
+                      color: isSelected ? NowUIColors.white : NowUIColors.muted,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    selected: isSelected,
+                    selectedColor: NowUIColors.info,
+                    checkmarkColor: Colors.white,
+                    onSelected: (bool selected) {
+                      setState(() {
+                        if (selected) {
+                          selectedCategories.add(listitem.id);
+                        } else {
+                          selectedCategories.remove(listitem.id);
+                        }
+                      });
+                    },
+                  );
+                }),
+              ),
+              SizedBox(height: 5),
+              TitleText(title: "Language"),
+              Wrap(
+                spacing: 10,
+                children: List<Widget>.generate(listlanguage.length, (index) {
+                  final listitem = listlanguage[index];
+                  final isSelected = selectedLanguages.contains(listitem.id);
+                  return FilterChip(
+                    label: Text(listitem.name.toString()),
+                    labelStyle: TextStyle(
+                      color: isSelected ? NowUIColors.white : NowUIColors.muted,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    selected: isSelected,
+                    selectedColor: NowUIColors.info,
+                    checkmarkColor: Colors.white,
+                    onSelected: (bool selected) {
+                      setState(() {
+                        if (selected) {
+                          selectedLanguages.add(listitem.id!);
+                        } else {
+                          selectedLanguages.remove(listitem.id!);
+                        }
+                      });
+                    },
+                  );
+                }),
+              ),
+              SizedBox(height: 5),
+              TitleText(title: "Salary"),
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: const Text("Type Salary Here",
+                          style: TextStyle(
+                            color: NowUIColors.text,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Container(
+                          height: 35,
+                          width: size.width * 0.4,
+                          child: const TextField(
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "From",
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 50),
+                        Container(
+                          height: 35,
+                          width: size.width * 0.4,
+                          child: const TextField(
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "To",
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 5),
+              TitleText(title: "Date Post"),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text("Date Post",
+                      style: TextStyle(
+                        color: NowUIColors.text,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  DatePicker(),
+                  SizedBox(height: 5),
+                  Text("Deadline Apply",
+                      style: TextStyle(
+                          color: NowUIColors.text,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold)),
+                  SizedBox(height: 5),
+                  DatePicker(),
+                ],
+              ),
+              SizedBox(height: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: size.width * 0.4,
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      height: 45,
+                      decoration: BoxDecoration(
+                        color: NowUIColors.info,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: TextButton(
+                        onPressed: () {},
+                        child: const Text("Reset",
+                            style: TextStyle(
+                                color: NowUIColors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ),
                   ),
-                  selected: isSelected,
-                  selectedColor: NowUIColors.active,
-                  checkmarkColor: Colors.white,
-                  onSelected: (bool selected) {
-                    setState(() {
-                      if (selected) {
-                        selectedCategories.add(listitem.id);
-                      } else {
-                        selectedCategories.remove(listitem.id);
-                      }
-                    });
-                  },
-                );
-              }),
-            ),
-            SizedBox(height: 5),
-            TitleText(title: "Language"),
-            Wrap(
-              spacing: 10,
-              children: List<Widget>.generate(listlanguage.length, (index) {
-                final listitem = listlanguage[index];
-                final isSelected = selectedLanguages.contains(listitem.id);
-                return FilterChip(
-                  label: Text(listitem.name.toString()),
-                  labelStyle: TextStyle(
-                    color: isSelected ? NowUIColors.white : NowUIColors.muted,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  selected: isSelected,
-                  selectedColor: NowUIColors.active,
-                  checkmarkColor: Colors.white,
-                  onSelected: (bool selected) {
-                    setState(() {
-                      if (selected) {
-                        selectedLanguages.add(listitem.id!);
-                      } else {
-                        selectedLanguages.remove(listitem.id!);
-                      }
-                    });
-                  },
-                );
-              }),
-            ),
-            SizedBox(height: 5),
-            TitleText(title: "Salary"),
-            SizedBox(height: 5),
-
-            /*TitleText(title: "Date Post"),
-
-            SizedBox(height: 5),*/
-          ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: size.width * 0.4,
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      height: 45,
+                      decoration: BoxDecoration(
+                        color: NowUIColors.info,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: TextButton(
+                        onPressed: () {},
+                        child: const Text("Apply",
+                            style: TextStyle(
+                                color: NowUIColors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

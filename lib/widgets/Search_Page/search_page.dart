@@ -8,7 +8,10 @@ import '../home_widget/articleview.dart';
 final Map<String, String> Flag = {
   "VietNam": "assets/imgs/vietnam.png",
   "English": "assets/imgs/english.jpg",
-  "Japanese": "assets/imgs/japanese.jpg"
+  "Japanese": "assets/imgs/japanese.jpg",
+"VN": "assets/imgs/vietnam.png",
+"US": "assets/imgs/english.jpg",
+"JP": "assets/imgs/japanese.jpg"
 };
 
 class SearchPage extends StatefulWidget {
@@ -56,7 +59,7 @@ class SearchPageState extends State<SearchPage> {
                     margin:EdgeInsets.symmetric(horizontal: 10.0),
                     padding: EdgeInsets.symmetric(horizontal: 5.0),
                     height: 45,
-                    width: size.width *0.8,
+                    width: size.width * 0.8,
                     decoration: BoxDecoration(
                         color: Colors.white70,
                         borderRadius: BorderRadius.circular(20),

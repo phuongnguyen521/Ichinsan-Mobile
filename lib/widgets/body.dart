@@ -8,17 +8,16 @@ final Map<String, Map<String, String>> Flags = {
   "VietNam": {"image": "assets/imgs/vietnam.png"},
   "English": {"image": "assets/imgs/english.jpg"},
   "Japanese": {"image": "assets/imgs/japanese.jpg"},
-  "Fashion": {
-    "image":
-        "https://images.unsplash.com/photo-1536686763189-829249e085ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=705&q=80"
-  }
 };
 
 // ignore: non_constant_identifier_names
 final Map<String, String> Flag = {
   "VietNam": "assets/imgs/vietnam.png",
   "English": "assets/imgs/english.jpg",
-  "Japanese": "assets/imgs/japanese.jpg"
+  "Japanese": "assets/imgs/japanese.jpg",
+  "VN": "assets/imgs/vietnam.png",
+  "US": "assets/imgs/english.jpg",
+  "JP": "assets/imgs/japanese.jpg"
 };
 
 class Body extends StatefulWidget {
