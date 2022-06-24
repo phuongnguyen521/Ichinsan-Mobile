@@ -44,15 +44,7 @@ class BodyState extends State<Body> {
     );
   }
 
-  String returnLanguageData(Articles detail, String s) {
-    var result = "";
-    IchinsanCommon.Flag.forEach((key, value) {
-      if (key.contains(s)) {
-        result = value;
-      }
-    });
-    return result;
-  }
+
 
 
 }
