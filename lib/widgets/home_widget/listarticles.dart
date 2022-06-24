@@ -6,15 +6,6 @@ import '../../constants/common.dart';
 import '../../constants/network.dart';
 import '../card-horizontal.dart';
 
-final Map<String, Map<String, String>> Flags = {
-  "VietNam": {"image": "assets/imgs/vietnam.png"},
-  "English": {"image": "assets/imgs/english.jpg"},
-  "Japanese": {"image": "assets/imgs/japanese.jpg"},
-  "Fashion": {
-    "image":
-        "https://images.unsplash.com/photo-1536686763189-829249e085ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=705&q=80"
-  }
-};
 
 class ListArticles extends StatelessWidget {
   const ListArticles({

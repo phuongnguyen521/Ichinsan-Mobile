@@ -3,15 +3,8 @@ import 'package:ichinsan_mobile/constants/network.dart';
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
 import '../../constants/articles.dart';
 import 'articleview.dart';
+import '../../constants/common.dart';
 
-final Map<String, String> Flag = {
-  "VietNam": "assets/imgs/vietnam.png",
-  "English": "assets/imgs/english.jpg",
-  "Japanese": "assets/imgs/japanese.jpg",
-  "VN": "assets/imgs/vietnam.png",
-  "US": "assets/imgs/english.jpg",
-  "JP": "assets/imgs/japanese.jpg"
-};
 
 class ListbyTitle extends StatefulWidget {
   const ListbyTitle({Key? key, required this.numarticle, required this.check}) : super(key: key);
@@ -86,7 +79,7 @@ class ListbyTitleState extends State<ListbyTitle> {
   }
   String returnLanguageData(Articles detail, String s) {
     var result = "";
-    Flag.forEach((key, value) {
+    IchinsanCommon.Flag.forEach((key, value) {
       if (key.contains(s)) {
         result = value;
       }

@@ -9,7 +9,7 @@ class DatePicker extends StatefulWidget {
 }
 
 class DatePickerState extends State<DatePicker>{
-  DateTime datetime = DateTime(2022, 18, 6);
+  DateTime datetime = DateTime(2022, 6, 6);
   String text = "DD/MM/YY";
   @override
   Widget build(BuildContext context){
