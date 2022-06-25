@@ -3,22 +3,7 @@ import 'package:ichinsan_mobile/widgets/home_widget/list_bytitle.dart';
 import 'package:ichinsan_mobile/widgets/home_widget/listarticles.dart';
 import '../constants/articles.dart';
 import 'home_widget/titletext.dart';
-
-final Map<String, Map<String, String>> Flags = {
-  "VietNam": {"image": "assets/imgs/vietnam.png"},
-  "English": {"image": "assets/imgs/english.jpg"},
-  "Japanese": {"image": "assets/imgs/japanese.jpg"},
-};
-
-// ignore: non_constant_identifier_names
-final Map<String, String> Flag = {
-  "VietNam": "assets/imgs/vietnam.png",
-  "English": "assets/imgs/english.jpg",
-  "Japanese": "assets/imgs/japanese.jpg",
-  "VN": "assets/imgs/vietnam.png",
-  "US": "assets/imgs/english.jpg",
-  "JP": "assets/imgs/japanese.jpg"
-};
+import '../../constants/common.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -36,38 +21,30 @@ class BodyState extends State<Body> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           TitleText(title: "Top Recent"),
-          ListArticles(numarticle: 1),
+          ListArticles(numarticle: 5),
           SizedBox(height: 5),
 
           TitleText(title: "Technology"),
-          ListbyTitle(numarticle: 2, check: 'Technology'),
+          ListbyTitle(numarticle: 3, check: 'Technology'),
           SizedBox(height: 5),
 
           TitleText(title: "Finance"),
-          ListbyTitle(numarticle: 2, check: 'Finance'),
+          ListbyTitle(numarticle: 3, check: 'Finance'),
           SizedBox(height: 5),
 
           TitleText(title: "Tourism"),
-          ListbyTitle(numarticle: 2, check: 'Tourism'),
+          ListbyTitle(numarticle: 3, check: 'Tourism'),
           SizedBox(height: 5),
 
           TitleText(title: "Education"),
-          ListbyTitle(numarticle: 2, check: 'Education'),
+          ListbyTitle(numarticle: 3, check: 'Education'),
           SizedBox(height: 5),
         ],
       ),
     );
   }
 
-  String returnLanguageData(Articles detail, String s) {
-    var result = "";
-    Flag.forEach((key, value) {
-      if (key.contains(s)) {
-        result = value;
-      }
-    });
-    return result;
-  }
+
 
 
 }

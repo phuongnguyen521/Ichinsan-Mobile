@@ -4,15 +4,7 @@ import 'package:ichinsan_mobile/constants/network.dart';
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
 import '../../constants/articles.dart';
 import 'articleview.dart';
-
-final Map<String, String> Flag = {
-  "VietNam": "assets/imgs/vietnam.png",
-  "English": "assets/imgs/english.jpg",
-  "Japanese": "assets/imgs/japanese.jpg",
-  "VN": "assets/imgs/vietnam.png",
-  "US": "assets/imgs/english.jpg",
-  "JP": "assets/imgs/japanese.jpg"
-};
+import '../../constants/common.dart';
 
 class ListbyTitle extends StatefulWidget {
   const ListbyTitle({Key? key, required this.numarticle, required this.check})

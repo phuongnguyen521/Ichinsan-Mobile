@@ -15,7 +15,7 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size.height * 0.20,
+      height: size.height * 0.2,
       child: Stack(
         children: [
           Positioned(

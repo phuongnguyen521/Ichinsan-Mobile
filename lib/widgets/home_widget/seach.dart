@@ -11,9 +11,11 @@ class Search extends StatefulWidget {
 class SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
       child: Container(
+          width: size.width * 0.95,
           alignment: Alignment.center,
           margin: EdgeInsets.symmetric(horizontal: 20.0),
           padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -29,8 +31,6 @@ class SearchState extends State<Search> {
                   color: Colors.grey.withOpacity(0.23),
                 ),
               ]),
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 10),
             child: ListTile(
               title: const Text("Search..."),
               onTap: () {
@@ -38,13 +38,6 @@ class SearchState extends State<Search> {
                     MaterialPageRoute(builder: (context) => SearchPage()));
               },
             ),
-          )
-          /*TextField(
-          decoration: InputDecoration(
-            hintText: "Search...",
-            suffixIcon: Icon(Icons.search),
-          ),
-        ),*/
 
           ),
     );

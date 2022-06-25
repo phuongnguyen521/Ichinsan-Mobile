@@ -4,15 +4,7 @@ import 'package:ichinsan_mobile/widgets/Search_Page/FilterPage.dart';
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
 import '../../constants/articles.dart';
 import '../home_widget/articleview.dart';
-
-final Map<String, String> Flag = {
-  "VietNam": "assets/imgs/vietnam.png",
-  "English": "assets/imgs/english.jpg",
-  "Japanese": "assets/imgs/japanese.jpg",
-"VN": "assets/imgs/vietnam.png",
-"US": "assets/imgs/english.jpg",
-"JP": "assets/imgs/japanese.jpg"
-};
+import '../../constants/common.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -34,7 +26,7 @@ class SearchPageState extends State<SearchPage> {
       setState(() {
         list.addAll(value);
         display_list = list;
-      });
+      })  ;
     });
     super.initState();
   }
@@ -74,7 +66,7 @@ class SearchPageState extends State<SearchPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(8),
                       child: TextField(
-                        decoration: InputDecoration(hintText: 'Search...'),
+                        decoration: const InputDecoration(hintText: 'Search...'),
                         onChanged: (text) {
                           text = text.toLowerCase();
                           setState(() {
@@ -99,7 +91,7 @@ class SearchPageState extends State<SearchPage> {
                 ],
               ),
               ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: display_list.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -134,7 +126,7 @@ class SearchPageState extends State<SearchPage> {
   }
   String returnLanguageData(Articles detail, String s) {
     var result = "";
-    Flag.forEach((key, value) {
+    IchinsanCommon.Flag.forEach((key, value) {
       if (key.contains(s)) {
         result = value;
       }
