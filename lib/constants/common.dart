@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'articles.dart';
+import '../model/Article/articles.dart';
 
 class IchinsanCommon {
   static final Map<String, String> Flag = {
@@ -9,7 +9,7 @@ class IchinsanCommon {
     "English": "assets/imgs/english.jpg",
     "Japanese": "assets/imgs/japanese.jpg",
     "VN": "assets/imgs/vietnam.png",
-    "US": "assets/imgs/english.jpg",
+    "EN": "assets/imgs/english.jpg",
     "JP": "assets/imgs/japanese.jpg"
   };
 

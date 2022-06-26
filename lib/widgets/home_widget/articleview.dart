@@ -2,20 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:ichinsan_mobile/constants/articles.dart';
+import 'package:ichinsan_mobile/model/Article/articles.dart';
 
 import '../../constants/Theme.dart';
 import '../../constants/common.dart';
-
-final Map<String, Map<String, String>> Flags = {
-  "VietNam": {"image": "assets/imgs/vietnam.png"},
-  "English": {"image": "assets/imgs/english.jpg"},
-  "Japanese": {"image": "assets/imgs/japanese.jpg"},
-  "Fashion": {
-    "image":
-    "https://images.unsplash.com/photo-1536686763189-829249e085ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=705&q=80"
-  }
-};
 
 
 class ArticleView extends StatefulWidget {
@@ -35,7 +25,7 @@ class ArticleViewState extends State<ArticleView> {
       appBar: AppBar(
         elevation: 0,
         leading: BackButton(),
-        title: Text(widget.articles.title.toString()),
+        title: Text(widget.articles.name.toString()),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -51,7 +41,7 @@ class ArticleViewState extends State<ArticleView> {
                     child: Row(
                       children: [
                         const Icon(Icons.account_circle, size: 50),
-                        Text(widget.articles.customer.toString(),
+                        Text(widget.articles.customerName.toString(),
                             style: TextStyle(
                                 color: NowUIColors.text,
                                 fontSize: 20,
@@ -62,7 +52,7 @@ class ArticleViewState extends State<ArticleView> {
                   Container(
                     child: Row(children: <Widget>[
                       Icon(Icons.attach_money_outlined, size: 20),
-                      Text(widget.articles.coin.toString(),
+                      Text(widget.articles.fee.toString(),
                           textAlign: TextAlign.end,
                           style: TextStyle(
                             color: NowUIColors.info,
@@ -81,7 +71,7 @@ class ArticleViewState extends State<ArticleView> {
                           fontSize: 20,
                           fontWeight: FontWeight.bold
                           )),
-                  Text(widget.articles.coin.toString(),
+                  Text(widget.articles.projectName.toString(),
                       style: TextStyle(
                           color: NowUIColors.text,
                           fontSize: 20,
@@ -107,9 +97,8 @@ class ArticleViewState extends State<ArticleView> {
                           )),
                     ],
                   ),
-                  SizedBox(width: 20),
-
-                  const Text("|",
+                  //SizedBox(width: 20),
+                  /*const Text("|",
                       style: TextStyle(
                         color: NowUIColors.text,
                         fontSize: 20,
@@ -121,7 +110,7 @@ class ArticleViewState extends State<ArticleView> {
                       style: TextStyle(
                           color: NowUIColors.info,
                           fontSize: 20,
-                      )),
+                      )),*/
                 ],
               ),
               SizedBox(height: 10),
@@ -133,7 +122,7 @@ class ArticleViewState extends State<ArticleView> {
                         fontSize: 20,
                           fontWeight: FontWeight.bold
                       )),
-                  Text(widget.articles.category.toString(),
+                  Text(widget.articles.categoryName.toString(),
                       style: const TextStyle(
                           color: NowUIColors.text,
                           fontSize: 20,
@@ -148,7 +137,7 @@ class ArticleViewState extends State<ArticleView> {
                   Container(
                     height: 40,
                     width: 40,
-                    child: Image(image: AssetImage(returnLanguageData(widget.articles,widget.articles.languagefrom.toString()))),
+                    child: Image(image: AssetImage(IchinsanCommon.returnLanguageData(widget.articles,widget.articles.languageFrom.toString()))),
                   ),
                   SizedBox(width: 5),
                   const Icon(Icons.arrow_right, size: 50),
@@ -156,7 +145,7 @@ class ArticleViewState extends State<ArticleView> {
                   Container(
                     height: 40,
                     width: 40,
-                    child: Image(image: AssetImage(returnLanguageData(widget.articles,widget.articles.languageto.toString()))),
+                    child: Image(image: AssetImage(IchinsanCommon.returnLanguageData(widget.articles,widget.articles.languageTo.toString()))),
                   ),
                 ]),
               ),
@@ -193,7 +182,7 @@ class ArticleViewState extends State<ArticleView> {
                     elevation: 3,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(widget.articles.description.toString(),
+                      child: Text("widget.articles.description.toString()",
                           style: TextStyle(
                             color: NowUIColors.text,
                             fontSize: 16,
@@ -230,16 +219,5 @@ class ArticleViewState extends State<ArticleView> {
       ),
     );
   }
-
-  String returnLanguageData(Articles detail, String s) {
-    var result = "";
-    IchinsanCommon.Flag.forEach((key, value) {
-      if (key.contains(s)) {
-        result = value;
-      }
-    });
-    return result;
-  }
-
 
 }

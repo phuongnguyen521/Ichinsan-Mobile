@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/widgets/home_widget/articleview.dart';
 
-import '../../constants/articles.dart';
+import '../../model/Article/articles.dart';
 import '../../constants/common.dart';
-import '../../constants/network.dart';
+import '../../utils/network.dart';
 import '../card-horizontal.dart';
-
 
 class ListArticles extends StatelessWidget {
   const ListArticles({
@@ -19,7 +18,7 @@ class ListArticles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: fetchArticles(),
+        future: fetchArticles(1, 5),
         builder: (context, data) {
           if (data.hasError) {
             return Center(child: Text("Not Found"));
@@ -35,15 +34,15 @@ class ListArticles extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return CardHorizontal(
                             cta: "Apply",
-                            category: items[index].category.toString(),
-                            title: items[index].title.toString(),
+                            category: items[index].categoryName.toString(),
+                            title: items[index].name.toString(),
                             languagefrom: IchinsanCommon.returnLanguageData(
-                                items[index].languagefrom.toString()),
+                                items[index].languageFrom.toString()),
                             languageto: IchinsanCommon.returnLanguageData(
-                                items[index].languageto.toString()),
-                            coin: (items[index].coin.toString()),
+                                items[index].languageTo.toString()),
+                            coin: (items[index].fee.toString()),
                             deadline: (items[index].deadline.toString()),
-                            description: (items[index].description.toString()),
+                            description: items[index].description.toString(),
                             tap: () {
                               Navigator.push(
                                 context,

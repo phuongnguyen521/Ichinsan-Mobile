@@ -4,7 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:ichinsan_mobile/constants/common.dart';
 
-import '../constants/articles.dart';
+import '../model/Article/articles.dart';
 import '../constants/size_config.dart';
 import '../widgets/home_widget/listarticles.dart';
 import '../widgets/home_widget/titletext.dart';
