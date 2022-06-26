@@ -17,7 +17,13 @@ class IchinsanCommon {
     return Navigator.push(context, MaterialPageRoute(builder: widget));
   }
 
-  String returnLanguageData(Articles detail, String s) {
+  static Future itemNavigatorPushAndRemove(
+      WidgetBuilder widget, dynamic context) {
+    return Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: widget), (Route<dynamic> route) => false);
+  }
+
+  static String returnLanguageData(String s) {
     var result = "";
     IchinsanCommon.Flag.forEach((key, value) {
       if (key.contains(s)) {

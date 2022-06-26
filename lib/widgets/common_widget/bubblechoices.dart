@@ -1,7 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import '../../constants/Theme.dart';
@@ -10,7 +7,8 @@ int selectedIndex = 0;
 
 class BubbleChoice extends StatefulWidget {
   List<String> filter;
-  BubbleChoice({Key? key, required this.filter}) : super(key: key);
+  List<Object>? list;
+  BubbleChoice({Key? key, required this.filter, list}) : super(key: key);
 
   @override
   State<BubbleChoice> createState() => _BubbleChoiceState(filter);
@@ -46,8 +44,8 @@ class _BubbleChoiceState extends State<BubbleChoice> {
       },
       child: Container(
         alignment: Alignment.center,
-        margin: EdgeInsets.symmetric(horizontal: 5),
-        padding: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(horizontal: 5),
+        padding: const EdgeInsets.symmetric(
           horizontal: 15,
         ),
         decoration: BoxDecoration(
@@ -58,7 +56,7 @@ class _BubbleChoiceState extends State<BubbleChoice> {
         ),
         child: AutoSizeText(
           filter[index],
-          style: TextStyle(color: NowUIColors.white, fontSize: 16),
+          style: const TextStyle(color: NowUIColors.white, fontSize: 16),
           textAlign: TextAlign.center,
           maxLines: 1,
         ),

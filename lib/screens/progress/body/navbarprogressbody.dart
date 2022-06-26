@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ichinsan_mobile/widgets/home_widget/seach.dart';
 
 class NavBarProgresssBody extends StatelessWidget {
   const NavBarProgresssBody({
@@ -19,12 +18,7 @@ class NavBarProgresssBody extends StatelessWidget {
             left: 0,
             right: 0,
             child: Column(
-              children: [
-                SizedBox(
-                  height: 40,
-                ),
-                Search(),
-              ],
+              children: [],
             ),
           ),
         ],
@@ -32,3 +26,4 @@ class NavBarProgresssBody extends StatelessWidget {
     );
   }
 }
+
