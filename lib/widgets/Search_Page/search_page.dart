@@ -114,7 +114,7 @@ class SearchPageState extends State<SearchPage> {
             display_list[index], display_list[index].languageTo.toString()),
         coin: display_list[index].fee.toString(),
         deadline: display_list[index].deadline.toString(),
-        description: "display_list[index].description.toString()",
+        description: display_list[index].description.toString(),
         tap: () {
           Navigator.push(
             context,

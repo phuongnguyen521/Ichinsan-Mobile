@@ -43,7 +43,7 @@ class ListArticles extends StatelessWidget {
                                 items[index].languageTo.toString()),
                             coin: (items[index].fee.toString()),
                             deadline: (items[index].deadline.toString()),
-                            description: "(items[index].description.toString())",
+                            description: items[index].description.toString(),
                             tap: () {
                               Navigator.push(
                                 context,
