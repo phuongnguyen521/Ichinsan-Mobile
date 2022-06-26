@@ -7,7 +7,6 @@ import 'package:ichinsan_mobile/model/Article/articles.dart';
 import '../../constants/Theme.dart';
 import '../../constants/common.dart';
 
-
 class ArticleView extends StatefulWidget {
   const ArticleView({Key? key, required this.articles}) : super(key: key);
   final Articles articles;
@@ -35,7 +34,7 @@ class ArticleViewState extends State<ArticleView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     child: Row(
@@ -69,17 +68,15 @@ class ArticleViewState extends State<ArticleView> {
                       style: TextStyle(
                           color: NowUIColors.text,
                           fontSize: 20,
-                          fontWeight: FontWeight.bold
-                          )),
+                          fontWeight: FontWeight.bold)),
                   Text(widget.articles.projectName.toString(),
                       style: TextStyle(
-                          color: NowUIColors.text,
-                          fontSize: 20,
+                        color: NowUIColors.text,
+                        fontSize: 20,
                       )),
                 ],
               ),
               SizedBox(height: 10),
-
               Row(
                 children: [
                   Row(
@@ -88,12 +85,11 @@ class ArticleViewState extends State<ArticleView> {
                           style: TextStyle(
                               color: NowUIColors.text,
                               fontSize: 20,
-                              fontWeight: FontWeight.bold
-                          )),
+                              fontWeight: FontWeight.bold)),
                       Text("20/5/2022",
                           style: TextStyle(
-                              color: NowUIColors.text,
-                              fontSize: 20,
+                            color: NowUIColors.text,
+                            fontSize: 20,
                           )),
                     ],
                   ),
@@ -118,26 +114,26 @@ class ArticleViewState extends State<ArticleView> {
                 children: [
                   const Text("Category: ",
                       style: TextStyle(
-                        color: NowUIColors.text,
-                        fontSize: 20,
-                          fontWeight: FontWeight.bold
-                      )),
-                  Text(widget.articles.categoryName.toString(),
-                      style: const TextStyle(
                           color: NowUIColors.text,
                           fontSize: 20,
+                          fontWeight: FontWeight.bold)),
+                  Text(widget.articles.categoryName.toString(),
+                      style: const TextStyle(
+                        color: NowUIColors.text,
+                        fontSize: 20,
                       )),
                 ],
               ),
               SizedBox(height: 10),
-
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Row(children: <Widget>[
                   Container(
                     height: 40,
                     width: 40,
-                    child: Image(image: AssetImage(IchinsanCommon.returnLanguageData(widget.articles,widget.articles.languageFrom.toString()))),
+                    child: Image(
+                        image: AssetImage(IchinsanCommon.returnLanguageData(
+                            widget.articles.languageFrom.toString()))),
                   ),
                   SizedBox(width: 5),
                   const Icon(Icons.arrow_right, size: 50),
@@ -145,7 +141,9 @@ class ArticleViewState extends State<ArticleView> {
                   Container(
                     height: 40,
                     width: 40,
-                    child: Image(image: AssetImage(IchinsanCommon.returnLanguageData(widget.articles,widget.articles.languageTo.toString()))),
+                    child: Image(
+                        image: AssetImage(IchinsanCommon.returnLanguageData(
+                            widget.articles.languageTo.toString()))),
                   ),
                 ]),
               ),
@@ -153,36 +151,32 @@ class ArticleViewState extends State<ArticleView> {
                 children: [
                   Text("Deadline: ",
                       style: TextStyle(
-                        color: NowUIColors.text,
-                        fontSize: 20,
-                          fontWeight: FontWeight.bold
-                      )),
-                  Text( widget.articles.deadline.toString(),
+                          color: NowUIColors.text,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
+                  Text(widget.articles.deadline.toString(),
                       style: TextStyle(
                         color: NowUIColors.primary,
-                          fontSize: 20,
+                        fontSize: 20,
                       )),
                 ],
               ),
               SizedBox(height: 10),
-
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text('Description: ',
                       style: TextStyle(
-                        color: NowUIColors.text,
-                        fontSize: 20,
-                          fontWeight: FontWeight.bold
-                      )),
+                          color: NowUIColors.text,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
                   SizedBox(height: 10),
                   Card(
                     elevation: 3,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("widget.articles.description.toString()",
+                      child: Text(widget.articles.description.toString(),
                           style: TextStyle(
                             color: NowUIColors.text,
                             fontSize: 16,
@@ -192,32 +186,33 @@ class ArticleViewState extends State<ArticleView> {
                 ],
               ),
               SizedBox(height: 10),
-                 Container(
-                   width: size.width,
-                   color: colorOn ? NowUIColors.muted : NowUIColors.primary,
-                   child: TextButton(onPressed: (){
-                     setState(() => colorOn = !colorOn);
-                     setState(() => textOn = !textOn);
-                   },
-                       child: textOn ? const Text("Applied",
-                           style: TextStyle(
-                               color: NowUIColors.white,
-                               fontSize: 20,
-                               fontWeight: FontWeight.bold,
-                           ))
-                           : const Text("Apply",
-                           style: TextStyle(
-                               color: NowUIColors.white,
-                               fontSize: 20,
-                               fontWeight: FontWeight.bold,
-                           )),
-                   ),
-                 )
+              Container(
+                width: size.width,
+                color: colorOn ? NowUIColors.muted : NowUIColors.primary,
+                child: TextButton(
+                  onPressed: () {
+                    setState(() => colorOn = !colorOn);
+                    setState(() => textOn = !textOn);
+                  },
+                  child: textOn
+                      ? const Text("Applied",
+                          style: TextStyle(
+                            color: NowUIColors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ))
+                      : const Text("Apply",
+                          style: TextStyle(
+                            color: NowUIColors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          )),
+                ),
+              )
             ],
           ),
         ),
       ),
     );
   }
-
 }

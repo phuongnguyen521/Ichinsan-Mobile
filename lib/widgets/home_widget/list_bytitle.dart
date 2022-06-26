@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:ichinsan_mobile/constants/common.dart';
-import 'package:ichinsan_mobile/constants/network.dart';
-=======
 import 'package:ichinsan_mobile/utils/network.dart';
->>>>>>> a61f462777bc45fc74f16d70c2b09cf6a50e761d
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
 import '../../model/Article/articles.dart';
 import 'articleview.dart';
@@ -26,7 +21,7 @@ class ListbyTitleState extends State<ListbyTitle> {
   @override
   void initState() {
     // TODO: inplement initState
-    fetchArticles(1,5).then((value) {
+    fetchArticles(1, 5).then((value) {
       setState(() {
         list.addAll(value);
         String text = widget.check.toLowerCase();
@@ -66,8 +61,10 @@ class ListbyTitleState extends State<ListbyTitle> {
         cta: "Apply",
         category: display_list[index].categoryName.toString(),
         title: display_list[index].name.toString(),
-        languagefrom: IchinsanCommon.returnLanguageData( display_list[index].languageFrom.toString()),
-        languageto: IchinsanCommon.returnLanguageData( display_list[index].languageTo.toString()),
+        languagefrom: IchinsanCommon.returnLanguageData(
+            display_list[index].languageFrom.toString()),
+        languageto: IchinsanCommon.returnLanguageData(
+            display_list[index].languageTo.toString()),
         coin: display_list[index].fee.toString(),
         deadline: display_list[index].deadline.toString(),
         description: display_list[index].description.toString(),

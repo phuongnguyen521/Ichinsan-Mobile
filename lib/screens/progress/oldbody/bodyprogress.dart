@@ -19,7 +19,7 @@ class Body extends StatelessWidget {
         children: <Widget>[
           Expanded(
               child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: defaultSize! * 2),
+            padding: EdgeInsets.symmetric(horizontal: defaultSize * 2),
             child: GridView.builder(
                 itemCount: ProgressItem.items.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -30,7 +30,7 @@ class Body extends StatelessWidget {
                     mainAxisSpacing: 20,
                     crossAxisSpacing:
                         IchinsanSizeConfig.orientation == Orientation.landscape
-                            ? defaultSize! * 2
+                            ? defaultSize * 2
                             : 0,
                     childAspectRatio: 1.65),
                 itemBuilder: (context, index) => ItemDetail(
