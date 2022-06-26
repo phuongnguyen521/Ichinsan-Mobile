@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/widgets/home_widget/articleview.dart';
 
-import '../../constants/articles.dart';
+import '../../model/Article/articles.dart';
 import '../../constants/common.dart';
-import '../../constants/network.dart';
+import '../../utils/network.dart';
 import '../card-horizontal.dart';
 
 
@@ -19,7 +19,7 @@ class ListArticles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: fetchArticles(),
+        future: fetchArticles(1,5),
         builder: (context, data) {
           if (data.hasError) {
             return Center(child: Text("Not Found"));
@@ -35,15 +35,15 @@ class ListArticles extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return CardHorizontal(
                             cta: "Apply",
-                            category: items[index].category.toString(),
-                            title: items[index].title.toString(),
-                            languagefrom: returnLanguageData(items[index],
-                                items[index].languagefrom.toString()),
-                            languageto: returnLanguageData(items[index],
-                                items[index].languageto.toString()),
-                            coin: (items[index].coin.toString()),
+                            category: items[index].categoryName.toString(),
+                            title: items[index].name.toString(),
+                            languagefrom: IchinsanCommon.returnLanguageData(items[index],
+                                items[index].languageFrom.toString()),
+                            languageto: IchinsanCommon.returnLanguageData(items[index],
+                                items[index].languageTo.toString()),
+                            coin: (items[index].fee.toString()),
                             deadline: (items[index].deadline.toString()),
-                            description: (items[index].description.toString()),
+                            description: "(items[index].description.toString())",
                             tap: () {
                               Navigator.push(
                                 context,
@@ -62,15 +62,5 @@ class ListArticles extends StatelessWidget {
             );
           }
         });
-  }
-
-  String returnLanguageData(Articles detail, String s) {
-    var result = "";
-    IchinsanCommon.Flag.forEach((key, value) {
-      if (key.contains(s)) {
-        result = value;
-      }
-    });
-    return result;
   }
 }

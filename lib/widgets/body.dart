@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/widgets/home_widget/list_bytitle.dart';
 import 'package:ichinsan_mobile/widgets/home_widget/listarticles.dart';
-import '../constants/articles.dart';
+import '../model/Article/articles.dart';
 import 'home_widget/titletext.dart';
 import '../../constants/common.dart';
 

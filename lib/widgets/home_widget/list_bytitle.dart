@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ichinsan_mobile/constants/network.dart';
+import 'package:ichinsan_mobile/utils/network.dart';
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
-import '../../constants/articles.dart';
+import '../../model/Article/articles.dart';
 import 'articleview.dart';
 import '../../constants/common.dart';
 
@@ -21,12 +21,12 @@ class ListbyTitleState extends State<ListbyTitle> {
   @override
   void initState() {
     // TODO: inplement initState
-    fetchArticles().then((value) {
+    fetchArticles(1,5).then((value) {
       setState(() {
         list.addAll(value);
         String text = widget.check.toLowerCase();
         display_list = list.where((list) {
-          var category = list.category!.toLowerCase();
+          var category = list.categoryName.toLowerCase();
           return category.contains(text);
         }).toList();
       });
@@ -59,15 +59,15 @@ class ListbyTitleState extends State<ListbyTitle> {
   list_items(index) {
     return CardHorizontal(
         cta: "Apply",
-        category: display_list[index].category.toString(),
-        title: display_list[index].title.toString(),
-        languagefrom: returnLanguageData(
-            display_list[index], display_list[index].languagefrom.toString()),
-        languageto: returnLanguageData(
-            display_list[index], display_list[index].languageto.toString()),
-        coin: display_list[index].coin.toString(),
+        category: display_list[index].categoryName.toString(),
+        title: display_list[index].name.toString(),
+        languagefrom: IchinsanCommon.returnLanguageData(
+            display_list[index], display_list[index].languageFrom.toString()),
+        languageto: IchinsanCommon.returnLanguageData(
+            display_list[index], display_list[index].languageTo.toString()),
+        coin: display_list[index].fee.toString(),
         deadline: display_list[index].deadline.toString(),
-        description: display_list[index].description.toString(),
+        description: "display_list[index].description.toString()",
         tap: () {
           Navigator.push(
             context,
@@ -76,14 +76,5 @@ class ListbyTitleState extends State<ListbyTitle> {
             ),
           );
         });
-  }
-  String returnLanguageData(Articles detail, String s) {
-    var result = "";
-    IchinsanCommon.Flag.forEach((key, value) {
-      if (key.contains(s)) {
-        result = value;
-      }
-    });
-    return result;
   }
 }

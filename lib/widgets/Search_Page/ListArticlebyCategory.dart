@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/articles.dart';
+import '../../model/Article/articles.dart';
 import '../../constants/common.dart';
-import '../../constants/network.dart';
+import '../../utils/network.dart';
 import '../card-horizontal.dart';
 import '../home_widget/articleview.dart';
 import '../home_widget/list_bytitle.dart';
@@ -20,15 +20,16 @@ class ListArticlesbyCategoryState extends State<ListArticlesbyCategory> {
   List<Articles> list = <Articles>[];
   List<Articles> display_list = <Articles>[];
 
+
   @override
   void initState() {
     // TODO: inplement initState
-    fetchArticles().then((value) {
+    fetchArticles(1,5).then((value) {
       setState(() {
         list.addAll(value);
         String text = widget.category.toLowerCase();
         display_list = list.where((list) {
-          var category = list.category!.toLowerCase();
+          var category = list.categoryName.toLowerCase();
           return category.contains(text);
         }).toList();
       });
@@ -39,7 +40,7 @@ class ListArticlesbyCategoryState extends State<ListArticlesbyCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("List Article by Category"),
+        title: Text(widget.category),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -65,15 +66,15 @@ class ListArticlesbyCategoryState extends State<ListArticlesbyCategory> {
   list_items(index) {
     return CardHorizontal(
         cta: "Apply",
-        category: display_list[index].category.toString(),
-        title: display_list[index].title.toString(),
+        category: display_list[index].categoryName.toString(),
+        title: display_list[index].name.toString(),
         languagefrom: returnLanguageData(
-            display_list[index], display_list[index].languagefrom.toString()),
+            display_list[index], display_list[index].languageFrom.toString()),
         languageto: returnLanguageData(
-            display_list[index], display_list[index].languageto.toString()),
-        coin: display_list[index].coin.toString(),
+            display_list[index], display_list[index].languageTo.toString()),
+        coin: display_list[index].fee.toString(),
         deadline: display_list[index].deadline.toString(),
-        description: display_list[index].description.toString(),
+        description: "display_list[index].description.toString()",
         tap: () {
           Navigator.push(
             context,

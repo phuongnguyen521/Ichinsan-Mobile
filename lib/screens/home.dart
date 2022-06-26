@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/constants/Theme.dart';
-import 'package:ichinsan_mobile/constants/articles.dart';
+import 'package:ichinsan_mobile/model/Article/articles.dart';
 //widgets
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
-import '../constants/network.dart';
+import '../utils/network.dart';
 import '../widgets/body.dart';
 import '../widgets/navbar.dart';
 // import 'package:now_ui_flutter/screens/product.dart';

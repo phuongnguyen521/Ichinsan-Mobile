@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/widgets/Search_Page/DatePicker.dart';
-import 'package:ichinsan_mobile/widgets/Search_Page/categories.dart';
+import 'package:ichinsan_mobile/model/Article/categories.dart';
 import 'package:ichinsan_mobile/widgets/home_widget/titletext.dart';
 
 import '../../constants/Theme.dart';
-import '../../constants/network.dart';
+import '../../utils/network.dart';
 
 class FilterPage extends StatefulWidget {
   const FilterPage({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class FilterPageState extends State<FilterPage> {
   List<Categories> listcategory = <Categories>[];
   List<Language> listlanguage = <Language>[];
 
-  List<int> selectedCategories = [];
+  List<String> selectedCategories = [];
   List<int> selectedLanguages = [];
 
   @override
@@ -52,7 +52,7 @@ class FilterPageState extends State<FilterPage> {
                 spacing: 10,
                 children: List<Widget>.generate(listcategory.length, (index) {
                   final listitem = listcategory[index];
-                  final isSelected = selectedCategories.contains(listitem.id);
+                  final isSelected = selectedCategories.contains(listitem.code);
                   return FilterChip(
                     label: Text(listitem.name.toString()),
                     labelStyle: TextStyle(
@@ -65,9 +65,9 @@ class FilterPageState extends State<FilterPage> {
                     onSelected: (bool selected) {
                       setState(() {
                         if (selected) {
-                          selectedCategories.add(listitem.id);
+                          selectedCategories.add(listitem.code!);
                         } else {
-                          selectedCategories.remove(listitem.id);
+                          selectedCategories.remove(listitem.code);
                         }
                       });
                     },
@@ -122,7 +122,7 @@ class FilterPageState extends State<FilterPage> {
                       children: [
                         Container(
                           height: 35,
-                          width: size.width * 0.4,
+                          width: size.width * 0.35,
                           child: const TextField(
                             decoration: InputDecoration(
                               filled: true,
@@ -133,7 +133,7 @@ class FilterPageState extends State<FilterPage> {
                         SizedBox(width: 50),
                         Container(
                           height: 35,
-                          width: size.width * 0.4,
+                          width: size.width * 0.35,
                           child: const TextField(
                             decoration: InputDecoration(
                               filled: true,
@@ -177,7 +177,7 @@ class FilterPageState extends State<FilterPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      width: size.width * 0.4,
+                      width: size.width * 0.35,
                       alignment: Alignment.center,
                       margin: EdgeInsets.symmetric(horizontal: 10.0),
                       padding: EdgeInsets.symmetric(horizontal: 5.0),
@@ -199,7 +199,7 @@ class FilterPageState extends State<FilterPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      width: size.width * 0.4,
+                      width: size.width * 0.35,
                       alignment: Alignment.center,
                       margin: EdgeInsets.symmetric(horizontal: 10.0),
                       padding: EdgeInsets.symmetric(horizontal: 5.0),

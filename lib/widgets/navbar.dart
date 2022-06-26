@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/constants/size_config.dart';
 import 'package:ichinsan_mobile/widgets/home_widget/seach.dart';
 
-import 'home_widget/category.dart';
+import 'home_widget/categorylist.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({
