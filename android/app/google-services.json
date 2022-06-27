@@ -45,6 +45,13 @@
             {
               "client_id": "349400246130-536tsjfskthpjephfufdm6ms22dffljo.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "349400246130-a7ul1oq08i974lg7aheosnbceo3bkv4r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ichinsanMobile"
+              }
             }
           ]
         }
