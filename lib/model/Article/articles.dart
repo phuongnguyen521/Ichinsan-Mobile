@@ -12,7 +12,6 @@ class Articles {
   Articles({
     required this.id,
     required this.projectId,
-    required this.projectCategoryName,
     required this.name,
     required this.projectName,
     required this.categoryName,
@@ -43,7 +42,6 @@ class Articles {
 
   String id;
   String projectId;
-  dynamic projectCategoryName;
   String name;
   String projectName;
   String categoryName;
@@ -57,7 +55,7 @@ class Articles {
   String languageFrom;
   String languageTo;
   int numberOfWords;
-  int status;
+  String status;
   dynamic translatorId;
   dynamic auditorId;
   double fee;
@@ -74,7 +72,6 @@ class Articles {
   factory Articles.fromMap(Map<String, dynamic> json) => Articles(
     id: json["id"],
     projectId: json["projectId"],
-    projectCategoryName: json["projectCategoryName"],
     name: json["name"],
     projectName: json["projectName"],
     categoryName: json["categoryName"],
@@ -83,12 +80,12 @@ class Articles {
     customerId: json["customerId"],
     customerName: json["customerName"],
     description: json["description"],
-    originalContent: json["originalContent"] == null ? null : json["originalContent"],
+    originalContent: json["originalContent"],
     translatedContent: json["translatedContent"],
     languageFrom: json["languageFrom"],
     languageTo: json["languageTo"],
-    numberOfWords: json["numberOfWords"] == null ? null : json["numberOfWords"],
-    status: json["status"] == null ? null : json["status"],
+    numberOfWords: json["numberOfWords"],
+    status: json["status"],
     translatorId: json["translatorId"],
     auditorId: json["auditorId"],
     fee: json["fee"],
@@ -98,7 +95,7 @@ class Articles {
     verifiedOn: json["verifiedOn"],
     verifiedBy: json["verifiedBy"],
     createdOn: DateTime.parse(json["createdOn"]),
-    createdBy: json["createdBy"] == null ? null : json["createdBy"],
+    createdBy: json["createdBy"],
     modifiedOn: json["modifiedOn"],
     modifiedBy: json["modifiedBy"],
   );
@@ -106,7 +103,6 @@ class Articles {
   Map<String, dynamic> toMap() => {
     "id": id,
     "projectId": projectId,
-    "projectCategoryName": projectCategoryName,
     "name": name,
     "projectName": projectName,
     "categoryName": categoryName,
@@ -115,12 +111,12 @@ class Articles {
     "customerId": customerId,
     "customerName": customerName,
     "description": description,
-    "originalContent": originalContent == null ? null : originalContent,
+    "originalContent": originalContent,
     "translatedContent": translatedContent,
     "languageFrom": languageFrom,
     "languageTo": languageTo,
-    "numberOfWords": numberOfWords == null ? null : numberOfWords,
-    "status": status == null ? null : status,
+    "numberOfWords": numberOfWords,
+    "status": status,
     "translatorId": translatorId,
     "auditorId": auditorId,
     "fee": fee,
@@ -130,7 +126,7 @@ class Articles {
     "verifiedOn": verifiedOn,
     "verifiedBy": verifiedBy,
     "createdOn": createdOn.toIso8601String(),
-    "createdBy": createdBy == null ? null : createdBy,
+    "createdBy": createdBy,
     "modifiedOn": modifiedOn,
     "modifiedBy": modifiedBy,
   };
