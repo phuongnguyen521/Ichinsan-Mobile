@@ -39,12 +39,16 @@ class ArticleViewState extends State<ArticleView> {
                   Container(
                     child: Row(
                       children: [
-                        const Icon(Icons.account_circle, size: 50),
-                        Text(widget.articles.customerName.toString(),
-                            style: TextStyle(
-                                color: NowUIColors.text,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold)),
+                        const Icon(Icons.account_circle, size: 40),
+                        Container(
+                          width: size.width * 0.5,
+                          child: Text(widget.articles.customerName.toString(),
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  color: NowUIColors.text,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold)),
+                        ),
                       ],
                     ),
                   ),
@@ -69,11 +73,13 @@ class ArticleViewState extends State<ArticleView> {
                           color: NowUIColors.text,
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
-                  Text(widget.articles.projectName.toString(),
-                      style: TextStyle(
-                        color: NowUIColors.text,
-                        fontSize: 20,
-                      )),
+                  Expanded(
+                    child: Text(widget.articles.projectName.toString(),
+                        style: TextStyle(
+                          color: NowUIColors.text,
+                          fontSize: 20,
+                        )),
+                  ),
                 ],
               ),
               SizedBox(height: 10),

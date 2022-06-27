@@ -16,7 +16,7 @@ class SearchPage extends StatefulWidget {
 class SearchPageState extends State<SearchPage> {
   List<Articles> list = <Articles>[];
   List<Articles> display_list = <Articles>[];
-
+  late SearchOptions _filter;
   /*FetchArticles _list = FetchArticles();*/
 
   @override
@@ -84,7 +84,11 @@ class SearchPageState extends State<SearchPage> {
                     onPressed: (){
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const FilterPage()),
+                          MaterialPageRoute(builder: (context) => FilterPage(
+                            onSetFilters: (filter){
+                              _filter = filter;
+                            },
+                          )),
                       );
                     },
                       )
@@ -108,10 +112,8 @@ class SearchPageState extends State<SearchPage> {
         cta: "Apply",
         category: display_list[index].categoryName.toString(),
         title: display_list[index].name.toString(),
-        languagefrom: returnLanguageData(
-            display_list[index], display_list[index].languageFrom.toString()),
-        languageto: returnLanguageData(
-            display_list[index], display_list[index].languageTo.toString()),
+        languagefrom: IchinsanCommon.returnLanguageData(display_list[index].languageFrom.toString()),
+        languageto: IchinsanCommon.returnLanguageData(display_list[index].languageTo.toString()),
         coin: display_list[index].fee.toString(),
         deadline: IchinsanCommon.returnDate(display_list[index].deadline),
         description: display_list[index].description.toString(),
@@ -124,13 +126,5 @@ class SearchPageState extends State<SearchPage> {
           );
         });
   }
-  String returnLanguageData(Articles detail, String s) {
-    var result = "";
-    IchinsanCommon.Flag.forEach((key, value) {
-      if (key.contains(s)) {
-        result = value;
-      }
-    });
-    return result;
-  }
+
 }

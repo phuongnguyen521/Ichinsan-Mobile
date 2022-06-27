@@ -56,9 +56,11 @@ class CardHorizontal extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(category,
-                                  style: TextStyle(
-                                      color: NowUIColors.info, fontSize: 20)),
+                              Expanded(
+                                child: Text(category,
+                                    style: TextStyle(
+                                        color: NowUIColors.info, fontSize: 20)),
+                              ),
                               Row(children: <Widget>[
                                 Icon(Icons.attach_money_outlined, size: 20),
                                 Text(coin,
@@ -75,7 +77,7 @@ class CardHorizontal extends StatelessWidget {
                           Text(title,
                               style: TextStyle(
                                   color: NowUIColors.text,
-                                  fontSize: 26,
+                                  fontSize: 22,
                                   fontWeight: FontWeight.bold)),
                           SizedBox(height: 5),
                           Expanded(

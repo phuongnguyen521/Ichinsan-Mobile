@@ -43,8 +43,4 @@ class BodyState extends State<Body> {
       ),
     );
   }
-
-
-
-
 }

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/widgets/Search_Page/DatePicker.dart';
 import 'package:ichinsan_mobile/model/Article/categories.dart';
+import 'package:ichinsan_mobile/widgets/home_widget/seach.dart';
 import 'package:ichinsan_mobile/widgets/home_widget/titletext.dart';
 
 import '../../constants/Theme.dart';
 import '../../utils/network.dart';
 
 class FilterPage extends StatefulWidget {
-  const FilterPage({Key? key}) : super(key: key);
+  /*const FilterPage({Key? key}) : super(key: key);*/
+
+  final Function (SearchOptions filter) onSetFilters;
+ FilterPage({required this.onSetFilters});
 
   @override
   FilterPageState createState() => FilterPageState();
@@ -17,12 +21,14 @@ class FilterPageState extends State<FilterPage> {
   List<Categories> listcategory = <Categories>[];
   List<Language> listlanguage = <Language>[];
 
-  List<String> selectedCategories = [];
-  List<int> selectedLanguages = [];
+   late SearchOptions _searchOptions;
+  /*List<String> selectedCategories = [];*/
+  /*List<String> selectedLanguages = [];*/
 
   @override
   void initState() {
     // TODO: inplement initState
+    _searchOptions = SearchOptions();
     fetchCategories().then((value) {
       setState(() {
         listcategory.addAll(value);
@@ -53,7 +59,7 @@ class FilterPageState extends State<FilterPage> {
                 spacing: 10,
                 children: List<Widget>.generate(listcategory.length, (index) {
                   final listitem = listcategory[index];
-                  final isSelected = selectedCategories.contains(listitem.code);
+                  final isSelected = _searchOptions.selectedCategories.contains(listitem.code);
                   return FilterChip(
                     label: Text(listitem.name.toString()),
                     labelStyle: TextStyle(
@@ -66,9 +72,9 @@ class FilterPageState extends State<FilterPage> {
                     onSelected: (bool selected) {
                       setState(() {
                         if (selected) {
-                          selectedCategories.add(listitem.code!);
+                          _searchOptions.selectedCategories.add(listitem.code!);
                         } else {
-                          selectedCategories.remove(listitem.code);
+                          _searchOptions.selectedCategories.remove(listitem.code);
                         }
                       });
                     },
@@ -81,7 +87,7 @@ class FilterPageState extends State<FilterPage> {
                 spacing: 10,
                 children: List<Widget>.generate(listlanguage.length, (index) {
                   final listitem = listlanguage[index];
-                  final isSelected = selectedLanguages.contains(listitem.id);
+                  final isSelected = _searchOptions.selectedLanguages.contains(listitem.code);
                   return FilterChip(
                     label: Text(listitem.name.toString()),
                     labelStyle: TextStyle(
@@ -94,9 +100,9 @@ class FilterPageState extends State<FilterPage> {
                     onSelected: (bool selected) {
                       setState(() {
                         if (selected) {
-                          selectedLanguages.add(listitem.id!);
+                          _searchOptions.selectedLanguages.add(listitem.code!);
                         } else {
-                          selectedLanguages.remove(listitem.id!);
+                          _searchOptions.selectedLanguages.remove(listitem.code);
                         }
                       });
                     },
@@ -228,4 +234,11 @@ class FilterPageState extends State<FilterPage> {
       ),
     );
   }
+}
+
+class SearchOptions {
+  List<String> selectedCategories =[];
+  List<String> selectedLanguages = [];
+
+  SearchOptions();
 }
