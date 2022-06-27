@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 
 import '../model/Article/articles.dart';
 
@@ -31,5 +32,11 @@ class IchinsanCommon {
       }
     });
     return result;
+  }
+
+  static String returnDate(DateTime date){
+    final DateFormat formatter = DateFormat('MM-dd-yyyy');
+    final String formatted = formatter.format(date);
+    return formatted;
   }
 }

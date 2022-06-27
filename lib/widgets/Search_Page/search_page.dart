@@ -106,14 +106,14 @@ class SearchPageState extends State<SearchPage> {
   list_items(index) {
     return CardHorizontal(
         cta: "Apply",
-        category: display_list[index].projectCategoryName.toString(),
+        category: display_list[index].categoryName.toString(),
         title: display_list[index].name.toString(),
         languagefrom: returnLanguageData(
             display_list[index], display_list[index].languageFrom.toString()),
         languageto: returnLanguageData(
             display_list[index], display_list[index].languageTo.toString()),
         coin: display_list[index].fee.toString(),
-        deadline: display_list[index].deadline.toString(),
+        deadline: IchinsanCommon.returnDate(display_list[index].deadline),
         description: display_list[index].description.toString(),
         tap: () {
           Navigator.push(

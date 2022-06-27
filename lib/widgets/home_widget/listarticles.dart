@@ -41,7 +41,7 @@ class ListArticles extends StatelessWidget {
                             languageto: IchinsanCommon.returnLanguageData(
                                 items[index].languageTo.toString()),
                             coin: (items[index].fee.toString()),
-                            deadline: (items[index].deadline.toString()),
+                            deadline: IchinsanCommon.returnDate(items[index].deadline),
                             description: items[index].description.toString(),
                             tap: () {
                               Navigator.push(

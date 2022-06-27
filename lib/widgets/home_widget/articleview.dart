@@ -154,7 +154,7 @@ class ArticleViewState extends State<ArticleView> {
                           color: NowUIColors.text,
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
-                  Text(widget.articles.deadline.toString(),
+                  Text(IchinsanCommon.returnDate(widget.articles.deadline),
                       style: TextStyle(
                         color: NowUIColors.primary,
                         fontSize: 20,

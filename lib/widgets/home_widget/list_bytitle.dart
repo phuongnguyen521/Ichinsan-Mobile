@@ -66,7 +66,7 @@ class ListbyTitleState extends State<ListbyTitle> {
         languageto: IchinsanCommon.returnLanguageData(
             display_list[index].languageTo.toString()),
         coin: display_list[index].fee.toString(),
-        deadline: display_list[index].deadline.toString(),
+        deadline: IchinsanCommon.returnDate(display_list[index].deadline),
         description: display_list[index].description.toString(),
         tap: () {
           Navigator.push(
