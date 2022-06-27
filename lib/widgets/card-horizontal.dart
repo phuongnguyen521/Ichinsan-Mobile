@@ -34,7 +34,7 @@ class CardHorizontal extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
         height: 300,
-        constraints: BoxConstraints(maxHeight:size.height * 0.8),
+        constraints: BoxConstraints(maxHeight:800),
         child: GestureDetector(
           onTap: tap,
           child: Card(
