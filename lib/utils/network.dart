@@ -35,6 +35,19 @@ Future<List<Articles>> fetchArticles(int? pageNumber, int pageSize) async {
   }
 }
 
+Future<List<Articles>> fetchArticlesSearch(int? pageNumber, int pageSize, String sFilter) async {
+  final String postsEndpoint =
+      ApiConstants.baseUrl + ApiConstants.articleEndpoint;
+  final response = await http.get(Uri.parse('$postsEndpoint?pageNumber=$pageNumber&pageSize=$pageSize&$sFilter'));
+  //final response = await http.get(Uri.parse('https://api-dotnet-test.herokuapp.com/api/articles?pageNumber=1&pageSize=5'));
+  if (response.statusCode == 200) {
+    var result = compute(parseArticles, response.body);
+    return result;
+  } else {
+    throw Exception("Request API fail");
+  }
+}
+
 /*Future<List<Articles>> fetchArticles() async {
   final response = await http.get(Uri.parse(
       'https://api-dotnet-test.herokuapp.com/api/articles?pageNumber=1&pageSize=5'));

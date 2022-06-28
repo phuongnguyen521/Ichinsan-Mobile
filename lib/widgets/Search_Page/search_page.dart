@@ -17,12 +17,14 @@ class SearchPageState extends State<SearchPage> {
   List<Articles> list = <Articles>[];
   List<Articles> display_list = <Articles>[];
   late SearchOptions _filter;
+  String sFilter = "";
+  
   /*FetchArticles _list = FetchArticles();*/
 
   @override
   void initState() {
     // TODO: inplement initState
-    fetchArticles(1,5).then((value) {
+    fetchArticlesSearch(1,5, sFilter).then((value) {
       setState(() {
         list.addAll(value);
         display_list = list;
@@ -112,8 +114,8 @@ class SearchPageState extends State<SearchPage> {
         cta: "Apply",
         category: display_list[index].categoryName.toString(),
         title: display_list[index].name.toString(),
-        languagefrom: IchinsanCommon.returnLanguageData(display_list[index].languageFrom.toString()),
-        languageto: IchinsanCommon.returnLanguageData(display_list[index].languageTo.toString()),
+        languagefrom: display_list[index].languageFrom,
+        languageto: display_list[index].languageTo,
         coin: display_list[index].fee.toString(),
         deadline: IchinsanCommon.returnDate(display_list[index].deadline),
         description: display_list[index].description.toString(),
@@ -126,5 +128,4 @@ class SearchPageState extends State<SearchPage> {
           );
         });
   }
-
 }

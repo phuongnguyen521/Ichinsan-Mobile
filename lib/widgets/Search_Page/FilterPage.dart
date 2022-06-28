@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ichinsan_mobile/widgets/Search_Page/DatePicker.dart';
+import 'package:flutter/services.dart';
 import 'package:ichinsan_mobile/model/Article/categories.dart';
-import 'package:ichinsan_mobile/widgets/home_widget/seach.dart';
 import 'package:ichinsan_mobile/widgets/home_widget/titletext.dart';
 
 import '../../constants/Theme.dart';
@@ -11,7 +10,9 @@ class FilterPage extends StatefulWidget {
   /*const FilterPage({Key? key}) : super(key: key);*/
 
   final Function (SearchOptions filter) onSetFilters;
- FilterPage({required this.onSetFilters});
+  FilterPage({required this.onSetFilters});
+  final double salaryFrom= 0;
+  final double salaryTo= 10000;
 
   @override
   FilterPageState createState() => FilterPageState();
@@ -20,15 +21,27 @@ class FilterPage extends StatefulWidget {
 class FilterPageState extends State<FilterPage> {
   List<Categories> listcategory = <Categories>[];
   List<Language> listlanguage = <Language>[];
+  late SearchOptions _searchOptions;
 
-   late SearchOptions _searchOptions;
+  DateTime datetime = DateTime(2022, 6, 6);
+  String post = "DD/MM/YY";
+  String deadline = "DD/MM/YY";
+
+  /*final _ControllerFrom = TextEditingController();
+  final _ControllerTo = TextEditingController();*/
+
   /*List<String> selectedCategories = [];*/
   /*List<String> selectedLanguages = [];*/
 
   @override
   void initState() {
     // TODO: inplement initState
-    _searchOptions = SearchOptions();
+    _searchOptions = SearchOptions(
+        salaryFrom : widget.salaryFrom,
+        salaryTo : widget.salaryTo,
+        datePost: post,
+        deadline: deadline,
+    );
     fetchCategories().then((value) {
       setState(() {
         listcategory.addAll(value);
@@ -131,7 +144,12 @@ class FilterPageState extends State<FilterPage> {
                         Container(
                           height: 35,
                           width: size.width * 0.35,
-                          child: const TextField(
+                          child: TextField(
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [FilteringTextInputFormatter(RegExp(r'[0-9]'), allow: true)],
+                            onChanged: (text){
+                              _searchOptions.salaryFrom = text as double;
+                            },
                             decoration: InputDecoration(
                               filled: true,
                               hintText: "From",
@@ -142,7 +160,12 @@ class FilterPageState extends State<FilterPage> {
                         Container(
                           height: 35,
                           width: size.width * 0.35,
-                          child: const TextField(
+                          child: TextField(
+                            onChanged: (text){
+                              _searchOptions.salaryTo = text as double;
+                            },
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [FilteringTextInputFormatter(RegExp(r'[0-9]'), allow: true)],
                             decoration: InputDecoration(
                               filled: true,
                               hintText: "To",
@@ -159,14 +182,41 @@ class FilterPageState extends State<FilterPage> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text("Date Post",
                       style: TextStyle(
                         color: NowUIColors.text,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       )),
-                  DatePicker(),
+                  //DatePicker(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 40,
+                width: size.width,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor:  MaterialStateProperty.all<Color>(NowUIColors.white),
+                  ),
+                  child: Text(post,
+                    style: TextStyle(
+                        color: NowUIColors.text,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  onPressed: () async{
+                    final date = await pickDate();
+                    if(date == null) return;
+                    setState(() => datetime = date);
+                    post = "${datetime.day}/${datetime.month}/${datetime.year}";
+
+                  },
+                ),
+              ),
+
+            ),
                   SizedBox(height: 5),
                   Text("Deadline Apply",
                       style: TextStyle(
@@ -174,7 +224,33 @@ class FilterPageState extends State<FilterPage> {
                           fontSize: 16,
                           fontWeight: FontWeight.bold)),
                   SizedBox(height: 5),
-                  DatePicker(),
+                  //DatePicker(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 40,
+                      width: size.width,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:  MaterialStateProperty.all<Color>(NowUIColors.white),
+                        ),
+                        child: Text(deadline,
+                          style: TextStyle(
+                              color: NowUIColors.text,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        onPressed: () async{
+                          final date = await pickDate();
+                          if(date == null) return;
+                          setState(() => datetime = date);
+                          deadline = "${datetime.day}/${datetime.month}/${datetime.year}";
+
+                        },
+                      ),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 5),
@@ -217,7 +293,8 @@ class FilterPageState extends State<FilterPage> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                        },
                         child: const Text("Apply",
                             style: TextStyle(
                                 color: NowUIColors.white,
@@ -234,11 +311,22 @@ class FilterPageState extends State<FilterPage> {
       ),
     );
   }
+
+  Future<DateTime?> pickDate() => showDatePicker(
+    context: context,
+    initialDate: datetime,
+    firstDate: DateTime(2020),
+    lastDate: DateTime(2100),
+  );
 }
 
 class SearchOptions {
   List<String> selectedCategories =[];
   List<String> selectedLanguages = [];
+  double salaryFrom;
+  double salaryTo;
+  String datePost;
+  String deadline;
 
-  SearchOptions();
+  SearchOptions({required this.salaryFrom, required this.salaryTo,required this.datePost,required this.deadline});
 }
