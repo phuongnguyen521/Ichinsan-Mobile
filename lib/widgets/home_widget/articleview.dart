@@ -86,15 +86,15 @@ class ArticleViewState extends State<ArticleView> {
               Row(
                 children: [
                   Row(
-                    children: const [
+                    children: [
                       Text("Date Post: ",
                           style: TextStyle(
                               color: NowUIColors.text,
                               fontSize: 20,
                               fontWeight: FontWeight.bold)),
-                      Text("20/5/2022",
+                      Text(IchinsanCommon.returnDate(widget.articles.createdOn),
                           style: TextStyle(
-                            color: NowUIColors.text,
+                            color: NowUIColors.primary,
                             fontSize: 20,
                           )),
                     ],
@@ -123,11 +123,15 @@ class ArticleViewState extends State<ArticleView> {
                           color: NowUIColors.text,
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
-                  Text(widget.articles.categoryName.toString(),
-                      style: const TextStyle(
-                        color: NowUIColors.text,
-                        fontSize: 20,
-                      )),
+                  Container(
+                    width: size.width * 0.7,
+                    child: Text(widget.articles.categoryName.toString(),
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: NowUIColors.text,
+                          fontSize: 20,
+                        )),
+                  ),
                 ],
               ),
               SizedBox(height: 10),

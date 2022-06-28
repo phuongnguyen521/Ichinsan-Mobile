@@ -35,13 +35,13 @@ class CardHorizontal extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
         height: 300,
-        constraints: BoxConstraints(maxHeight: size.height * 0.8),
+        constraints: const BoxConstraints(maxHeight: 800),
         child: GestureDetector(
           onTap: tap,
           child: Card(
             elevation: 3,
             // shadowColor: NowUIColors.muted.withOpacity(0.25),
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),
             child: Column(
               children: [
