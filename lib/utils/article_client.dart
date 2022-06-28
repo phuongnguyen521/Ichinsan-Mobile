@@ -9,13 +9,26 @@ class ArticleClient {
   final String postsEndpoint =
       ApiConstants.baseUrl + ApiConstants.articleEndpoint;
 
-  Future<List<Articles>?> fetchArticles(int? pageNumber, int pageSize) async {
+  Future<Articles?> fetchArticles(int? pageNumber, int pageSize) async {
     try {
       final url =
           Uri.parse('$postsEndpoint?pageNumber=$pageNumber&pageSize=$pageSize');
       final response = await http.get(url);
       if (response.statusCode == 200) {
-        return articlesFromMap(response.body);
+        return articlesFromJson(response.body);
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
+
+  Future<Articles?> getArticleByID(String? ID) async {
+    try {
+      final url = Uri.parse('$postsEndpoint/$ID');
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        return articlesFromJson(response.body);
       }
     } catch (e) {
       log(e.toString());

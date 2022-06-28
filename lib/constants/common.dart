@@ -34,7 +34,18 @@ class IchinsanCommon {
     return result;
   }
 
-  static String returnDate(DateTime date){
+  static Widget getLanguageIcon(String language) {
+    return Container(
+      height: 40,
+      width: 40,
+      child: Image.asset(
+        'icons/flags/png/${language.toLowerCase()}.png',
+        package: 'country_icons',
+      ),
+    );
+  }
+
+  static String returnDate(DateTime date) {
     final DateFormat formatter = DateFormat('MM-dd-yyyy');
     final String formatted = formatter.format(date);
     return formatted;

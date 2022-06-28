@@ -36,12 +36,11 @@ class ListArticles extends StatelessWidget {
                             cta: "Apply",
                             category: items[index].categoryName.toString(),
                             title: items[index].name.toString(),
-                            languagefrom: IchinsanCommon.returnLanguageData(
-                                items[index].languageFrom.toString()),
-                            languageto: IchinsanCommon.returnLanguageData(
-                                items[index].languageTo.toString()),
+                            languagefrom: items[index].languageFrom.toString(),
+                            languageto: items[index].languageTo.toString(),
                             coin: (items[index].fee.toString()),
-                            deadline: IchinsanCommon.returnDate(items[index].deadline),
+                            deadline: IchinsanCommon.returnDate(
+                                items[index].deadline),
                             description: items[index].description.toString(),
                             tap: () {
                               Navigator.push(

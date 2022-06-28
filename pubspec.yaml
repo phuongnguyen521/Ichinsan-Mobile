@@ -53,6 +53,9 @@ dependencies:
   #intl
   intl: ^0.17.0
 
+  #country_icon
+  country_icons: ^2.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

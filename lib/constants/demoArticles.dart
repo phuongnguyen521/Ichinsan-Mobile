@@ -1,104 +1,84 @@
-// To parse this JSON data, do
-//
-//     final articles = articlesFromMap(jsonString);
-
 import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
 
-// ignore: invalid_annotation_target
 @JsonSerializable()
-List<Articles> articlesFromMap(String str) =>
-    List<Articles>.from(json.decode(str).map((x) => Articles.fromMap(x)));
+Articles articlesFromJson(String str) => Articles.fromJson(json.decode(str));
 
-String articlesToMap(List<Articles> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toMap())));
+String articlesToJson(Articles data) => json.encode(data.toJson());
 
 class Articles {
   Articles({
-    required this.id,
-    required this.projectId,
-    this.projectCategoryName,
-    required this.name,
-    required this.projectName,
-    required this.categoryName,
-    required this.auditorName,
-    required this.translatorName,
-    this.customerId,
-    required this.customerName,
-    this.description,
-    required this.originalContent,
-    required this.translatedContent,
-    required this.languageFrom,
-    required this.languageTo,
-    required this.numberOfWords,
-    required this.status,
-    required this.translatorId,
-    required this.auditorId,
-    required this.fee,
+    this.id,
+    this.projectId,
+    this.originalContent,
+    this.translatedContent,
+    this.languageFromId,
+    this.languageToId,
+    this.numberOfWords,
+    this.status,
+    this.translatorId,
+    this.auditorId,
+    this.fee,
     this.deadline,
     this.completedOn,
     this.completedBy,
     this.verifiedOn,
     this.verifiedBy,
-    required this.createdOn,
+    this.createdOn,
     this.createdBy,
     this.modifiedOn,
     this.modifiedBy,
+    this.name,
+    this.description,
+    this.auditor,
+    this.project,
+    this.translator,
+    this.applications,
+    this.feedbacks,
   });
 
-  String id;
-  String projectId;
-  dynamic projectCategoryName;
-  String name;
-  String projectName;
-  String categoryName;
-  String auditorName;
-  String translatorName;
-  dynamic customerId;
-  String customerName;
-  dynamic description;
-  String originalContent;
-  String translatedContent;
-  String languageFrom;
-  String languageTo;
-  int numberOfWords;
-  int status;
-  String translatorId;
-  String auditorId;
-  double fee;
-  dynamic deadline;
+  String? id;
+  String? projectId;
+  String? originalContent;
+  dynamic? translatedContent;
+  int? languageFromId;
+  int? languageToId;
+  int? numberOfWords;
+  int? status;
+  dynamic translatorId;
+  dynamic auditorId;
+  double? fee;
+  DateTime? deadline;
   dynamic completedOn;
   dynamic completedBy;
   dynamic verifiedOn;
   dynamic verifiedBy;
-  DateTime createdOn;
-  dynamic createdBy;
+  DateTime? createdOn;
+  String? createdBy;
   dynamic modifiedOn;
   dynamic modifiedBy;
+  String? name;
+  String? description;
+  dynamic auditor;
+  dynamic project;
+  dynamic translator;
+  List<dynamic>? applications;
+  List<dynamic>? feedbacks;
 
-  factory Articles.fromMap(Map<String, dynamic> json) => Articles(
+  factory Articles.fromJson(Map<String, dynamic> json) => Articles(
         id: json["id"],
         projectId: json["projectId"],
-        projectCategoryName: json["projectCategoryName"],
-        name: json["name"],
-        projectName: json["projectName"],
-        categoryName: json["categoryName"],
-        auditorName: json["auditorName"],
-        translatorName: json["translatorName"],
-        customerId: json["customerId"],
-        customerName: json["customerName"],
-        description: json["description"],
         originalContent: json["originalContent"],
         translatedContent: json["translatedContent"],
-        languageFrom: json["languageFrom"],
-        languageTo: json["languageTo"],
+        languageFromId: json["languageFromId"],
+        languageToId: json["languageToId"],
         numberOfWords: json["numberOfWords"],
         status: json["status"],
         translatorId: json["translatorId"],
         auditorId: json["auditorId"],
         fee: json["fee"],
-        deadline: json["deadline"],
+        deadline: DateTime.parse(json["deadline"]),
         completedOn: json["completedOn"],
         completedBy: json["completedBy"],
         verifiedOn: json["verifiedOn"],
@@ -107,37 +87,42 @@ class Articles {
         createdBy: json["createdBy"],
         modifiedOn: json["modifiedOn"],
         modifiedBy: json["modifiedBy"],
+        name: json["name"],
+        description: json["description"],
+        auditor: json["auditor"],
+        project: json["project"],
+        translator: json["translator"],
+        applications: List<dynamic>.from(json["applications"].map((x) => x)),
+        feedbacks: List<dynamic>.from(json["feedbacks"].map((x) => x)),
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "projectId": projectId,
-        "projectCategoryName": projectCategoryName,
-        "name": name,
-        "projectName": projectName,
-        "categoryName": categoryName,
-        "auditorName": auditorName,
-        "translatorName": translatorName,
-        "customerId": customerId,
-        "customerName": customerName,
-        "description": description,
         "originalContent": originalContent,
         "translatedContent": translatedContent,
-        "languageFrom": languageFrom,
-        "languageTo": languageTo,
+        "languageFromId": languageFromId,
+        "languageToId": languageToId,
         "numberOfWords": numberOfWords,
         "status": status,
         "translatorId": translatorId,
         "auditorId": auditorId,
         "fee": fee,
-        "deadline": deadline,
+        "deadline": deadline?.toIso8601String(),
         "completedOn": completedOn,
         "completedBy": completedBy,
         "verifiedOn": verifiedOn,
         "verifiedBy": verifiedBy,
-        "createdOn": createdOn.toIso8601String(),
+        "createdOn": createdOn?.toIso8601String(),
         "createdBy": createdBy,
         "modifiedOn": modifiedOn,
         "modifiedBy": modifiedBy,
+        "name": name,
+        "description": description,
+        "auditor": auditor,
+        "project": project,
+        "translator": translator,
+        "applications": List<dynamic>.from(applications!.map((x) => x)),
+        "feedbacks": List<dynamic>.from(feedbacks!.map((x) => x)),
       };
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/constants/Theme.dart';
+import 'package:ichinsan_mobile/constants/common.dart';
 
 class CardHorizontal extends StatelessWidget {
   CardHorizontal(
@@ -34,7 +35,7 @@ class CardHorizontal extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
         height: 300,
-        constraints: BoxConstraints(maxHeight:size.height * 0.8),
+        constraints: BoxConstraints(maxHeight: size.height * 0.8),
         child: GestureDetector(
           onTap: tap,
           child: Card(
@@ -94,19 +95,11 @@ class CardHorizontal extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Row(children: <Widget>[
-                              Container(
-                                height: 40,
-                                width: 40,
-                                child: Image(image: AssetImage(languagefrom)),
-                              ),
-                              SizedBox(width: 5),
+                              IchinsanCommon.getLanguageIcon(languagefrom),
+                              const SizedBox(width: 5),
                               const Icon(Icons.arrow_right, size: 50),
-                              SizedBox(width: 5),
-                              Container(
-                                height: 40,
-                                width: 40,
-                                child: Image(image: AssetImage(languageto)),
-                              ),
+                              const SizedBox(width: 5),
+                              IchinsanCommon.getLanguageIcon(languageto),
                             ]),
                           ),
                           SizedBox(height: 5),
