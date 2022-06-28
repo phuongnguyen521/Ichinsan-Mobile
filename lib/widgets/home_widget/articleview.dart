@@ -138,23 +138,11 @@ class ArticleViewState extends State<ArticleView> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Row(children: <Widget>[
-                  Container(
-                    height: 40,
-                    width: 40,
-                    child: Image(
-                        image: AssetImage(IchinsanCommon.returnLanguageData(
-                            widget.articles.languageFrom.toString()))),
-                  ),
-                  SizedBox(width: 5),
+                  IchinsanCommon.getLanguageIcon(widget.articles.languageFrom),
+                  const SizedBox(width: 5),
                   const Icon(Icons.arrow_right, size: 50),
-                  SizedBox(width: 5),
-                  Container(
-                    height: 40,
-                    width: 40,
-                    child: Image(
-                        image: AssetImage(IchinsanCommon.returnLanguageData(
-                            widget.articles.languageTo.toString()))),
-                  ),
+                  const SizedBox(width: 5),
+                  IchinsanCommon.getLanguageIcon(widget.articles.languageTo),
                 ]),
               ),
               Row(
