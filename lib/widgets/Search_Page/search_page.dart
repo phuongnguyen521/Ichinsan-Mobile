@@ -1,10 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/utils/network.dart';
 import 'package:ichinsan_mobile/widgets/Search_Page/FilterPage.dart';
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
+import '../../constants/api_constants.dart';
 import '../../model/Article/articles.dart';
 import '../home_widget/articleview.dart';
 import '../../constants/common.dart';
+
+import 'package:http/http.dart' as http;
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -16,13 +20,33 @@ class SearchPage extends StatefulWidget {
 class SearchPageState extends State<SearchPage> {
   List<Articles> list = <Articles>[];
   List<Articles> display_list = <Articles>[];
-  late SearchOptions _filter;
-  String sFilter = "";
-  
+  SearchOptions? _filter;
+
+  late String sFilter;
   /*FetchArticles _list = FetchArticles();*/
 
   @override
   void initState() {
+    super.initState();
+    var categoryName= _filter!.selectedCategories.isNotEmpty ? '&category=${_filter?.selectedCategories}' : '';
+    var language=_filter!.selectedLanguages.isNotEmpty ? '&category=${_filter?.selectedLanguages}' : '';
+    var sFrom= _filter!.salaryFrom > 0 ? '&from=${_filter?.salaryFrom}' :'';
+    var sTo=_filter!.salaryTo > 0 ? '&from=${_filter?.salaryTo}' :'';
+    var datePost= _filter!.datePost.isNotEmpty ? '&datePost=${_filter?.datePost}' : '';
+    var deadline=_filter!.deadline.isNotEmpty ? '&deadline=${_filter?.deadline}' : '';
+
+    /*String postdate = checkNull(_filter?.datePost);
+    String deadlinedate = checkNull(_filter?.datePost);
+
+    var categoryName= '';
+    var language='';
+
+    var sFrom= '';
+    var sTo='';
+    var datePost= postdate != '' ? '&datePost=${_filter?.datePost}' : '';
+    var deadline= deadlinedate != '' ? '&datePost=${_filter?.deadline}' : '';*/
+
+    sFilter = categoryName + language + sFrom + sTo + datePost + deadline;
     // TODO: inplement initState
     fetchArticlesSearch(1,5, sFilter).then((value) {
       setState(() {
@@ -30,8 +54,8 @@ class SearchPageState extends State<SearchPage> {
         display_list = list;
       })  ;
     });
-    super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -128,4 +152,13 @@ class SearchPageState extends State<SearchPage> {
           );
         });
   }
+
+String checkNull(String? str){
+  if(str != null){
+    str=str;
+  }else{
+    str='';
+  }
+  return str;
+}
 }

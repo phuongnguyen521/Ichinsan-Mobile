@@ -47,7 +47,7 @@ class Articles {
   String categoryName;
   dynamic auditorName;
   dynamic translatorName;
-  dynamic customerId;
+  String customerId;
   String customerName;
   String description;
   String originalContent;

@@ -18,7 +18,7 @@ class ListArticles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: fetchArticles(1, 5),
+        future: fetchArticlesSearch(1, 5,""),
         builder: (context, data) {
           if (data.hasError) {
             return Center(child: Text("Not Found"));
@@ -29,7 +29,7 @@ class ListArticles extends StatelessWidget {
                 children: [
                   ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: numarticle,
+                      itemCount: items.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return CardHorizontal(

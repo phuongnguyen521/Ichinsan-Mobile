@@ -24,7 +24,7 @@ class BodyState extends State<Body> {
           ListArticles(numarticle: 5),
           SizedBox(height: 5),
 
-          TitleText(title: "Technology"),
+          /*TitleText(title: "Technology"),
           ListbyTitle(numarticle: 3, check: 'Technology'),
           SizedBox(height: 5),
 
@@ -38,7 +38,7 @@ class BodyState extends State<Body> {
 
           TitleText(title: "Education"),
           ListbyTitle(numarticle: 3, check: 'Education'),
-          SizedBox(height: 5),
+          SizedBox(height: 5),*/
         ],
       ),
     );

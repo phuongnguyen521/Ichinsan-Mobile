@@ -99,20 +99,6 @@ class ArticleViewState extends State<ArticleView> {
                           )),
                     ],
                   ),
-                  //SizedBox(width: 20),
-                  /*const Text("|",
-                      style: TextStyle(
-                        color: NowUIColors.text,
-                        fontSize: 20,
-                          fontWeight: FontWeight.bold
-                      )),
-
-                  SizedBox(width: 20),
-                  Text( widget.articles.applicant.toString()+" Applicants",
-                      style: TextStyle(
-                          color: NowUIColors.info,
-                          fontSize: 20,
-                      )),*/
                 ],
               ),
               SizedBox(height: 10),

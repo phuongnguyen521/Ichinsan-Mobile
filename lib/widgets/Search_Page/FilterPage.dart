@@ -11,6 +11,7 @@ class FilterPage extends StatefulWidget {
 
   final Function (SearchOptions filter) onSetFilters;
   FilterPage({required this.onSetFilters});
+
   final double salaryFrom= 0;
   final double salaryTo= 10000;
 
@@ -36,6 +37,7 @@ class FilterPageState extends State<FilterPage> {
   @override
   void initState() {
     // TODO: inplement initState
+    super.initState();
     _searchOptions = SearchOptions(
         salaryFrom : widget.salaryFrom,
         salaryTo : widget.salaryTo,
@@ -52,7 +54,6 @@ class FilterPageState extends State<FilterPage> {
         listlanguage.addAll(value);
       });
     });
-    super.initState();
   }
 
   Widget build(BuildContext context) {
@@ -294,6 +295,7 @@ class FilterPageState extends State<FilterPage> {
                       ),
                       child: TextButton(
                         onPressed: () {
+                          widget.onSetFilters(_searchOptions);
                         },
                         child: const Text("Apply",
                             style: TextStyle(
@@ -329,4 +331,11 @@ class SearchOptions {
   String deadline;
 
   SearchOptions({required this.salaryFrom, required this.salaryTo,required this.datePost,required this.deadline});
+  Map<String, dynamic> toJson() => {
+    'salaryFrom' : salaryFrom,
+    'salaryTo' : salaryTo,
+    'datePost' : datePost,
+    'deadline' : deadline,
+    'category' : selectedCategories.join(',')
+  };
 }

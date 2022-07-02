@@ -68,13 +68,11 @@ class ListArticlesbyCategoryState extends State<ListArticlesbyCategory> {
         cta: "Apply",
         category: display_list[index].categoryName.toString(),
         title: display_list[index].name.toString(),
-        languagefrom: returnLanguageData(
-            display_list[index], display_list[index].languageFrom.toString()),
-        languageto: returnLanguageData(
-            display_list[index], display_list[index].languageTo.toString()),
+        languagefrom: display_list[index].languageFrom.toString(),
+        languageto: display_list[index].languageTo.toString(),
         coin: display_list[index].fee.toString(),
-        deadline: display_list[index].deadline.toString(),
-        description: "display_list[index].description.toString()",
+        deadline: IchinsanCommon.returnDate(display_list[index].deadline),
+        description: display_list[index].description.toString(),
         tap: () {
           Navigator.push(
             context,
@@ -86,13 +84,5 @@ class ListArticlesbyCategoryState extends State<ListArticlesbyCategory> {
         });
   }
 
-  String returnLanguageData(Articles detail, String s) {
-    var result = "";
-    IchinsanCommon.Flag.forEach((key, value) {
-      if (key.contains(s)) {
-        result = value;
-      }
-    });
-    return result;
-  }
+
 }

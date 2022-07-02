@@ -46,7 +46,7 @@ class IchinsanCommon {
   }
 
   static String returnDate(DateTime date) {
-    final DateFormat formatter = DateFormat('MM-dd-yyyy');
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String formatted = formatter.format(date);
     return formatted;
   }
