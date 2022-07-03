@@ -15,8 +15,8 @@ class FilterPage extends StatefulWidget {
   final Function(SearchOptions filter) onSetFilters;
   FilterPage({required this.onSetFilters});
 
-  final double salaryFrom = 0;
-  final double salaryTo = 10000;
+  final String salaryFrom = '0';
+  final String salaryTo = '0';
 
   @override
   FilterPageState createState() => FilterPageState();
@@ -30,7 +30,8 @@ class FilterPageState extends State<FilterPage> {
   DateTime datetime = DateTime(2022, 6, 6);
   String post = Ichinsan_filter_label_date;
   String deadline = Ichinsan_filter_label_date;
-
+  String slrFrom = '';
+  String slrTo = '';
   /*final _ControllerFrom = TextEditingController();
   final _ControllerTo = TextEditingController();*/
 
@@ -78,7 +79,7 @@ class FilterPageState extends State<FilterPage> {
                 children: List<Widget>.generate(listcategory.length, (index) {
                   final listitem = listcategory[index];
                   final isSelected =
-                      _searchOptions.selectedCategories.contains(listitem.code);
+                      _searchOptions.selectedCategories.contains(listitem.name);
                   return FilterChip(
                     label: Text(listitem.name.toString()),
                     labelStyle: TextStyle(
@@ -91,10 +92,10 @@ class FilterPageState extends State<FilterPage> {
                     onSelected: (bool selected) {
                       setState(() {
                         if (selected) {
-                          _searchOptions.selectedCategories.add(listitem.code!);
+                          _searchOptions.selectedCategories.add(listitem.name!);
                         } else {
                           _searchOptions.selectedCategories
-                              .remove(listitem.code);
+                              .remove(listitem.name);
                         }
                       });
                     },
@@ -163,9 +164,9 @@ class FilterPageState extends State<FilterPage> {
                                   allow: true)
                             ],
                             onChanged: (text) {
-                              _searchOptions.salaryFrom = text as double;
+                              _searchOptions.salaryFrom = text ;
                             },
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               filled: true,
                               hintText:
                                   Ichinsan_filter_label_salary_from_default,
@@ -178,7 +179,7 @@ class FilterPageState extends State<FilterPage> {
                           width: size.width * 0.35,
                           child: TextField(
                             onChanged: (text) {
-                              _searchOptions.salaryTo = text as double;
+                              _searchOptions.salaryTo = text;
                             },
                             keyboardType: TextInputType.number,
                             inputFormatters: [
@@ -232,7 +233,8 @@ class FilterPageState extends State<FilterPage> {
                           if (date == null) return;
                           setState(() => datetime = date);
                           post =
-                              "${datetime.day}/${datetime.month}/${datetime.year}";
+                              "${datetime.year}/${datetime.month}/${datetime.day}";
+                          _searchOptions.datePost=post;
                         },
                       ),
                     ),
@@ -267,7 +269,9 @@ class FilterPageState extends State<FilterPage> {
                           if (date == null) return;
                           setState(() => datetime = date);
                           deadline =
-                              "${datetime.day}/${datetime.month}/${datetime.year}";
+                              "${datetime.year}/${datetime.month}/${datetime.day}";
+
+                          _searchOptions.deadline=deadline;  //2022%2F6%2F21
                         },
                       ),
                     ),
@@ -294,7 +298,15 @@ class FilterPageState extends State<FilterPage> {
                       ),
                       child: TextButton(
                         //TO-DO:
-                        onPressed: () {},
+                        onPressed: () {
+                          setState((){
+                            _searchOptions.selectedCategories=[];
+                            _searchOptions.selectedLanguages=[];
+                            post='';
+                            deadline='';
+                          });
+
+                        },
                         child: const Text(Ichinsan_filter_title_reset,
                             style: TextStyle(
                                 color: NowUIColors.white,
@@ -319,11 +331,13 @@ class FilterPageState extends State<FilterPage> {
                       child: TextButton(
                         onPressed: () {
                           widget.onSetFilters(_searchOptions);
-                          IchinsanCommon.itemNavigatorPushAndRemove(
+
+
+                          /*IchinsanCommon.itemNavigatorPushAndRemove(
                               (context) => SearchPage(
                                     filter: _searchOptions,
                                   ),
-                              context);
+                              context);*/
                         },
                         child: const Text(Ichinsan_filter_title_apply,
                             style: TextStyle(
@@ -353,8 +367,8 @@ class FilterPageState extends State<FilterPage> {
 class SearchOptions {
   List<String> selectedCategories = [];
   List<String> selectedLanguages = [];
-  double salaryFrom;
-  double salaryTo;
+  String salaryFrom;
+  String salaryTo;
   String datePost;
   String deadline;
 

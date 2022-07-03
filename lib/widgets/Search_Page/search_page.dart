@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/utils/network.dart';
 import 'package:ichinsan_mobile/widgets/Search_Page/FilterPage.dart';
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
+import 'package:nb_utils/nb_utils.dart';
 import '../../constants/api_constants.dart';
 import '../../model/Article/articles.dart';
 import '../home_widget/articleview.dart';
@@ -22,7 +23,7 @@ class SearchPageState extends State<SearchPage> {
   List<Articles> list = <Articles>[];
   List<Articles> display_list = <Articles>[];
   /*FetchArticles _list = FetchArticles();*/
-  late String sFilter;
+  late String sFilter='';
   @override
   void initState() {
     super.initState();
@@ -34,19 +35,21 @@ class SearchPageState extends State<SearchPage> {
         });
       });
     } else {
+      //String sCategory = widget.filter?.selectedCategories.map((e) =>"$e%2").forEach(print);
       var categoryName = widget.filter!.selectedCategories.isNotEmpty
-          ? '&category=${widget.filter?.selectedCategories}'
+          ? '&category=${widget.filter?.selectedCategories.join(',')}'
           : '';
       var language = widget.filter!.selectedLanguages.isNotEmpty
-          ? '&category=${widget.filter?.selectedLanguages}'
+          ? '&language=${widget.filter?.selectedLanguages.join(',')}'
           : '';
-      var sFrom = widget.filter!.salaryFrom > 0
-          ? '&from=${widget.filter?.salaryFrom}'
+      var sFrom = widget.filter!.salaryFrom.toDouble() > 0
+          ? '&from=${widget.filter?.salaryFrom.toString()}'
           : '';
       var sTo =
-          widget.filter!.salaryTo > 0 ? '&from=${widget.filter?.salaryTo}' : '';
+          widget.filter!.salaryTo.toDouble() > 0
+              ? '&to=${widget.filter?.salaryTo}' : '';
       var datePost = widget.filter!.datePost.isNotEmpty
-          ? '&datePost=${widget.filter?.datePost}'
+          ? '&datePost=${widget.filter?.datePost.toString()}'
           : '';
       var deadline = widget.filter!.deadline.isNotEmpty
           ? '&deadline=${widget.filter?.deadline}'
@@ -178,6 +181,11 @@ class SearchPageState extends State<SearchPage> {
     } else {
       str = '';
     }
+    return str;
+  }
+  String toStringList(List<String> list){
+    //String str = list.map((e) => '$e%2C').forEach(print);
+    String str='';
     return str;
   }
 }
