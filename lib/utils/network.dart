@@ -16,16 +16,18 @@ import '../model/Article/categories.dart';
 
 //Article
 
-List<Articles> parseArticles (String responseBody){
+List<Articles> parseArticles(String responseBody) {
   var list = json.decode(responseBody) as List<dynamic>;
-  List<Articles> articles = list.map((model) => Articles.fromMap(model)).toList();
+  List<Articles> articles =
+      list.map((model) => Articles.fromMap(model)).toList();
   return articles;
 }
 
 Future<List<Articles>> fetchArticles(int? pageNumber, int pageSize) async {
   final String postsEndpoint =
       ApiConstants.baseUrl + ApiConstants.articleEndpoint;
-  final response = await http.get(Uri.parse('$postsEndpoint?pageNumber=$pageNumber&pageSize=$pageSize'));
+  final response = await http.get(
+      Uri.parse('$postsEndpoint?pageNumber=$pageNumber&pageSize=$pageSize'));
   //final response = await http.get(Uri.parse('https://api-dotnet-test.herokuapp.com/api/articles?pageNumber=1&pageSize=5'));
   if (response.statusCode == 200) {
     var result = compute(parseArticles, response.body);
@@ -35,10 +37,12 @@ Future<List<Articles>> fetchArticles(int? pageNumber, int pageSize) async {
   }
 }
 
-Future<List<Articles>> fetchArticlesSearch(int? pageNumber, int pageSize, String sFilter) async {
+Future<List<Articles>> fetchArticlesSearch(
+    int? pageNumber, int pageSize, String sFilter) async {
   final String postsEndpoint =
       ApiConstants.baseUrl + ApiConstants.articleEndpoint;
-  final response = await http.get(Uri.parse('$postsEndpoint?pageNumber=$pageNumber&pageSize=$pageSize&$sFilter'));
+  final response = await http.get(Uri.parse(
+      '$postsEndpoint?pageNumber=$pageNumber&pageSize=$pageSize&$sFilter'));
   //final response = await http.get(Uri.parse('https://api-dotnet-test.herokuapp.com/api/articles?pageNumber=1&pageSize=5'));
   if (response.statusCode == 200) {
     var result = compute(parseArticles, response.body);
@@ -60,15 +64,16 @@ Future<List<Articles>> fetchArticlesSearch(int? pageNumber, int pageSize, String
 }*/
 
 //Category
-List<Categories> parseCategories (String responseBody){
+List<Categories> parseCategories(String responseBody) {
   var list = json.decode(responseBody) as List<dynamic>;
-  List<Categories> categories = list.map((model) => Categories.fromMap(model)).toList();
+  List<Categories> categories =
+      list.map((model) => Categories.fromMap(model)).toList();
   return categories;
 }
 
 Future<List<Categories>> fetchCategories() async {
-  final response = await http.get(Uri.parse(
-      'https://api-dotnet-test.herokuapp.com/api/projectcategories'));
+  final response = await http.get(
+      Uri.parse('https://api-dotnet-test.herokuapp.com/api/projectcategories'));
   if (response.statusCode == 200) {
     var result = compute(parseCategories, response.body);
     return result;
@@ -77,15 +82,16 @@ Future<List<Categories>> fetchCategories() async {
   }
 }
 
-List<Language> parseLanguage (String responseBody){
+List<Language> parseLanguage(String responseBody) {
   var list = json.decode(responseBody) as List<dynamic>;
-  List<Language> languages = list.map((model) => Language.fromMap(model)).toList();
+  List<Language> languages =
+      list.map((model) => Language.fromMap(model)).toList();
   return languages;
 }
 
 Future<List<Language>> fetchLanguage() async {
-  final response = await http.get(Uri.parse(
-      'https://api-dotnet-test.herokuapp.com/api/languages'));
+  final response = await http
+      .get(Uri.parse('https://api-dotnet-test.herokuapp.com/api/languages'));
   if (response.statusCode == 200) {
     var result = compute(parseLanguage, response.body);
     return result;

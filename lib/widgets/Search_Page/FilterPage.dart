@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ichinsan_mobile/constants/common.dart';
 import 'package:ichinsan_mobile/model/Article/categories.dart';
+import 'package:ichinsan_mobile/widgets/Search_Page/search_page.dart';
 import 'package:ichinsan_mobile/widgets/home_widget/titletext.dart';
 
 import '../../constants/Theme.dart';
 import '../../utils/network.dart';
+import '../../constants/Ichinsan_string.dart';
 
 class FilterPage extends StatefulWidget {
   /*const FilterPage({Key? key}) : super(key: key);*/
 
-  final Function (SearchOptions filter) onSetFilters;
+  final Function(SearchOptions filter) onSetFilters;
   FilterPage({required this.onSetFilters});
 
-  final double salaryFrom= 0;
-  final double salaryTo= 10000;
+  final double salaryFrom = 0;
+  final double salaryTo = 10000;
 
   @override
   FilterPageState createState() => FilterPageState();
@@ -25,8 +28,8 @@ class FilterPageState extends State<FilterPage> {
   late SearchOptions _searchOptions;
 
   DateTime datetime = DateTime(2022, 6, 6);
-  String post = "DD/MM/YY";
-  String deadline = "DD/MM/YY";
+  String post = Ichinsan_filter_label_date;
+  String deadline = Ichinsan_filter_label_date;
 
   /*final _ControllerFrom = TextEditingController();
   final _ControllerTo = TextEditingController();*/
@@ -39,10 +42,10 @@ class FilterPageState extends State<FilterPage> {
     // TODO: inplement initState
     super.initState();
     _searchOptions = SearchOptions(
-        salaryFrom : widget.salaryFrom,
-        salaryTo : widget.salaryTo,
-        datePost: post,
-        deadline: deadline,
+      salaryFrom: widget.salaryFrom,
+      salaryTo: widget.salaryTo,
+      datePost: post,
+      deadline: deadline,
     );
     fetchCategories().then((value) {
       setState(() {
@@ -68,12 +71,14 @@ class FilterPageState extends State<FilterPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TitleText(title: "Category"),
+              //Category
+              const TitleText(title: Ichinsan_filter_title_category),
               Wrap(
                 spacing: 10,
                 children: List<Widget>.generate(listcategory.length, (index) {
                   final listitem = listcategory[index];
-                  final isSelected = _searchOptions.selectedCategories.contains(listitem.code);
+                  final isSelected =
+                      _searchOptions.selectedCategories.contains(listitem.code);
                   return FilterChip(
                     label: Text(listitem.name.toString()),
                     labelStyle: TextStyle(
@@ -88,20 +93,23 @@ class FilterPageState extends State<FilterPage> {
                         if (selected) {
                           _searchOptions.selectedCategories.add(listitem.code!);
                         } else {
-                          _searchOptions.selectedCategories.remove(listitem.code);
+                          _searchOptions.selectedCategories
+                              .remove(listitem.code);
                         }
                       });
                     },
                   );
                 }),
               ),
-              SizedBox(height: 5),
-              TitleText(title: "Language"),
+              const SizedBox(height: 5),
+              //Language
+              const TitleText(title: Ichinsan_filter_title_language),
               Wrap(
                 spacing: 10,
                 children: List<Widget>.generate(listlanguage.length, (index) {
                   final listitem = listlanguage[index];
-                  final isSelected = _searchOptions.selectedLanguages.contains(listitem.code);
+                  final isSelected =
+                      _searchOptions.selectedLanguages.contains(listitem.code);
                   return FilterChip(
                     label: Text(listitem.name.toString()),
                     labelStyle: TextStyle(
@@ -116,15 +124,18 @@ class FilterPageState extends State<FilterPage> {
                         if (selected) {
                           _searchOptions.selectedLanguages.add(listitem.code!);
                         } else {
-                          _searchOptions.selectedLanguages.remove(listitem.code);
+                          _searchOptions.selectedLanguages
+                              .remove(listitem.code);
                         }
                       });
                     },
                   );
                 }),
               ),
-              SizedBox(height: 5),
-              TitleText(title: "Salary"),
+              const SizedBox(height: 5),
+              //Salary
+              const TitleText(title: Ichinsan_filter_title_salary),
+
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: Column(
@@ -132,14 +143,14 @@ class FilterPageState extends State<FilterPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      child: const Text("Type Salary Here",
+                      child: const Text(Ichinsan_filter_label_salary_default,
                           style: TextStyle(
                             color: NowUIColors.text,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           )),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         Container(
@@ -147,13 +158,17 @@ class FilterPageState extends State<FilterPage> {
                           width: size.width * 0.35,
                           child: TextField(
                             keyboardType: TextInputType.number,
-                            inputFormatters: [FilteringTextInputFormatter(RegExp(r'[0-9]'), allow: true)],
-                            onChanged: (text){
+                            inputFormatters: [
+                              FilteringTextInputFormatter(RegExp(r'[0-9]'),
+                                  allow: true)
+                            ],
+                            onChanged: (text) {
                               _searchOptions.salaryFrom = text as double;
                             },
                             decoration: InputDecoration(
                               filled: true,
-                              hintText: "From",
+                              hintText:
+                                  Ichinsan_filter_label_salary_from_default,
                             ),
                           ),
                         ),
@@ -162,14 +177,17 @@ class FilterPageState extends State<FilterPage> {
                           height: 35,
                           width: size.width * 0.35,
                           child: TextField(
-                            onChanged: (text){
+                            onChanged: (text) {
                               _searchOptions.salaryTo = text as double;
                             },
                             keyboardType: TextInputType.number,
-                            inputFormatters: [FilteringTextInputFormatter(RegExp(r'[0-9]'), allow: true)],
+                            inputFormatters: [
+                              FilteringTextInputFormatter(RegExp(r'[0-9]'),
+                                  allow: true)
+                            ],
                             decoration: InputDecoration(
                               filled: true,
-                              hintText: "To",
+                              hintText: Ichinsan_filter_label_salary_to_default,
                             ),
                           ),
                         ),
@@ -178,53 +196,19 @@ class FilterPageState extends State<FilterPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 5),
-              TitleText(title: "Date Post"),
+              const SizedBox(height: 5),
+              //Date Post
+              const TitleText(title: Ichinsan_filter_title_date_post),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Date Post",
+                  const Text(Ichinsan_filter_title_date_post,
                       style: TextStyle(
                         color: NowUIColors.text,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       )),
-                  //DatePicker(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 40,
-                width: size.width,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor:  MaterialStateProperty.all<Color>(NowUIColors.white),
-                  ),
-                  child: Text(post,
-                    style: TextStyle(
-                        color: NowUIColors.text,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  onPressed: () async{
-                    final date = await pickDate();
-                    if(date == null) return;
-                    setState(() => datetime = date);
-                    post = "${datetime.day}/${datetime.month}/${datetime.year}";
-
-                  },
-                ),
-              ),
-
-            ),
-                  SizedBox(height: 5),
-                  Text("Deadline Apply",
-                      style: TextStyle(
-                          color: NowUIColors.text,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold)),
-                  SizedBox(height: 5),
                   //DatePicker(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -233,47 +217,85 @@ class FilterPageState extends State<FilterPage> {
                       width: size.width,
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor:  MaterialStateProperty.all<Color>(NowUIColors.white),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              NowUIColors.white),
                         ),
-                        child: Text(deadline,
-                          style: TextStyle(
+                        child: Text(
+                          post,
+                          style: const TextStyle(
                               color: NowUIColors.text,
                               fontSize: 16,
-                              fontWeight: FontWeight.bold
-                          ),
+                              fontWeight: FontWeight.bold),
                         ),
-                        onPressed: () async{
+                        onPressed: () async {
                           final date = await pickDate();
-                          if(date == null) return;
+                          if (date == null) return;
                           setState(() => datetime = date);
-                          deadline = "${datetime.day}/${datetime.month}/${datetime.year}";
-
+                          post =
+                              "${datetime.day}/${datetime.month}/${datetime.year}";
+                        },
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  const Text(Ichinsan_filter_title_deadline_apply,
+                      style: TextStyle(
+                          color: NowUIColors.text,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 5),
+                  //DatePicker(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 40,
+                      width: size.width,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              NowUIColors.white),
+                        ),
+                        child: Text(
+                          deadline,
+                          style: const TextStyle(
+                              color: NowUIColors.text,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () async {
+                          final date = await pickDate();
+                          if (date == null) return;
+                          setState(() => datetime = date);
+                          deadline =
+                              "${datetime.day}/${datetime.month}/${datetime.year}";
                         },
                       ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  //Reset
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       width: size.width * 0.35,
                       alignment: Alignment.center,
-                      margin: EdgeInsets.symmetric(horizontal: 10.0),
-                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
                       height: 45,
                       decoration: BoxDecoration(
                         color: NowUIColors.info,
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextButton(
+                        //TO-DO:
                         onPressed: () {},
-                        child: const Text("Reset",
+                        child: const Text(Ichinsan_filter_title_reset,
                             style: TextStyle(
                                 color: NowUIColors.white,
                                 fontSize: 20,
@@ -281,13 +303,14 @@ class FilterPageState extends State<FilterPage> {
                       ),
                     ),
                   ),
+                  //Apply
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       width: size.width * 0.35,
                       alignment: Alignment.center,
-                      margin: EdgeInsets.symmetric(horizontal: 10.0),
-                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
                       height: 45,
                       decoration: BoxDecoration(
                         color: NowUIColors.info,
@@ -296,8 +319,13 @@ class FilterPageState extends State<FilterPage> {
                       child: TextButton(
                         onPressed: () {
                           widget.onSetFilters(_searchOptions);
+                          IchinsanCommon.itemNavigatorPushAndRemove(
+                              (context) => SearchPage(
+                                    filter: _searchOptions,
+                                  ),
+                              context);
                         },
-                        child: const Text("Apply",
+                        child: const Text(Ichinsan_filter_title_apply,
                             style: TextStyle(
                                 color: NowUIColors.white,
                                 fontSize: 20,
@@ -315,27 +343,31 @@ class FilterPageState extends State<FilterPage> {
   }
 
   Future<DateTime?> pickDate() => showDatePicker(
-    context: context,
-    initialDate: datetime,
-    firstDate: DateTime(2020),
-    lastDate: DateTime(2100),
-  );
+        context: context,
+        initialDate: datetime,
+        firstDate: DateTime(2020),
+        lastDate: DateTime(2100),
+      );
 }
 
 class SearchOptions {
-  List<String> selectedCategories =[];
+  List<String> selectedCategories = [];
   List<String> selectedLanguages = [];
   double salaryFrom;
   double salaryTo;
   String datePost;
   String deadline;
 
-  SearchOptions({required this.salaryFrom, required this.salaryTo,required this.datePost,required this.deadline});
+  SearchOptions(
+      {required this.salaryFrom,
+      required this.salaryTo,
+      required this.datePost,
+      required this.deadline});
   Map<String, dynamic> toJson() => {
-    'salaryFrom' : salaryFrom,
-    'salaryTo' : salaryTo,
-    'datePost' : datePost,
-    'deadline' : deadline,
-    'category' : selectedCategories.join(',')
-  };
+        'salaryFrom': salaryFrom,
+        'salaryTo': salaryTo,
+        'datePost': datePost,
+        'deadline': deadline,
+        'category': selectedCategories.join(',')
+      };
 }
