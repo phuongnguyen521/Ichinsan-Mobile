@@ -24,8 +24,9 @@ class SearchPageState extends State<SearchPage> {
   List<Articles> display_list = <Articles>[];
   /*FetchArticles _list = FetchArticles();*/
   late String sFilter='';
+
   @override
-  void initState() {
+  void initState(){
     super.initState();
     if (widget.filter == null) {
       fetchArticles(1, 5).then((value) {
@@ -173,19 +174,5 @@ class SearchPageState extends State<SearchPage> {
                     )),
           );
         });
-  }
-
-  String checkNull(String? str) {
-    if (str != null) {
-      str = str;
-    } else {
-      str = '';
-    }
-    return str;
-  }
-  String toStringList(List<String> list){
-    //String str = list.map((e) => '$e%2C').forEach(print);
-    String str='';
-    return str;
   }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ichinsan_mobile/constants/common.dart';
 import 'package:ichinsan_mobile/model/Article/categories.dart';
 import 'package:ichinsan_mobile/widgets/Search_Page/search_page.dart';
 import 'package:ichinsan_mobile/widgets/home_widget/titletext.dart';
 
 import '../../constants/Theme.dart';
+import '../../constants/common.dart';
 import '../../utils/network.dart';
 import '../../constants/Ichinsan_string.dart';
 
@@ -186,7 +186,7 @@ class FilterPageState extends State<FilterPage> {
                               FilteringTextInputFormatter(RegExp(r'[0-9]'),
                                   allow: true)
                             ],
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               filled: true,
                               hintText: Ichinsan_filter_label_salary_to_default,
                             ),
@@ -271,7 +271,7 @@ class FilterPageState extends State<FilterPage> {
                           deadline =
                               "${datetime.year}/${datetime.month}/${datetime.day}";
 
-                          _searchOptions.deadline=deadline;  //2022%2F6%2F21
+                          _searchOptions.deadline=deadline;
                         },
                       ),
                     ),
@@ -331,7 +331,9 @@ class FilterPageState extends State<FilterPage> {
                       child: TextButton(
                         onPressed: () {
                           widget.onSetFilters(_searchOptions);
+                          //Navigator.pop(context,_searchOptions);
 
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage(filter: _searchOptions,) ));
 
                           /*IchinsanCommon.itemNavigatorPushAndRemove(
                               (context) => SearchPage(
