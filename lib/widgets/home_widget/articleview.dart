@@ -1,11 +1,17 @@
+import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:ichinsan_mobile/model/Article/articles.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../constants/Theme.dart';
+import '../../constants/api_constants.dart';
 import '../../constants/common.dart';
+import '../../screens/signin.dart';
 
 class ArticleView extends StatefulWidget {
   const ArticleView({Key? key, required this.articles}) : super(key: key);
@@ -17,6 +23,26 @@ class ArticleView extends StatefulWidget {
 class ArticleViewState extends State<ArticleView> {
   bool colorOn = false;
   bool textOn = false;
+
+  late User user;
+  bool isNull = true;
+  late Reference file;
+
+  @override
+  void initState() {
+    file =FirebaseStorage.instance.ref('${ApiConstants.firebaseFile}/${widget.articles.originalContent}');
+
+    try {
+      user = FirebaseAuth.instance.currentUser!;
+      isNull = false;
+    } catch (e) {
+      isNull = true;
+      print(e);
+    }
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -44,7 +70,7 @@ class ArticleViewState extends State<ArticleView> {
                           width: size.width * 0.5,
                           child: Text(widget.articles.customerName.toString(),
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: NowUIColors.text,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold)),
@@ -54,10 +80,10 @@ class ArticleViewState extends State<ArticleView> {
                   ),
                   Container(
                     child: Row(children: <Widget>[
-                      Icon(Icons.attach_money_outlined, size: 20),
+                      const Icon(Icons.attach_money_outlined, size: 20),
                       Text(widget.articles.fee.toString(),
                           textAlign: TextAlign.end,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: NowUIColors.info,
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -68,14 +94,14 @@ class ArticleViewState extends State<ArticleView> {
               ),
               Row(
                 children: [
-                  Text("Project name: ",
+                  const Text("Project name: ",
                       style: TextStyle(
                           color: NowUIColors.text,
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
                   Expanded(
                     child: Text(widget.articles.projectName.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: NowUIColors.text,
                           fontSize: 20,
                         )),
@@ -87,13 +113,13 @@ class ArticleViewState extends State<ArticleView> {
                 children: [
                   Row(
                     children: [
-                      Text("Date Post: ",
+                      const Text("Date Post: ",
                           style: TextStyle(
                               color: NowUIColors.text,
                               fontSize: 20,
                               fontWeight: FontWeight.bold)),
                       Text(IchinsanCommon.returnDate(widget.articles.createdOn),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: NowUIColors.primary,
                             fontSize: 20,
                           )),
@@ -133,13 +159,13 @@ class ArticleViewState extends State<ArticleView> {
               ),
               Row(
                 children: [
-                  Text("Deadline: ",
+                  const Text("Deadline: ",
                       style: TextStyle(
                           color: NowUIColors.text,
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
                   Text(IchinsanCommon.returnDate(widget.articles.deadline),
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: NowUIColors.primary,
                         fontSize: 20,
                       )),
@@ -150,18 +176,32 @@ class ArticleViewState extends State<ArticleView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Text('Description: ',
-                      style: TextStyle(
-                          color: NowUIColors.text,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Text('Description: ',
+                            style: TextStyle(
+                                color: NowUIColors.text,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold)),
+                      ),
+
+                      IconButton(
+                          icon: Icon(Icons.download_rounded),
+                        onPressed:() => downloadFile(file),
+                      )
+                    ],
+                  ),
                   SizedBox(height: 10),
                   Card(
                     elevation: 3,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(widget.articles.description.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: NowUIColors.text,
                             fontSize: 16,
                           )),
@@ -175,8 +215,15 @@ class ArticleViewState extends State<ArticleView> {
                 color: colorOn ? NowUIColors.muted : NowUIColors.primary,
                 child: TextButton(
                   onPressed: () {
-                    setState(() => colorOn = !colorOn);
-                    setState(() => textOn = !textOn);
+                    if(isNull){
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => SignIn()));
+                    }else{
+                      setState(() => colorOn = !colorOn);
+                      setState(() => textOn = !textOn);
+                    }
+
+
                   },
                   child: textOn
                       ? const Text("Applied",
@@ -198,5 +245,17 @@ class ArticleViewState extends State<ArticleView> {
         ),
       ),
     );
+  }
+
+  Future downloadFile(Reference ref) async {
+    final url = await ref.getDownloadURL();
+
+    final dir = await getApplicationDocumentsDirectory();
+    final file ='${dir.path}/${ref.name}';
+
+    //await ref.writeToFile(file);
+    await Dio().download(url, file);
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Downloaded ${ref.name}')));
   }
 }
