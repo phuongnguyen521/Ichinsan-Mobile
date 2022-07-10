@@ -40,7 +40,6 @@ class CardHorizontal extends StatelessWidget {
           onTap: tap,
           child: Card(
             elevation: 3,
-            // shadowColor: NowUIColors.muted.withOpacity(0.25),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),
             child: Column(

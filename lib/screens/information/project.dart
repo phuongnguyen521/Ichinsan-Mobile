@@ -3,8 +3,10 @@ import 'package:ichinsan_mobile/utils/network.dart';
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
 
 import '../../constants/Theme.dart';
+import '../../constants/common.dart';
+import '../../model/Article/articles.dart';
 import '../../model/Project/projects.dart';
-import '../../widgets/home_widget/titletext.dart';
+import '../../widgets/home_widget/articleview.dart';
 
 class ProjectDetail extends StatefulWidget {
   const ProjectDetail({Key? key, required this.projectID}) : super(key: key);
@@ -16,14 +18,21 @@ class ProjectDetail extends StatefulWidget {
 
 class ProjectDetailState extends State<ProjectDetail> {
   List<Projects> project = <Projects>[];
+  List<Articles> list = <Articles>[];
   @override
   void initState() {
     super.initState();
-    fetchProjectsbyID(widget.projectID).then((value){
+    fetchArticles(1, 5).then((value) {
       setState(() {
-
+        list.addAll(value);
       });
     });
+
+    /*fetchProjectsbyID(widget.projectID).then((value){
+      setState(() {
+          project.addAll(value);
+      });
+    });*/
 
   }
 
@@ -36,8 +45,8 @@ class ProjectDetailState extends State<ProjectDetail> {
             leading: BackButton(
               onPressed: () => Navigator.of(context).pop(),
             ),
-            title: Text('Project Name'),
-            bottom: TabBar(
+            title: const Text('Project Name'),
+            bottom:const  TabBar(
               tabs: [
                 Tab(text: 'Description'),
                 Tab(text: 'Article')
@@ -47,24 +56,88 @@ class ProjectDetailState extends State<ProjectDetail> {
           body: TabBarView(
               children: [
                 //-------------Tab Description-------------------
-                Container(
-                  child: const Card(
-                    elevation: 3,
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text("Requirements: Free translation style",
-                          style: TextStyle(
-                            color: NowUIColors.text,
-                            fontSize: 18,
-                          )),
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text("Created-date : DD/MM/YY",
+                            style: TextStyle(
+                                color: NowUIColors.text,
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold)),
+                        SizedBox(height: 10),
+                        Text("Category: Blog",
+                            style: TextStyle(
+                                color: NowUIColors.text,
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold)),
+                        SizedBox(height: 10),
+                        Text("Status: ",
+                            style: TextStyle(
+                                color: NowUIColors.text,
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold)),
+                        SizedBox(height: 10),
+                        Text("Description: ",
+                            style: TextStyle(
+                                color: NowUIColors.text,
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold)),
+                        Card(
+                          elevation: 3,
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text("Description Content",
+                                style: TextStyle(
+                                  color: NowUIColors.text,
+                                  fontSize: 18)),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
                 //--------------Tab Article----------------------
-                Text('Article')
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: list.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return list_items(index);
+                          }),
+                    ],
+                  ),
+                )
               ],
             ),
 
         ),
       );
+
+   list_items(int index) {
+     return CardHorizontal(
+         cta: "Apply",
+         category: list[index].categoryName.toString(),
+         title: list[index].name.toString(),
+         languagefrom: list[index].languageFrom,
+         languageto: list[index].languageTo,
+         coin: list[index].fee.toString(),
+         deadline: IchinsanCommon.returnDate(list[index].deadline),
+         description: list[index].description.toString(),
+         tap: () {
+           /*Navigator.push(
+             context,
+             MaterialPageRoute(
+                 builder: (context) => ArticleView(
+                   articles: list[index],
+                 )),
+           );*/
+         });
+   }
 }

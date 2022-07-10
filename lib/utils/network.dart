@@ -108,11 +108,13 @@ List<Projects> parseProjects(String responseBody) {
   return projects;
 }
 
-Future<List<Projects>> fetchProjectsbyID(String id) async {
+Future<List<Projects>> fetchProjectsbyID(int? pageNumber, int pageSize,String id) async {
   final String postsEndpoint =
       ApiConstants.baseUrl + ApiConstants.projectsEndpoint;
   final response = await http.get(
-      Uri.parse('$postsEndpoint/$id'));
+      Uri.parse('$postsEndpoint?pageNumber=$pageNumber&pageSize=$pageSize'));
+  //final response = await http.get(Uri.parse('https://api-dotnet-test.herokuapp.com/api/projects?pageNumber=1&pageSize=5'));
+
   if (response.statusCode == 200) {
     var result = compute(parseProjects, response.body);
     return result;
