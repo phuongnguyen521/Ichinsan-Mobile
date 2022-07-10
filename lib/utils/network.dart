@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import '../constants/api_constants.dart';
 import '../model/Article/articles.dart';
 import '../model/Article/categories.dart';
+import '../model/Project/projects.dart';
 
 // List<Articles> parseArticles (String resonseArticle){
 //   var list = json.decode(resonseArticle) as List<dynamic>;
@@ -94,6 +95,26 @@ Future<List<Language>> fetchLanguage() async {
       .get(Uri.parse('https://api-dotnet-test.herokuapp.com/api/languages'));
   if (response.statusCode == 200) {
     var result = compute(parseLanguage, response.body);
+    return result;
+  } else {
+    throw Exception("Request API fail");
+  }
+}
+
+List<Projects> parseProjects(String responseBody) {
+  var list = json.decode(responseBody) as List<dynamic>;
+  List<Projects> projects =
+  list.map((model) => Projects.fromMap(model)).toList();
+  return projects;
+}
+
+Future<List<Projects>> fetchProjectsbyID(String id) async {
+  final String postsEndpoint =
+      ApiConstants.baseUrl + ApiConstants.projectsEndpoint;
+  final response = await http.get(
+      Uri.parse('$postsEndpoint/$id'));
+  if (response.statusCode == 200) {
+    var result = compute(parseProjects, response.body);
     return result;
   } else {
     throw Exception("Request API fail");

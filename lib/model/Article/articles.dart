@@ -15,8 +15,8 @@ class Articles {
     required this.name,
     required this.projectName,
     required this.categoryName,
-    required this.auditorName,
-    required this.translatorName,
+    this.auditorName,
+    this.translatorName,
     required this.customerId,
     required this.customerName,
     required this.description,
@@ -26,18 +26,18 @@ class Articles {
     required this.languageTo,
     required this.numberOfWords,
     required this.status,
-    required this.translatorId,
-    required this.auditorId,
+    this.translatorId,
+    this.auditorId,
     required this.fee,
     required this.deadline,
     required this.completedOn,
-    required this.completedBy,
-    required this.verifiedOn,
-    required this.verifiedBy,
+    this.completedBy,
+    this.verifiedOn,
+    this.verifiedBy,
     required this.createdOn,
     required this.createdBy,
-    required this.modifiedOn,
-    required this.modifiedBy,
+    this.modifiedOn,
+    this.modifiedBy,
   });
 
   String id;
@@ -51,7 +51,7 @@ class Articles {
   String customerName;
   String description;
   String originalContent;
-  dynamic translatedContent;
+  String translatedContent;
   String languageFrom;
   String languageTo;
   int numberOfWords;
@@ -59,8 +59,8 @@ class Articles {
   dynamic translatorId;
   dynamic auditorId;
   double fee;
-  DateTime deadline;
-  dynamic completedOn;
+  DateTime? deadline;
+  DateTime? completedOn;
   dynamic completedBy;
   dynamic verifiedOn;
   dynamic verifiedBy;
@@ -77,25 +77,25 @@ class Articles {
     categoryName: json["categoryName"],
     auditorName: json["auditorName"],
     translatorName: json["translatorName"],
-    customerId: json["customerId"],
-    customerName: json["customerName"],
-    description: json["description"],
+    customerId: json["customerId"] == null ? null : json["customerId"],
+    customerName: json["customerName"] == null ? null : json["customerName"],
+    description: json["description"] == null ? null : json["description"],
     originalContent: json["originalContent"],
-    translatedContent: json["translatedContent"],
+    translatedContent: json["translatedContent"] == null ? null : json["translatedContent"],
     languageFrom: json["languageFrom"],
     languageTo: json["languageTo"],
     numberOfWords: json["numberOfWords"],
     status: json["status"],
     translatorId: json["translatorId"],
     auditorId: json["auditorId"],
-    fee: json["fee"],
-    deadline: DateTime.parse(json["deadline"]),
-    completedOn: json["completedOn"],
+    fee: json["fee"].toDouble(),
+    deadline: json["deadline"] == null ? null : DateTime.parse(json["deadline"]),
+    completedOn: json["completedOn"] == null ? null : DateTime.parse(json["completedOn"]),
     completedBy: json["completedBy"],
     verifiedOn: json["verifiedOn"],
     verifiedBy: json["verifiedBy"],
     createdOn: DateTime.parse(json["createdOn"]),
-    createdBy: json["createdBy"],
+    createdBy: json["createdBy"] == null ? null : json["createdBy"],
     modifiedOn: json["modifiedOn"],
     modifiedBy: json["modifiedBy"],
   );
@@ -108,11 +108,11 @@ class Articles {
     "categoryName": categoryName,
     "auditorName": auditorName,
     "translatorName": translatorName,
-    "customerId": customerId,
-    "customerName": customerName,
-    "description": description,
+    "customerId": customerId == null ? null : customerId,
+    "customerName": customerName == null ? null : customerName,
+    "description": description == null ? null : description,
     "originalContent": originalContent,
-    "translatedContent": translatedContent,
+    "translatedContent": translatedContent == null ? null : translatedContent,
     "languageFrom": languageFrom,
     "languageTo": languageTo,
     "numberOfWords": numberOfWords,
@@ -120,13 +120,13 @@ class Articles {
     "translatorId": translatorId,
     "auditorId": auditorId,
     "fee": fee,
-    "deadline": deadline.toIso8601String(),
-    "completedOn": completedOn,
+    "deadline": deadline == null ? null : deadline?.toIso8601String(),
+    "completedOn": completedOn == null ? null : completedOn?.toIso8601String(),
     "completedBy": completedBy,
     "verifiedOn": verifiedOn,
     "verifiedBy": verifiedBy,
     "createdOn": createdOn.toIso8601String(),
-    "createdBy": createdBy,
+    "createdBy": createdBy == null ? null : createdBy,
     "modifiedOn": modifiedOn,
     "modifiedBy": modifiedBy,
   };

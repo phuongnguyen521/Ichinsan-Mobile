@@ -45,9 +45,12 @@ class IchinsanCommon {
     );
   }
 
-  static String returnDate(DateTime date) {
-    final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    final String formatted = formatter.format(date);
-    return formatted;
+  static String returnDate(DateTime? date) {
+    if(date == null)
+      return "Null";
+    else{
+      String formatted = "${date.year}/${date.month}/${date.day}";
+      return formatted;
+    }
   }
 }

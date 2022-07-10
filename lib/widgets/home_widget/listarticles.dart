@@ -18,7 +18,7 @@ class ListArticles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: fetchArticles(1, 5),
+        future: fetchArticles(1, 10),
         builder: (context, data) {
           if (data.hasError) {
             return Center(child: Text("Not Found"));

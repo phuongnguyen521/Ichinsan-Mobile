@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:ichinsan_mobile/model/Article/articles.dart';
+import 'package:ichinsan_mobile/screens/information/project.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../constants/Theme.dart';
 import '../../constants/api_constants.dart';
 import '../../constants/common.dart';
+import '../../screens/information/customer.dart';
 import '../../screens/signin.dart';
 
 class ArticleView extends StatefulWidget {
@@ -65,7 +67,13 @@ class ArticleViewState extends State<ArticleView> {
                   Container(
                     child: Row(
                       children: [
-                        const Icon(Icons.account_circle, size: 40),
+                        IconButton(onPressed: () {
+                          Navigator.push(
+                              context, MaterialPageRoute(builder: (context) => CustomerDetail(customerID: widget.articles.customerId.toString())));
+                        },
+                            icon: Icon(Icons.account_circle),
+                            iconSize: 40
+                        ),
                         Container(
                           width: size.width * 0.5,
                           child: Text(widget.articles.customerName.toString(),
@@ -92,21 +100,27 @@ class ArticleViewState extends State<ArticleView> {
                   ),
                 ],
               ),
-              Row(
-                children: [
-                  const Text("Project name: ",
-                      style: TextStyle(
-                          color: NowUIColors.text,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
-                  Expanded(
-                    child: Text(widget.articles.projectName.toString(),
-                        style: const TextStyle(
-                          color: NowUIColors.text,
-                          fontSize: 20,
-                        )),
-                  ),
-                ],
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => ProjectDetail(projectID: widget.articles.projectId.toString())));
+                },
+                child: Row(
+                  children: [
+                    const Text("Project name: ",
+                        style: TextStyle(
+                            color: NowUIColors.text,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
+                    Expanded(
+                      child: Text(widget.articles.projectName.toString(),
+                          style: const TextStyle(
+                            color: NowUIColors.text,
+                            fontSize: 20,
+                          )),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 10),
               Row(
@@ -164,7 +178,8 @@ class ArticleViewState extends State<ArticleView> {
                           color: NowUIColors.text,
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
-                  Text(IchinsanCommon.returnDate(widget.articles.deadline),
+                  Text(//widget.articles.deadline!.year.toString()+'/'+widget.articles.deadline!.month.toString()+'/'+widget.articles.deadline!.day.toString(),
+                    IchinsanCommon.returnDate(widget.articles.deadline),
                       style: const TextStyle(
                         color: NowUIColors.primary,
                         fontSize: 20,
@@ -251,6 +266,7 @@ class ArticleViewState extends State<ArticleView> {
     final url = await ref.getDownloadURL();
 
     final dir = await getApplicationDocumentsDirectory();
+    //return dir.path;
     final file ='${dir.path}/${ref.name}';
 
     //await ref.writeToFile(file);

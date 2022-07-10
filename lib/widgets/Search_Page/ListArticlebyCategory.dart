@@ -71,7 +71,7 @@ class ListArticlesbyCategoryState extends State<ListArticlesbyCategory> {
         languagefrom: display_list[index].languageFrom.toString(),
         languageto: display_list[index].languageTo.toString(),
         coin: display_list[index].fee.toString(),
-        deadline: IchinsanCommon.returnDate(display_list[index].deadline),
+        deadline: IchinsanCommon.returnDate(display_list[index].deadline!),
         description: display_list[index].description.toString(),
         tap: () {
           Navigator.push(

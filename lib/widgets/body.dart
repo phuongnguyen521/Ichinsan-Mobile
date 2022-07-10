@@ -21,7 +21,7 @@ class BodyState extends State<Body> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           TitleText(title: "Top Recent"),
-          ListArticles(numarticle: 5),
+          ListArticles(numarticle: 10),
           SizedBox(height: 5),
 
           /*TitleText(title: "Technology"),
