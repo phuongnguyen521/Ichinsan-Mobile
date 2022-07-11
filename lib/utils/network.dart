@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 
 //http//
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:ichinsan_mobile/model/Project/projectdetail.dart';
 
 import '../constants/api_constants.dart';
 import '../model/Article/articles.dart';
@@ -108,6 +110,21 @@ List<Projects> parseProjects(String responseBody) {
   return projects;
 }
 
+Future<List<Projects>> fetchProjects(int? pageNumber, int pageSize) async {
+  final String postsEndpoint =
+      ApiConstants.baseUrl + ApiConstants.projectsEndpoint;
+  final response = await http.get(
+      Uri.parse('$postsEndpoint?pageNumber=$pageNumber&pageSize=$pageSize'));
+  //final response = await http.get(Uri.parse('https://api-dotnet-test.herokuapp.com/api/projects?pageNumber=1&pageSize=5'));
+
+  if (response.statusCode == 200) {
+    var result = compute(parseProjects, response.body);
+    return result;
+  } else {
+    throw Exception("Request API fail");
+  }
+}
+
 Future<List<Projects>> fetchProjectsbyID(int? pageNumber, int pageSize,String id) async {
   final String postsEndpoint =
       ApiConstants.baseUrl + ApiConstants.projectsEndpoint;
@@ -122,3 +139,36 @@ Future<List<Projects>> fetchProjectsbyID(int? pageNumber, int pageSize,String id
     throw Exception("Request API fail");
   }
 }
+
+Future<List<Projects>> fetchProjectwithid(String id) async {
+  final String postsEndpoint =
+      ApiConstants.baseUrl + ApiConstants.projectsEndpoint;
+  //final response = await http.get(Uri.parse('$postsEndpoint/$id'));
+  final response = await http.get(Uri.parse('https://api-dotnet-test.herokuapp.com/api/projects/$id'));
+
+  if (response.statusCode == 200) {
+    var result = compute(parseProjects, response.body);
+    return result;
+  } else {
+    throw Exception("Request API fail");
+  }
+}
+
+Future<ProjectsDetail?> getProjectDetailbyId(String ID) async {
+  final String postsEndpoint =
+      ApiConstants.baseUrl + ApiConstants.projectsEndpoint;
+  try {
+    final url = Uri.parse('$postsEndpoint/$ID');
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      return projectsDetailFromMap(response.body);
+    }
+  } catch (e) {
+    log(e.toString());
+  }
+  return null;
+}
+
+
+
+

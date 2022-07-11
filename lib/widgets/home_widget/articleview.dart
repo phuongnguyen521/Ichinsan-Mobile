@@ -12,7 +12,6 @@ import 'package:path_provider/path_provider.dart';
 import '../../constants/Theme.dart';
 import '../../constants/api_constants.dart';
 import '../../constants/common.dart';
-import '../../screens/information/customer.dart';
 import '../../screens/signin.dart';
 
 class ArticleView extends StatefulWidget {
@@ -33,7 +32,6 @@ class ArticleViewState extends State<ArticleView> {
   @override
   void initState() {
     file =FirebaseStorage.instance.ref('${ApiConstants.firebaseFile}/${widget.articles.originalContent}');
-
     try {
       user = FirebaseAuth.instance.currentUser!;
       isNull = false;
@@ -68,8 +66,7 @@ class ArticleViewState extends State<ArticleView> {
                     child: Row(
                       children: [
                         IconButton(onPressed: () {
-                          Navigator.push(
-                              context, MaterialPageRoute(builder: (context) => CustomerDetail(customerID: widget.articles.customerId.toString())));
+                          //Navigator.push(context, MaterialPageRoute(builder: (context) => CustomerDetail(customerID: widget.articles.customerId.toString(),customername: widget.articles.customerName.toString(),)));
                         },
                             icon: Icon(Icons.account_circle),
                             iconSize: 40
@@ -103,7 +100,7 @@ class ArticleViewState extends State<ArticleView> {
               GestureDetector(
                 onTap: (){
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => ProjectDetail(projectID: widget.articles.projectId.toString())));
+                      context, MaterialPageRoute(builder: (context) => ProjectDetail(projectID: widget.articles.projectId.toString(),projectName:widget.articles.projectName.toString() ,)));
                 },
                 child: Row(
                   children: [
@@ -218,7 +215,7 @@ class ArticleViewState extends State<ArticleView> {
                       child: Text(widget.articles.description.toString(),
                           style: const TextStyle(
                             color: NowUIColors.text,
-                            fontSize: 16,
+                            fontSize: 18,
                           )),
                     ),
                   ),

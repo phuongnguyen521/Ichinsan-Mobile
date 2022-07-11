@@ -4,5 +4,4 @@ class ApiConstants {
   static String articleEndpoint = '/articles';
   static String projectsEndpoint = '/projects';
   static String firebaseFile = '/originalArticles';
-
 }

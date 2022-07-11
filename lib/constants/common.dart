@@ -53,4 +53,12 @@ class IchinsanCommon {
       return formatted;
     }
   }
+  static String returnString(String? str) {
+    if(str == null)
+      return 'null';
+    else{
+      return str;
+    }
+  }
+
 }

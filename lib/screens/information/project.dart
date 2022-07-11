@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ichinsan_mobile/model/Project/projectdetail.dart';
 import 'package:ichinsan_mobile/utils/network.dart';
 import 'package:ichinsan_mobile/widgets/card-horizontal.dart';
 
@@ -6,34 +7,40 @@ import '../../constants/Theme.dart';
 import '../../constants/common.dart';
 import '../../model/Article/articles.dart';
 import '../../model/Project/projects.dart';
-import '../../widgets/home_widget/articleview.dart';
 
 class ProjectDetail extends StatefulWidget {
-  const ProjectDetail({Key? key, required this.projectID}) : super(key: key);
+  const ProjectDetail({Key? key, required this.projectID, required this.projectName}) : super(key: key);
   final String projectID;
+  final String projectName;
 
   @override
   State<ProjectDetail> createState() => ProjectDetailState();
 }
 
 class ProjectDetailState extends State<ProjectDetail> {
-  List<Projects> project = <Projects>[];
-  List<Articles> list = <Articles>[];
+   ProjectsDetail projectdetail= ProjectsDetail();
+
+  List<Articles> article = <Articles>[];
+  List<Articles> article_display = <Articles>[];
   @override
   void initState() {
     super.initState();
-    fetchArticles(1, 5).then((value) {
+
+    getProjectDetailbyId(widget.projectID).then((value) {
       setState(() {
-        list.addAll(value);
+        projectdetail=value!;
       });
     });
 
-    /*fetchProjectsbyID(widget.projectID).then((value){
+    fetchArticles(1, 100).then((value) {
       setState(() {
-          project.addAll(value);
+        article.addAll(value);
+        article_display=article.where((list) {
+          var title = list.projectId;
+          return title.contains(widget.projectID);
+        }).toList();
       });
-    });*/
-
+    });
   }
 
   @override
@@ -45,7 +52,7 @@ class ProjectDetailState extends State<ProjectDetail> {
             leading: BackButton(
               onPressed: () => Navigator.of(context).pop(),
             ),
-            title: const Text('Project Name'),
+            title: Text(widget.projectName.toString()),
             bottom:const  TabBar(
               tabs: [
                 Tab(text: 'Description'),
@@ -62,26 +69,26 @@ class ProjectDetailState extends State<ProjectDetail> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text("Created-date : DD/MM/YY",
+                      children:  [
+                        Text("Created-date : "+ IchinsanCommon.returnDate(projectdetail!.createdOn),
                             style: TextStyle(
                                 color: NowUIColors.text,
                                 fontSize: 26,
                                 fontWeight: FontWeight.bold)),
-                        SizedBox(height: 10),
-                        Text("Category: Blog",
-                            style: TextStyle(
+                        const SizedBox(height: 10),
+                        Text("Category: ${projectdetail!.projectCategoryName.toString()}",
+                            style: const TextStyle(
                                 color: NowUIColors.text,
                                 fontSize: 26,
                                 fontWeight: FontWeight.bold)),
-                        SizedBox(height: 10),
-                        Text("Status: ",
-                            style: TextStyle(
+                        const SizedBox(height: 10),
+                        Text("Status: ${projectdetail!.status.toString()}",
+                            style: const TextStyle(
                                 color: NowUIColors.text,
                                 fontSize: 26,
                                 fontWeight: FontWeight.bold)),
-                        SizedBox(height: 10),
-                        Text("Description: ",
+                        const SizedBox(height: 10),
+                        const Text("Description: ",
                             style: TextStyle(
                                 color: NowUIColors.text,
                                 fontSize: 26,
@@ -89,11 +96,11 @@ class ProjectDetailState extends State<ProjectDetail> {
                         Card(
                           elevation: 3,
                           child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text("Description Content",
-                                style: TextStyle(
-                                  color: NowUIColors.text,
-                                  fontSize: 18)),
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(projectdetail!.description.toString(),
+                                style: const TextStyle(
+                                    color: NowUIColors.text,
+                                    fontSize: 18)),
                           ),
                         ),
                       ],
@@ -107,9 +114,9 @@ class ProjectDetailState extends State<ProjectDetail> {
                       ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: list.length,
+                          itemCount: article_display.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return list_items(index);
+                            return list_article(index);
                           }),
                     ],
                   ),
@@ -120,16 +127,16 @@ class ProjectDetailState extends State<ProjectDetail> {
         ),
       );
 
-   list_items(int index) {
+   list_article(int index) {
      return CardHorizontal(
          cta: "Apply",
-         category: list[index].categoryName.toString(),
-         title: list[index].name.toString(),
-         languagefrom: list[index].languageFrom,
-         languageto: list[index].languageTo,
-         coin: list[index].fee.toString(),
-         deadline: IchinsanCommon.returnDate(list[index].deadline),
-         description: list[index].description.toString(),
+         category: article_display[index].categoryName.toString(),
+         title: article_display[index].name.toString(),
+         languagefrom: article_display[index].languageFrom,
+         languageto: article_display[index].languageTo,
+         coin: article_display[index].fee.toString(),
+         deadline: IchinsanCommon.returnDate(article_display[index].deadline),
+         description: article_display[index].description.toString(),
          tap: () {
            /*Navigator.push(
              context,
@@ -139,5 +146,14 @@ class ProjectDetailState extends State<ProjectDetail> {
                  )),
            );*/
          });
+   }
+
+   list_detail(int index){
+     return Column(
+
+       children: [
+
+       ],
+     );
    }
 }

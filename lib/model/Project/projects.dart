@@ -6,6 +6,7 @@ import 'dart:convert';
 
 List<Projects> projectsFromMap(String str) => List<Projects>.from(json.decode(str).map((x) => Projects.fromMap(x)));
 
+
 String projectsToMap(List<Projects> data) => json.encode(List<dynamic>.from(data.map((x) => x.toMap())));
 
 class Projects {
