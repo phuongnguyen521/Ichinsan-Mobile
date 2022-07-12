@@ -20,8 +20,7 @@ class ProjectDetail extends StatefulWidget {
 class ProjectDetailState extends State<ProjectDetail> {
    ProjectsDetail projectdetail= ProjectsDetail();
 
-  List<Articles> article = <Articles>[];
-  List<Articles> article_display = <Articles>[];
+  List<ArticleDetailList> article_display = <ArticleDetailList>[];
   @override
   void initState() {
     super.initState();
@@ -29,16 +28,7 @@ class ProjectDetailState extends State<ProjectDetail> {
     getProjectDetailbyId(widget.projectID).then((value) {
       setState(() {
         projectdetail=value!;
-      });
-    });
-
-    fetchArticles(1, 100).then((value) {
-      setState(() {
-        article.addAll(value);
-        article_display=article.where((list) {
-          var title = list.projectId;
-          return title.contains(widget.projectID);
-        }).toList();
+        article_display=projectdetail.articleDetailList!;
       });
     });
   }
@@ -70,19 +60,19 @@ class ProjectDetailState extends State<ProjectDetail> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children:  [
-                        Text("Created-date : "+ IchinsanCommon.returnDate(projectdetail!.createdOn),
+                        Text("Created-date : "+ IchinsanCommon.returnDate(projectdetail.createdOn),
                             style: TextStyle(
                                 color: NowUIColors.text,
                                 fontSize: 26,
                                 fontWeight: FontWeight.bold)),
                         const SizedBox(height: 10),
-                        Text("Category: ${projectdetail!.projectCategoryName.toString()}",
+                        Text("Category: ${projectdetail.projectCategoryName.toString()}",
                             style: const TextStyle(
                                 color: NowUIColors.text,
                                 fontSize: 26,
                                 fontWeight: FontWeight.bold)),
                         const SizedBox(height: 10),
-                        Text("Status: ${projectdetail!.status.toString()}",
+                        Text("Status: ${projectdetail.status.toString()}",
                             style: const TextStyle(
                                 color: NowUIColors.text,
                                 fontSize: 26,
@@ -97,7 +87,7 @@ class ProjectDetailState extends State<ProjectDetail> {
                           elevation: 3,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text(projectdetail!.description.toString(),
+                            child: Text(projectdetail.description.toString(),
                                 style: const TextStyle(
                                     color: NowUIColors.text,
                                     fontSize: 18)),
