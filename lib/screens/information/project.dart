@@ -7,6 +7,7 @@ import '../../constants/Theme.dart';
 import '../../constants/common.dart';
 import '../../model/Article/articles.dart';
 import '../../model/Project/projects.dart';
+import '../../widgets/home_widget/articleview.dart';
 
 class ProjectDetail extends StatefulWidget {
   const ProjectDetail({Key? key, required this.projectID, required this.projectName}) : super(key: key);
@@ -21,6 +22,7 @@ class ProjectDetailState extends State<ProjectDetail> {
    ProjectsDetail projectdetail= ProjectsDetail();
 
   List<ArticleDetailList> article_display = <ArticleDetailList>[];
+
   @override
   void initState() {
     super.initState();
@@ -60,23 +62,55 @@ class ProjectDetailState extends State<ProjectDetail> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children:  [
-                        Text("Created-date : "+ IchinsanCommon.returnDate(projectdetail.createdOn),
-                            style: TextStyle(
-                                color: NowUIColors.text,
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold)),
+                        Row(
+                          children: [
+                            Text("Created-date : ",
+                                style: TextStyle(
+                                    color: NowUIColors.text,
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.bold)),
+                            Text(IchinsanCommon.returnDate(projectdetail.createdOn),
+                                style: TextStyle(
+                                    color: NowUIColors.primary,
+                                    fontSize: 22,)),
+                          ],
+                        ),
                         const SizedBox(height: 10),
-                        Text("Category: ${projectdetail.projectCategoryName.toString()}",
-                            style: const TextStyle(
-                                color: NowUIColors.text,
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold)),
+                        SizedBox(
+                          child: Container(
+                            child: Row(
+                              children: [
+                                Text("Category: ",
+                                    style: const TextStyle(
+                                        color: NowUIColors.text,
+                                        fontSize: 26,
+                                        fontWeight: FontWeight.bold)),
+                                Expanded(
+                                  child: Text(projectdetail.projectCategoryName.toString(),
+                                      style: const TextStyle(
+                                          color: NowUIColors.text,
+                                          fontSize: 22,
+                                          )),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                         const SizedBox(height: 10),
-                        Text("Status: ${projectdetail.status.toString()}",
-                            style: const TextStyle(
-                                color: NowUIColors.text,
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold)),
+                        Row(
+                          children: [
+                            Text("Status: ",
+                                style: const TextStyle(
+                                    color: NowUIColors.text,
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.bold)),
+                            Text(projectdetail.status.toString(),
+                                style: const TextStyle(
+                                    color: NowUIColors.info,
+                                    fontSize: 26,
+                                    )),
+                          ],
+                        ),
                         const SizedBox(height: 10),
                         const Text("Description: ",
                             style: TextStyle(
@@ -90,7 +124,7 @@ class ProjectDetailState extends State<ProjectDetail> {
                             child: Text(projectdetail.description.toString(),
                                 style: const TextStyle(
                                     color: NowUIColors.text,
-                                    fontSize: 18)),
+                                    fontSize: 22)),
                           ),
                         ),
                       ],
@@ -128,13 +162,7 @@ class ProjectDetailState extends State<ProjectDetail> {
          deadline: IchinsanCommon.returnDate(article_display[index].deadline),
          description: article_display[index].description.toString(),
          tap: () {
-           /*Navigator.push(
-             context,
-             MaterialPageRoute(
-                 builder: (context) => ArticleView(
-                   articles: list[index],
-                 )),
-           );*/
+
          });
    }
 

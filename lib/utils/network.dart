@@ -4,6 +4,7 @@ import 'dart:developer';
 //http//
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:ichinsan_mobile/model/Customer/customer.dart';
 import 'package:ichinsan_mobile/model/Project/projectdetail.dart';
 
 import '../constants/api_constants.dart';
@@ -162,6 +163,22 @@ Future<ProjectsDetail?> getProjectDetailbyId(String ID) async {
     final response = await http.get(url);
     if (response.statusCode == 200) {
       return projectsDetailFromMap(response.body);
+    }
+  } catch (e) {
+    log(e.toString());
+  }
+  return null;
+}
+
+Future<Customer?> getCustomerbyId(String ID) async {
+  final String postsEndpoint =
+      ApiConstants.baseUrl + ApiConstants.usersEndpoint;
+  try {
+    final url = Uri.parse('$postsEndpoint/$ID');
+    //final url = Uri.parse('https://api-dotnet-test.herokuapp.com/api/users/abbac12e-27b6-4492-acbb-034ec881bfff');
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      return customerFromMap(response.body);
     }
   } catch (e) {
     log(e.toString());

@@ -12,6 +12,7 @@ import 'package:path_provider/path_provider.dart';
 import '../../constants/Theme.dart';
 import '../../constants/api_constants.dart';
 import '../../constants/common.dart';
+import '../../screens/information/customer.dart';
 import '../../screens/signin.dart';
 
 class ArticleView extends StatefulWidget {
@@ -66,7 +67,7 @@ class ArticleViewState extends State<ArticleView> {
                     child: Row(
                       children: [
                         IconButton(onPressed: () {
-                          //Navigator.push(context, MaterialPageRoute(builder: (context) => CustomerDetail(customerID: widget.articles.customerId.toString(),customername: widget.articles.customerName.toString(),)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CustomerDetail(customerID: widget.articles.customerId.toString(),customername: widget.articles.customerName.toString(),)));
                         },
                             icon: Icon(Icons.account_circle),
                             iconSize: 40
