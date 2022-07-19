@@ -12,8 +12,10 @@ import 'package:path_provider/path_provider.dart';
 import '../../constants/Theme.dart';
 import '../../constants/api_constants.dart';
 import '../../constants/common.dart';
+import '../../model/application/apply_article.dart';
 import '../../screens/information/customer.dart';
 import '../../screens/signin.dart';
+import '../../utils/network.dart';
 
 class ArticleView extends StatefulWidget {
   const ArticleView({Key? key, required this.articles}) : super(key: key);
@@ -29,7 +31,7 @@ class ArticleViewState extends State<ArticleView> {
   late User user;
   bool isNull = true;
   late Reference file;
-
+  ApplyArticle? _dataModel;
   @override
   void initState() {
     file =FirebaseStorage.instance.ref('${ApiConstants.firebaseFile}/${widget.articles.originalContent}');
@@ -227,13 +229,19 @@ class ArticleViewState extends State<ArticleView> {
                 width: size.width,
                 color: colorOn ? NowUIColors.muted : NowUIColors.primary,
                 child: TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if(isNull){
                       Navigator.push(
                           context, MaterialPageRoute(builder: (context) => SignIn()));
                     }else{
-                      setState(() => colorOn = !colorOn);
-                      setState(() => textOn = !textOn);
+                      ApplyArticle? data = await applyArticle(widget.articles.projectId, widget.articles.id, user.uid);
+                      setState((){
+                        colorOn = !colorOn;
+                        textOn = !textOn;
+                        _dataModel=data;
+
+                      });
+
                     }
 
 

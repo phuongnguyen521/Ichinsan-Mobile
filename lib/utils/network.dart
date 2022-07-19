@@ -11,6 +11,7 @@ import '../constants/api_constants.dart';
 import '../model/Article/articles.dart';
 import '../model/Article/categories.dart';
 import '../model/Project/projects.dart';
+import '../model/application/apply_article.dart';
 
 // List<Articles> parseArticles (String resonseArticle){
 //   var list = json.decode(resonseArticle) as List<dynamic>;
@@ -184,6 +185,30 @@ Future<Customer?> getCustomerbyId(String ID) async {
     log(e.toString());
   }
   return null;
+}
+
+Future<ApplyArticle?> applyArticle(String projectId, String articleId, String appliedBy) async{
+  final String postsEndpoint =
+  ApiConstants.baseUrl + ApiConstants.applicationsEndpoint;
+  final url = Uri.parse('$postsEndpoint');
+  //https://api-dotnet-test.herokuapp.com/api/applications
+  final response= await http.post(url,
+      headers: {
+        "Content-Type" : "application/json",
+      },
+      body :jsonEncode({
+        "projectId": projectId,
+        "articleId": articleId,
+        "appliedBy": appliedBy
+      }));
+
+  var data =response.body;
+  print(data);
+
+  if(response.statusCode==200){
+    String responseString = response.body;
+    applyArticleFromMap(responseString);
+  }else return null;
 }
 
 
