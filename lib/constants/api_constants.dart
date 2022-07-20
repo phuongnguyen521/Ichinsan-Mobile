@@ -8,4 +8,5 @@ class ApiConstants {
   static String accountLoginEndpoint = '/login';
   static String accountRegisterEndpoint = '/register';
   static String profileEndpoint = '/profiles';
+  static String applicationsEndpoint = '/applications';
 }
