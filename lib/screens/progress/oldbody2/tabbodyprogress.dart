@@ -43,9 +43,6 @@ class TabBodyProgress extends StatelessWidget {
                 Tab(
                   text: "Recruitments",
                 ),
-                Tab(
-                  text: "Feedbacks",
-                ),
               ],
               controller: tabController,
             ),
@@ -53,10 +50,10 @@ class TabBodyProgress extends StatelessWidget {
         ];
       },
       body: TabBarView(
-        children: <Widget>[
+        children: [
           Project(),
           IchinsanApplication(),
-          FeedbackList(),
+          //FeedbackList(),
         ],
         controller: tabController,
       ),

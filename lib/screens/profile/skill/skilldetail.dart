@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/constants/Theme.dart';
 import 'package:ichinsan_mobile/constants/size_config.dart';
+import 'package:ichinsan_mobile/model/profile/Ichinsanprofile.dart';
+import 'package:ichinsan_mobile/model/profile/profile_data.dart';
 import 'package:nb_utils/nb_utils.dart';
 import '../../../constants/IchinsanColors.dart';
 import '../../../constants/Ichinsan_constant.dart';
 import '../../../constants/Ichinsan_string.dart';
 import '../../../constants/common.dart';
 import '../../../main.dart';
-import '../../../model/profile.dart';
+import '../../../model/profile/profile.dart';
+import '../../../model/profile/profile.dart';
 import '../../../widgets/appwidget.dart';
 import '../../../widgets/profile_widget/button_widget.dart';
 import '../../../widgets/profile_widget/profile_widget.dart';
@@ -15,7 +18,7 @@ import '../../signin.dart';
 import '../editingprofile/editprofile.dart';
 
 class SkillDetailScreen extends StatefulWidget {
-  final Profile userProfile;
+  final IchinsanProfile userProfile;
   // ignore: use_key_in_widget_constructors
   const SkillDetailScreen({required this.userProfile});
 
@@ -77,7 +80,7 @@ class _SkillDetailScreenState extends State<SkillDetailScreen> {
     IchinsanSizeConfig sizeConfig = IchinsanSizeConfig();
     sizeConfig.init(context);
     double? defaultSize = IchinsanSizeConfig.defaultSize;
-    var skillList = widget.userProfile.skillList;
+    var skillList = Profile_Data.listdetail;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -97,27 +100,6 @@ class _SkillDetailScreenState extends State<SkillDetailScreen> {
           alignment: Alignment.centerRight,
           child: Text(Ichinsan_title_skill),
         ),
-        actions: [
-          widget.userProfile.email.compareTo(Ichinsan_label_unknown) == 0
-              ? GestureDetector(
-                  child: ButtonWidget(
-                      onClicked: () {
-                        IchinsanCommon.itemNavigator(
-                            (context) => SignIn(), context);
-                      },
-                      text: Ichinsan_title_sign_in),
-                )
-              : GestureDetector(
-                  child: ButtonWidget(
-                      onClicked: () {
-                        IchinsanCommon.itemNavigator(
-                            (context) =>
-                                EditProfile(userProfile: widget.userProfile),
-                            context);
-                      },
-                      text: Inchisan_label_edit),
-                )
-        ],
       ),
       // backgroundColor: qIBus_app_background,
       body: NestedScrollView(
@@ -144,7 +126,8 @@ class _SkillDetailScreenState extends State<SkillDetailScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ProfileWidget(
-                              avatarImage: widget.userProfile.avatarImage,
+                              avatarImage:
+                                  widget.userProfile.avatarImage.toString(),
                               onClicked: () async {},
                               heightImage: 80,
                               widthImage: 80,
@@ -156,9 +139,9 @@ class _SkillDetailScreenState extends State<SkillDetailScreen> {
                                   top: spacing_standard_new),
                               child: Column(
                                 children: <Widget>[
-                                  Text(widget.userProfile.fullName,
+                                  Text(widget.userProfile.fullName.toString(),
                                       style: boldTextStyle()),
-                                  Text(widget.userProfile.role,
+                                  Text(widget.userProfile.role.toString(),
                                       style: secondaryTextStyle()),
                                 ],
                               ),
@@ -190,7 +173,7 @@ class _SkillDetailScreenState extends State<SkillDetailScreen> {
                               const SizedBox(height: spacing_standard),
                               //Technique level
                               rowHeading(Ichinsan_label_level,
-                                  widget.userProfile.level),
+                                  widget.userProfile.technique),
                             ],
                           ),
                         )),

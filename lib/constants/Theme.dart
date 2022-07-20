@@ -68,4 +68,6 @@ class NowUIColors {
   static const Color firstItem = Color.fromRGBO(33, 158, 188, 1.0);
 
   static const Color secondItem = Color.fromRGBO(255, 183, 3, 1.0);
+
+  static const Color tabTheme = Color.fromRGBO(41, 38, 57, 1.0);
 }

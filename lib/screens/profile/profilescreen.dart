@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ichinsan_mobile/constants/Theme.dart';
 import 'package:ichinsan_mobile/constants/common.dart';
+import 'package:ichinsan_mobile/model/profile/Ichinsanprofile.dart';
 import 'package:ichinsan_mobile/screens/profile/Ichinsanprofiledetail.dart';
+import 'package:ichinsan_mobile/utils/datapersistency.dart';
 import 'package:ichinsan_mobile/widgets/profile_widget/button_widget.dart';
 import 'package:ichinsan_mobile/widgets/profile_widget/profile_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 import '../../constants/Ichinsan_string.dart';
 import '../../main.dart';
+import '../../model/Account/Account.dart';
+import '../../utils/profile_client.dart';
 import '../signin.dart';
-import '../../model/profile.dart';
-import '../../model/profile_data.dart';
+import '../../model/profile/profile.dart';
+import '../../model/profile/profile_data.dart';
 
 import 'package:ichinsan_mobile/constants/Theme.dart';
 
@@ -31,7 +35,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   late User user;
   bool isNull = true;
-  late Profile userProfile;
+  late IchinsanProfile tempProfile;
+  IchinsanProfile? userProfile;
   String? photoURL;
   bool isLoading = false;
 
@@ -40,122 +45,123 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       user = FirebaseAuth.instance.currentUser!;
       isNull = false;
+      isLoading = !isNull;
     } catch (e) {
       isNull = true;
+      isLoading = false;
       print(e);
     } finally {
-      userProfile = setData();
+      tempProfile = setData();
     }
     super.initState();
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      extendBodyBehindAppBar: true,
-      body: Container(
-        height: context.height(),
-        width: context.width(),
-        padding: EdgeInsets.only(top: 60),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ProfileWidget(
-                avatarImage: userProfile.avatarImage,
-                onClicked: () async {},
-                heightImage: 120,
-                widthImage: 120,
+    var image = tempProfile.avatarImage;
+    var fullName = tempProfile.fullName;
+    var role = tempProfile.role;
+    dynamic profile = tempProfile;
+    if (userProfile != null) {
+      fullName = userProfile!.fullName.toString();
+      role = userProfile!.role.toString();
+      profile = userProfile;
+    }
+    return isLoading
+        ? const SafeArea(
+            child: Center(
+            child: CircularProgressIndicator(),
+          ))
+        : SafeArea(
+            child: Scaffold(
+            extendBodyBehindAppBar: true,
+            body: Container(
+              height: context.height(),
+              width: context.width(),
+              padding: EdgeInsets.only(top: 60),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ProfileWidget(
+                      avatarImage: image.toString(),
+                      onClicked: () async {},
+                      heightImage: 120,
+                      widthImage: 120,
+                    ),
+                    16.height,
+                    Text(fullName.toString(), style: boldTextStyle()),
+                    Text(role.toString(), style: secondaryTextStyle()),
+                    16.height,
+                    SettingItemWidget(
+                        title: Ichinsan_title_your_proflie,
+                        decoration: boxDecorationRoundedWithShadow(12,
+                            backgroundColor: context.cardColor),
+                        trailing: Icon(Icons.arrow_right,
+                            color: grey.withOpacity(0.5)),
+                        onTap: () {
+                          IchinsanCommon.itemNavigator(
+                              (context) =>
+                                  ProfileDetailScreen(userProfile: profile),
+                              context);
+                        }),
+                    16.height,
+                    SettingItemWidget(
+                        title: Ichinsan_title_skill,
+                        decoration: boxDecorationRoundedWithShadow(12,
+                            backgroundColor: context.cardColor),
+                        trailing: Icon(Icons.arrow_right,
+                            color: grey.withOpacity(0.5)),
+                        onTap: () {
+                          IchinsanCommon.itemNavigator(
+                              (context) =>
+                                  SkillDetailScreen(userProfile: profile),
+                              context);
+                        }),
+                    16.height,
+                    SettingItemWidget(
+                        title: Ichinsan_title_notification,
+                        decoration: boxDecorationRoundedWithShadow(12,
+                            backgroundColor: context.cardColor),
+                        trailing: Icon(Icons.arrow_right,
+                            color: grey.withOpacity(0.5)),
+                        onTap: () {
+                          //
+                        }),
+                    16.height,
+                    SettingItemWidget(
+                        title: Ichinsan_title_settings,
+                        decoration: boxDecorationRoundedWithShadow(12,
+                            backgroundColor: context.cardColor),
+                        trailing: Icon(Icons.arrow_right,
+                            color: grey.withOpacity(0.5)),
+                        onTap: () {
+                          //
+                        }),
+                    16.height,
+                    SettingItemWidget(
+                        title: textOfButton(),
+                        decoration: boxDecorationRoundedWithShadow(12,
+                            backgroundColor: context.cardColor),
+                        trailing: Icon(Icons.arrow_right,
+                            color: grey.withOpacity(0.5)),
+                        onTap: () async {
+                          if (isAnonymous()) {
+                            await _signIn();
+                          } else {
+                            await _signOut();
+                          }
+                        }),
+                  ],
+                ).paddingAll(16),
               ),
-              16.height,
-              Text(userProfile.fullName, style: boldTextStyle()),
-              Text(userProfile.role, style: secondaryTextStyle()),
-              16.height,
-              SettingItemWidget(
-                  title: Ichinsan_title_your_proflie,
-                  decoration: boxDecorationRoundedWithShadow(12,
-                      backgroundColor: context.cardColor),
-                  trailing:
-                      Icon(Icons.arrow_right, color: grey.withOpacity(0.5)),
-                  onTap: () {
-                    IchinsanCommon.itemNavigator(
-                        (context) =>
-                            ProfileDetailScreen(userProfile: userProfile),
-                        context);
-                  }),
-              16.height,
-              SettingItemWidget(
-                  title: Ichinsan_title_skill,
-                  decoration: boxDecorationRoundedWithShadow(12,
-                      backgroundColor: context.cardColor),
-                  trailing:
-                      Icon(Icons.arrow_right, color: grey.withOpacity(0.5)),
-                  onTap: () {
-                    IchinsanCommon.itemNavigator(
-                        (context) =>
-                            SkillDetailScreen(userProfile: userProfile),
-                        context);
-                  }),
-              16.height,
-              SettingItemWidget(
-                  title: Ichinsan_title_notification,
-                  decoration: boxDecorationRoundedWithShadow(12,
-                      backgroundColor: context.cardColor),
-                  trailing:
-                      Icon(Icons.arrow_right, color: grey.withOpacity(0.5)),
-                  onTap: () {
-                    //
-                  }),
-              16.height,
-              SettingItemWidget(
-                  title: Ichinsan_title_settings,
-                  decoration: boxDecorationRoundedWithShadow(12,
-                      backgroundColor: context.cardColor),
-                  trailing:
-                      Icon(Icons.arrow_right, color: grey.withOpacity(0.5)),
-                  onTap: () {
-                    //
-                  }),
-              16.height,
-              SettingItemWidget(
-                  title: textOfButton(),
-                  decoration: boxDecorationRoundedWithShadow(12,
-                      backgroundColor: context.cardColor),
-                  trailing:
-                      Icon(Icons.arrow_right, color: grey.withOpacity(0.5)),
-                  onTap: () async {
-                    if (isAnonymous()) {
-                      await _signIn();
-                    } else {
-                      await _signOut();
-                    }
-                  }),
-            ],
-          ).paddingAll(16),
-        ),
-      ),
-    ));
-    // Scaffold(
-    //     body: ListView(
-    //   physics: BouncingScrollPhysics(),
-    //   children: [
-    //     ProfileWidget(
-    //       avatarImage: userProfile.avatarImage,
-    //       onClicked: () async {},
-    //     ),
-    //     const SizedBox(height: 20),
-    //     buildName(userProfile),
-    //     const SizedBox(height: 20),
-    //     buildAbout(userProfile),
-    //     const SizedBox(height: 20),
-    //     Center(
-    //       child: ButtonWidget(
-    //           onClicked: isAnonymous() ? _signIn : _signOut,
-    //           text: textOfButton()),
-    //     ),
-    //   ],
-    // ));
+            ),
+          ));
   }
 
   Widget buildName(Profile userProfile) => Column(
@@ -167,7 +173,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
               ),
               Text(
-                userProfile.fullName,
+                userProfile.fullName!,
                 style: TextStyle(color: Colors.grey),
               ),
             ],
@@ -179,7 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
               ),
               Text(
-                userProfile.role,
+                userProfile.role!,
                 style: TextStyle(color: Colors.grey),
               ),
             ],
@@ -191,7 +197,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
               ),
               Text(
-                userProfile.level,
+                userProfile.level!,
                 style: TextStyle(color: Colors.grey),
               ),
             ],
@@ -203,7 +209,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
               ),
               Text(
-                userProfile.email,
+                userProfile.email!,
                 style: TextStyle(color: Colors.grey),
               ),
             ],
@@ -215,7 +221,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
               ),
               Text(
-                userProfile.phonenumber,
+                userProfile.phonenumber!,
                 style: TextStyle(color: Colors.grey),
               ),
             ],
@@ -227,7 +233,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
               ),
               Text(
-                userProfile.gender,
+                userProfile.gender!,
                 style: TextStyle(color: Colors.grey),
               ),
             ],
@@ -260,7 +266,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           const SizedBox(height: 15),
           Text(
-            userProfile.aboutMe,
+            userProfile.aboutMe!,
             style: TextStyle(fontSize: 16, height: 1.4),
           ),
         ],
@@ -311,6 +317,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future _signOut() async {
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
+    DataPersistency.clearAccountPreferences(Ichinsan_account_preference);
     return IchinsanCommon.itemNavigator((context) => Ichinsan(), context);
   }
 
@@ -328,6 +335,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   dynamic setData() {
     var result = isAnonymous();
     if (!result) {
+      getFromPreference();
       Profile_Data.id = '1';
       Profile_Data.avatarImage = user.photoURL ?? placeholderImage;
       Profile_Data.email = user.email;
@@ -337,6 +345,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
       Profile_Data.avatarImage = placeholderImage;
       Profile_Data.email = Ichinsan_label_unknown;
       return Profile_Data.myDefaultProfile;
+    }
+  }
+
+  void getFromPreference() async {
+    var account =
+        await DataPersistency.getPreferences(Ichinsan_account_preference);
+    if (account != null) {
+      var profile = await getProfile(account.profileId.toString());
+      if (profile != null) {
+        setState(() {
+          Profile_Data.avatarImage = user.photoURL ?? placeholderImage;
+          Profile_Data.profile = profile;
+          userProfile = Profile_Data.myIchinsanProfile;
+          isLoading = false;
+        });
+      }
     }
   }
 }

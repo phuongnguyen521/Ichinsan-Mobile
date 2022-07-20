@@ -62,6 +62,12 @@ dependencies:
   #country_icon
   country_icons: ^2.0.2
 
+  #date form
+  date_time_picker: ^2.1.0
+
+  #share preference
+  shared_preferences: ^2.0.15
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

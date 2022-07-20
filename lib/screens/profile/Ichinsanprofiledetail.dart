@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ichinsan_mobile/constants/size_config.dart';
+import 'package:ichinsan_mobile/model/profile/Ichinsanprofile.dart';
 import 'package:nb_utils/nb_utils.dart';
 import '../../constants/IchinsanColors.dart';
 import '../../constants/Ichinsan_constant.dart';
@@ -8,7 +9,6 @@ import '../../constants/common.dart';
 import '../../constants/size_config.dart';
 
 import '../../main.dart';
-import '../../model/profile.dart';
 import '../../widgets/appwidget.dart';
 import '../../widgets/profile_widget/button_widget.dart';
 import '../../widgets/profile_widget/profile_widget.dart';
@@ -16,7 +16,7 @@ import '../signin.dart';
 import 'editingprofile/editprofile.dart';
 
 class ProfileDetailScreen extends StatefulWidget {
-  final Profile userProfile;
+  final IchinsanProfile userProfile;
   ProfileDetailScreen({required this.userProfile});
 
   @override
@@ -57,7 +57,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var skillList = widget.userProfile.skillList;
+    var skillList = widget.userProfile.languageSkill;
     return Scaffold(
         // backgroundColor: qIBus_app_background,
         appBar: AppBar(
@@ -73,35 +73,14 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
             },
           ),
           title: const Align(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.topCenter,
             child: Text(Ichinsan_title_your_proflie),
           ),
-          actions: [
-            widget.userProfile.email.compareTo(Ichinsan_label_unknown) == 0
-                ? GestureDetector(
-                    child: ButtonWidget(
-                        onClicked: () {
-                          IchinsanCommon.itemNavigator(
-                              (context) => SignIn(), context);
-                        },
-                        text: Ichinsan_title_sign_in),
-                  )
-                : GestureDetector(
-                    child: ButtonWidget(
-                        onClicked: () {
-                          IchinsanCommon.itemNavigator(
-                              (context) =>
-                                  EditProfile(userProfile: widget.userProfile),
-                              context);
-                        },
-                        text: Inchisan_label_edit),
-                  )
-          ],
         ),
         body: Container(
           height: context.height(),
           width: context.width(),
-          padding: EdgeInsets.only(top: spacing_xxLarge),
+          padding: const EdgeInsets.only(top: spacing_xxLarge),
           child: Column(
             children: <Widget>[
               Expanded(
@@ -124,7 +103,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ProfileWidget(
-                                avatarImage: widget.userProfile.avatarImage,
+                                avatarImage: widget.userProfile.avatarImage!,
                                 onClicked: () async {},
                                 heightImage: 80,
                                 widthImage: 80,
@@ -136,9 +115,9 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                     top: spacing_standard_new),
                                 child: Column(
                                   children: <Widget>[
-                                    Text(widget.userProfile.fullName,
+                                    Text(widget.userProfile.fullName!,
                                         style: boldTextStyle()),
-                                    Text(widget.userProfile.role,
+                                    Text(widget.userProfile.role!,
                                         style: secondaryTextStyle()),
                                   ],
                                 ),
@@ -212,7 +191,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                               8.height,
                               //Phone number
                               rowHeading(Ichinsan_label_phone_number,
-                                  widget.userProfile.phonenumber),
+                                  widget.userProfile.phoneNumber),
                               view().paddingOnly(
                                   left: 16, top: 8, right: 16, bottom: 8),
                               8.height,
@@ -249,13 +228,26 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                 padding: EdgeInsets.only(left: 20),
                                 child: Align(
                                     alignment: Alignment.topLeft,
-                                    child: Text(widget.userProfile.aboutMe)),
+                                    child: Text(widget.userProfile.aboutMe ??
+                                        Ichinsan_label_unknown)),
                               )
                             ],
                           ),
                         ),
                       ),
-                      16.height,
+                      10.height,
+                      Center(
+                        child: GestureDetector(
+                          child: ButtonWidget(
+                              onClicked: () async {
+                                IchinsanCommon.itemNavigator(
+                                    (context) => EditProfile(
+                                        userProfile: widget.userProfile),
+                                    context);
+                              },
+                              text: Inchisan_label_edit),
+                        ),
+                      ),
                     ],
                   ),
                 ),

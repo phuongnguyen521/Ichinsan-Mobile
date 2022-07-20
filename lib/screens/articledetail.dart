@@ -20,7 +20,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
             ),
         title: Text('Article Detail'),
       ),
-      body: Center(
+      body: const Center(
         child: Text("Article Detail"),
       ),
     );
