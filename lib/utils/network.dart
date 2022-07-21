@@ -223,9 +223,9 @@ Future<ApplyArticle?> applyArticle(String projectId, String articleId, String ap
 
 List<ApplyCheck> parseApplyChecker(String responseBody) {
   var list = json.decode(responseBody) as List<dynamic>;
-  List<ApplyCheck> projects =
+  List<ApplyCheck> check =
   list.map((model) => ApplyCheck.fromMap(model)).toList();
-  return projects;
+  return check;
 }
 
 Future<List<ApplyCheck>> ApplyChecker(int? pageNumber, int pageSize,String id) async {

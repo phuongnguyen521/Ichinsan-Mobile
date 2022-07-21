@@ -34,6 +34,7 @@ class ArticleViewState extends State<ArticleView> {
   bool colorOn = false;
   bool textOn = false;
   bool isRole = false;
+  bool isApplied=false;
 
   late User user;
   bool isNull = true;
@@ -43,9 +44,10 @@ class ArticleViewState extends State<ArticleView> {
   String userrole=''; //Translator
 
   List<ApplyCheck> applycheckList = <ApplyCheck>[];
+  List<ApplyCheck> checkerList = <ApplyCheck>[];
   @override
   void initState() {
-
+    super.initState();
     file =FirebaseStorage.instance.ref('${ApiConstants.firebaseFile}/${widget.articles.originalContent}');
 
     try {
@@ -56,13 +58,13 @@ class ArticleViewState extends State<ArticleView> {
       print(e);
     }finally{
       SetData();
-      ApplyChecker(1,30,userid).then((value) {
-        setState(() {
-          applycheckList=value;
-        });
-      });
+
     }
-    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
 
@@ -246,20 +248,20 @@ class ArticleViewState extends State<ArticleView> {
               ),
               SizedBox(height: 10),
               Container(
-                child: (userrole=='Translator')
-                ? Container(
+                child: (userrole == 'Translator')
+                ? isApplied ?
+                Container(
                   width: size.width,
-                  color: colorOn ? NowUIColors.muted : NowUIColors.primary,
+                  color: NowUIColors.muted ,
                   child: TextButton(
                     onPressed: () async {
                       if(isNull){
                         Navigator.push(
                             context, MaterialPageRoute(builder: (context) => SignIn()));
                       }else{
-                        //Tạo vòng lặp check
-                        if(applycheckList.every((i) => i.articleId.toString() == widget.articles.id.toString()) ){
-                          colorOn = false;
-                          textOn = false;
+                        if(isApplied){
+                          textOn=true;
+                          colorOn=true;
                         }else{
                           ApplyArticle? data = await applyArticle(widget.articles.projectId, widget.articles.id,userid.toString());
                           if(data != null){
@@ -276,21 +278,59 @@ class ArticleViewState extends State<ArticleView> {
                             });
                           }
                         }
+
                       }
                     },
-                    child: textOn
-                        ? const Text("Applied",
+                    child:
+                         const Text("Applied",
                             style: TextStyle(
                               color: NowUIColors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ))
-                        : const Text("Apply",
-                            style: TextStyle(
-                              color: NowUIColors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            )),
+
+                  ),
+                )
+                : Container(
+                  width: size.width,
+                  color: NowUIColors.primary ,
+                  child: TextButton(
+                      onPressed: () async {
+                        if(isNull){
+                          Navigator.push(
+                              context, MaterialPageRoute(builder: (context) => SignIn()));
+                        }else{
+                          if(isApplied){
+                            textOn=true;
+                            colorOn=true;
+                          }else{
+                            ApplyArticle? data = await applyArticle(widget.articles.projectId, widget.articles.id,userid.toString());
+                            if(data != null){
+                              setState((){
+                                //colorOn = true;
+                                //textOn = true;
+                                isApplied=true;
+                                _dataModel=data;
+                              });
+                            }else{
+                              setState((){
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Fail to Apply')));
+                                colorOn = false;
+                                textOn = false;
+                              });
+                            }
+                          }
+
+                        }
+                      },
+                      child:
+                      const Text("Apply",
+                          style: TextStyle(
+                            color: NowUIColors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ))
+
                   ),
                 )
                 : Container(),
@@ -320,18 +360,43 @@ class ArticleViewState extends State<ArticleView> {
   SetData(){
     getaccount();
   }
+  /*checkData(){
+    checkApplied();
+  }*/
 
    void getaccount() async {
     var account = await DataPersistency.getPreferences(Ichinsan_account_preference);
     if (account != null) {
       userid = account.id.toString();
       userrole = account.role.toString();
-      setState(() {});
+      ApplyChecker(1,30,userid).then((value) {
+        setState(() {
+          applycheckList.addAll(value);
+          String text=widget.articles.id.toString();
+          checkerList = applycheckList.where((list) {
+            var articles = list.articleId.toString();
+            return articles.contains(text);
+          }).toList();
+
+          if(checkerList.isNotEmpty){
+            isApplied=true;
+          }
+        });
+      });
     }
   }
-  
-  
+  /*void checkApplied(){
+    for(var i=1; i<= applycheckList.length;i++){
+      if(applycheckList[i].articleId == widget.articles.id){
+        textOn=true;
+        colorOn=true;
+        isApplied=true;
+        setState(() {
 
+        });
+      }
+    }
+  }*/
 
 
 }

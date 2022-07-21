@@ -47,7 +47,7 @@ class ApplyCheck {
     appliedOn: json["appliedOn"] == null ? null : DateTime.parse(json["appliedOn"]),
     status: json["status"],
     articleName: json["articleName"],
-    salary: json["salary"].toDouble(),
+    salary: json["salary"],
     languageFromName: json["languageFromName"],
     languageToName: json["languageToName"],
   );
