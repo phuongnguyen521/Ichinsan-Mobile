@@ -6,11 +6,16 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:ichinsan_mobile/model/Customer/customer.dart';
 import 'package:ichinsan_mobile/model/Project/projectdetail.dart';
+import 'package:ichinsan_mobile/model/application/ApplyCheck.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import '../constants/api_constants.dart';
 import '../model/Article/articles.dart';
 import '../model/Article/categories.dart';
 import '../model/Project/projects.dart';
+import '../model/application/ApplyCheck.dart';
+import '../model/application/ApplyCheck.dart';
+import '../model/application/ApplyCheck.dart';
 import '../model/application/apply_article.dart';
 
 // List<Articles> parseArticles (String resonseArticle){
@@ -193,24 +198,47 @@ Future<ApplyArticle?> applyArticle(String projectId, String articleId, String ap
   final url = Uri.parse('$postsEndpoint');
   //https://api-dotnet-test.herokuapp.com/api/applications
   final response= await http.post(url,
-      headers: {
+      headers: <String, String>{
         "Content-Type" : "application/json",
       },
-      body :jsonEncode({
+      body :jsonEncode(<String, String>{
         "projectId": projectId,
         "articleId": articleId,
         "appliedBy": appliedBy
       }));
 
   var data =response.body;
+  print(projectId);
+  print(articleId);
+  print(appliedBy);
+  print(response.statusCode.toString());
   print(data);
 
-  if(response.statusCode==200){
+  if(response.statusCode.isSuccessful()){
     String responseString = response.body;
-    applyArticleFromMap(responseString);
+    ApplyArticle success = applyArticleFromMap(responseString);
+    return success;
   }else return null;
 }
 
+List<ApplyCheck> parseApplyChecker(String responseBody) {
+  var list = json.decode(responseBody) as List<dynamic>;
+  List<ApplyCheck> projects =
+  list.map((model) => ApplyCheck.fromMap(model)).toList();
+  return projects;
+}
 
+Future<List<ApplyCheck>> ApplyChecker(int? pageNumber, int pageSize,String id) async {
+  final String postsEndpoint =
+      ApiConstants.baseUrl + ApiConstants.applicationsEndpoint;
+  final response = await http.get(Uri.parse('$postsEndpoint/translators?pageNumber=$pageNumber&pageSize=$pageSize&applyBy=$id'));
+
+  if (response.statusCode == 200) {
+    var result = compute(parseApplyChecker, response.body);
+    return result;
+  } else {
+    throw Exception("Request API fail");
+  }
+}
 
 
