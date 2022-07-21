@@ -49,7 +49,6 @@ class _IchinsanState extends State<IchinsanPage> {
   final screens = [
     Home(),
     Progress(),
-    Wallet(),
     ProfileScreen(),
   ];
 
@@ -73,10 +72,6 @@ class _IchinsanState extends State<IchinsanPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.access_alarm_rounded),
             label: 'Progress',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_wallet),
-            label: 'Wallet',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),

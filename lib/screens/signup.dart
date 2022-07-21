@@ -102,7 +102,7 @@ class _SignUpState extends State<SignUp> {
           // ignore: use_build_context_synchronously
           return IchinsanCommon.itemNavigatorPushAndRemove(
               (context) => IchinsanPage(
-                    index: 3,
+                    index: 2,
                     title: 'Ichinsan-MobileApp',
                   ),
               context);

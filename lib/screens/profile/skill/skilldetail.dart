@@ -90,7 +90,7 @@ class _SkillDetailScreenState extends State<SkillDetailScreen> {
           onPressed: () {
             IchinsanCommon.itemNavigatorPushAndRemove(
                 (context) => IchinsanPage(
-                      index: 3,
+                      index: 2,
                       title: 'Ichinsan-MobileApp',
                     ),
                 context);

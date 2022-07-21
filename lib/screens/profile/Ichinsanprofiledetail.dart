@@ -66,7 +66,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
             onPressed: () {
               IchinsanCommon.itemNavigatorPushAndRemove(
                   (context) => IchinsanPage(
-                        index: 3,
+                        index: 2,
                         title: 'Ichinsan-MobileApp',
                       ),
                   context);
