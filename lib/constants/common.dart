@@ -11,7 +11,8 @@ class IchinsanCommon {
     "Japanese": "assets/imgs/japanese.jpg",
     "VN": "assets/imgs/vietnam.png",
     "EN": "assets/imgs/english.jpg",
-    "JP": "assets/imgs/japanese.jpg"
+    "JP": "assets/imgs/japanese.jpg",
+    "GB": "assets/imgs/english.jpg",
   };
 
   static Future itemNavigator(WidgetBuilder widget, dynamic context) {

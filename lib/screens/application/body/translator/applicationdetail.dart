@@ -32,7 +32,7 @@ class TranslatorApplicationDetail extends StatelessWidget {
           children: <Widget>[
             Expanded(
                 child: Padding(
-                    padding: EdgeInsets.all(defaultSize * 2),
+                    padding: EdgeInsets.all(defaultSize * 1.8),
                     child: Center(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,11 +42,14 @@ class TranslatorApplicationDetail extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                item.articleName.toString(),
-                                style: TextStyle(fontSize: defaultSize * 2.4),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
+                              Container(
+                                width: 220,
+                                child: Text(
+                                  item.articleName.toString(),
+                                  style: TextStyle(fontSize: defaultSize * 2.4),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                               Row(children: <Widget>[
                                 Text(item.status.toString(),
