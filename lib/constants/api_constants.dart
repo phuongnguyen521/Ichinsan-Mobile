@@ -11,4 +11,5 @@ class ApiConstants {
   static String accountRegisterEndpoint = '/register';
   static String profileEndpoint = '/profiles';
   static String applicationsEndpoint = '/applications';
+
 }
