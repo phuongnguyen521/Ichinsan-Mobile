@@ -1,33 +1,35 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:ichinsan_mobile/widgets/home_widget/articleview.dart';
 
-import '../../model/Article/articles.dart';
-import '../../constants/common.dart';
-import '../../utils/network.dart';
-import '../card-horizontal.dart';
+import '../../../constants/Ichinsan_string.dart';
+import '../../../constants/common.dart';
+import '../../../model/progress/progress_article.dart';
+import '../../../widgets/card-horizontal.dart';
+import 'articleProgressView.dart';
 
-class ListArticles extends StatelessWidget {
-  ListArticles({Key? key, required this.numarticle
+class ArticleProgressProjectsDetail extends StatelessWidget {
+  ArticleProgressProjectsDetail({Key? key, this.articleList
       /*required this.title,*/
       })
       : super(key: key);
-  final int numarticle;
+  List<ProgressArticle>? articleList;
 
   /*final String title;*/
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: fetchArticles(1, 10),
-        builder: (context, data) {
-          if (data.hasError) {
-            return Center(child: Text("Not Found"));
-          } else if (data.hasData) {
-            var items = data.data as List<Articles>;
+    var _isNull = articleList == null;
+    return _isNull
+        ? const Center(
+            child: AutoSizeText(Ichinsan_progress_project_null,
+                style: TextStyle(fontSize: 18), maxLines: 1),
+          )
+        : FutureBuilder(builder: (context, data) {
+            var items = articleList as List<ProgressArticle>;
             return SingleChildScrollView(
               child: Column(
                 children: [
                   ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: items.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
@@ -45,8 +47,8 @@ class ListArticles extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ArticleView(
-                                          articles: items[index],
+                                    builder: (context) => ArticleProgressView(
+                                          article: items[index],
                                         )),
                               );
                             });
@@ -54,11 +56,6 @@ class ListArticles extends StatelessWidget {
                 ],
               ),
             );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        });
+          });
   }
 }

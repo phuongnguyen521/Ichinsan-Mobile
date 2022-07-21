@@ -19,7 +19,7 @@ class BodyState extends State<Body> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           TitleText(title: "Top Recent"),
           ListArticles(numarticle: 10),
           SizedBox(height: 5),

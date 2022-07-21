@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ichinsan_mobile/constants/Theme.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import 'IchinsanColors.dart';
@@ -18,40 +17,40 @@ class AppThemeData {
     hoverColor: Colors.white54,
     dividerColor: viewLineColor,
     fontFamily: GoogleFonts.openSans().fontFamily,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       color: appLayout_background,
       iconTheme: IconThemeData(color: textPrimaryColor),
       systemOverlayStyle:
           SystemUiOverlayStyle(statusBarIconBrightness: Brightness.dark),
     ),
-    textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.black),
-    colorScheme: ColorScheme.light(
+    textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.black),
+    colorScheme: const ColorScheme.light(
         primary: appColorPrimary, primaryContainer: appColorPrimary),
-    cardTheme: CardTheme(color: Colors.white),
+    cardTheme: const CardTheme(color: Colors.white),
     cardColor: Colors.white,
-    iconTheme: IconThemeData(color: textPrimaryColor),
-    bottomSheetTheme: BottomSheetThemeData(backgroundColor: whiteColor),
-    textTheme: TextTheme(
+    iconTheme: const IconThemeData(color: textPrimaryColor),
+    bottomSheetTheme: const BottomSheetThemeData(backgroundColor: whiteColor),
+    textTheme: const TextTheme(
       button: TextStyle(color: appColorPrimary),
       headline6: TextStyle(color: textPrimaryColor),
       subtitle2: TextStyle(color: textSecondaryColor),
     ),
     visualDensity: VisualDensity.adaptivePlatformDensity,
   ).copyWith(
-    pageTransitionsTheme:
-        PageTransitionsTheme(builders: <TargetPlatform, PageTransitionsBuilder>{
-      TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
-      TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-      TargetPlatform.linux: OpenUpwardsPageTransitionsBuilder(),
-      TargetPlatform.macOS: OpenUpwardsPageTransitionsBuilder(),
-    }),
+    pageTransitionsTheme: const PageTransitionsTheme(
+        builders: <TargetPlatform, PageTransitionsBuilder>{
+          TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.linux: OpenUpwardsPageTransitionsBuilder(),
+          TargetPlatform.macOS: OpenUpwardsPageTransitionsBuilder(),
+        }),
   );
 
   static final ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: appBackgroundColorDark,
     highlightColor: appBackgroundColorDark,
     errorColor: Color(0xFFCF6676),
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       color: appBackgroundColorDark,
       iconTheme: IconThemeData(color: blackColor),
       systemOverlayStyle:

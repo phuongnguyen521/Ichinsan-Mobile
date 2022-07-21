@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'bodyfeedbacklist.dart';
 
-class FeedbackList extends StatefulWidget {
-  const FeedbackList({Key? key}) : super(key: key);
+class IchinsanFeedbackList extends StatefulWidget {
+  const IchinsanFeedbackList({Key? key}) : super(key: key);
   @override
-  State<FeedbackList> createState() => _FeedbackListState();
+  State<IchinsanFeedbackList> createState() => _FeedbackListState();
 }
 
-class _FeedbackListState extends State<FeedbackList>
+class _FeedbackListState extends State<IchinsanFeedbackList>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late ScrollController _scrollViewController;

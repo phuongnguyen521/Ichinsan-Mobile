@@ -16,6 +16,6 @@ class ProgressItem {
     ProgressItem('Projects', 'Let\'s check your work', NowUIColors.firstItem,
         (context) => Project()),
     ProgressItem('Feedbacks', 'Let\s see what your teammate review',
-        NowUIColors.secondItem, (context) => FeedbackList())
+        NowUIColors.secondItem, (context) => IchinsanFeedbackList())
   ];
 }

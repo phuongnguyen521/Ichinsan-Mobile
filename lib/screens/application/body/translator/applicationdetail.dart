@@ -21,9 +21,9 @@ class TranslatorApplicationDetail extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-              color: item.status.toLowerCase().contains('pending')
+              color: item.status!.toLowerCase().contains('pending')
                   ? NowUIColors.defaultColor
-                  : (item.status.toLowerCase().contains('approved')
+                  : (item.status!.toLowerCase().contains('approved')
                       ? NowUIColors.success
                       : NowUIColors.warning)),
           borderRadius: BorderRadius.circular(defaultSize * 1.8),
@@ -37,26 +37,26 @@ class TranslatorApplicationDetail extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Spacer(),
+                          const Spacer(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                item.articleName,
+                                item.articleName.toString(),
                                 style: TextStyle(fontSize: defaultSize * 2.4),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
                               Row(children: <Widget>[
-                                Text(item.status,
+                                Text(item.status.toString(),
                                     textAlign: TextAlign.end,
                                     style: TextStyle(
-                                      color: item.status
+                                      color: item.status!
                                               .toLowerCase()
                                               .contains('pending')
                                           ? NowUIColors.defaultColor
-                                          : (item.status
+                                          : (item.status!
                                                   .toLowerCase()
                                                   .contains('approved')
                                               ? NowUIColors.success
@@ -68,7 +68,7 @@ class TranslatorApplicationDetail extends StatelessWidget {
                           ),
                           SizedBox(height: defaultSize * 2),
                           Row(children: <Widget>[
-                            Icon(Icons.attach_money_outlined, size: 24),
+                            const Icon(Icons.attach_money_outlined, size: 24),
                             Text(item.salary.toString(),
                                 style: const TextStyle(
                                   color: NowUIColors.info,
@@ -85,17 +85,17 @@ class TranslatorApplicationDetail extends StatelessWidget {
                                 width: 40,
                                 child: Image(
                                     image: AssetImage(returnLanguageData(
-                                        item.languageFromName))),
+                                        item.languageFromName.toString()))),
                               ),
-                              SizedBox(width: 5),
+                              const SizedBox(width: 5),
                               const Icon(Icons.arrow_right, size: 50),
-                              SizedBox(width: 5),
+                              const SizedBox(width: 5),
                               Container(
                                 height: 40,
                                 width: 40,
                                 child: Image(
                                     image: AssetImage(returnLanguageData(
-                                        item.languageToName))),
+                                        item.languageToName.toString()))),
                               ),
                             ]),
                           ),

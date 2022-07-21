@@ -12,6 +12,9 @@ import '../model/Article/articles.dart';
 import '../model/Article/categories.dart';
 import '../model/Project/projects.dart';
 import '../model/application/apply_article.dart';
+import '../model/progress/article_feedback.dart';
+import '../model/progress/article_feedback_detail.dart';
+import '../model/progress/progress_article.dart';
 
 // List<Articles> parseArticles (String resonseArticle){
 //   var list = json.decode(resonseArticle) as List<dynamic>;
@@ -108,7 +111,7 @@ Future<List<Language>> fetchLanguage() async {
 List<Projects> parseProjects(String responseBody) {
   var list = json.decode(responseBody) as List<dynamic>;
   List<Projects> projects =
-  list.map((model) => Projects.fromMap(model)).toList();
+      list.map((model) => Projects.fromMap(model)).toList();
   return projects;
 }
 
@@ -127,7 +130,8 @@ Future<List<Projects>> fetchProjects(int? pageNumber, int pageSize) async {
   }
 }
 
-Future<List<Projects>> fetchProjectsbyID(int? pageNumber, int pageSize,String id) async {
+Future<List<Projects>> fetchProjectsbyID(
+    int? pageNumber, int pageSize, String id) async {
   final String postsEndpoint =
       ApiConstants.baseUrl + ApiConstants.projectsEndpoint;
   final response = await http.get(
@@ -146,7 +150,8 @@ Future<List<Projects>> fetchProjectwithid(String id) async {
   final String postsEndpoint =
       ApiConstants.baseUrl + ApiConstants.projectsEndpoint;
   //final response = await http.get(Uri.parse('$postsEndpoint/$id'));
-  final response = await http.get(Uri.parse('https://api-dotnet-test.herokuapp.com/api/projects/$id'));
+  final response = await http
+      .get(Uri.parse('https://api-dotnet-test.herokuapp.com/api/projects/$id'));
 
   if (response.statusCode == 200) {
     var result = compute(parseProjects, response.body);
@@ -187,30 +192,103 @@ Future<Customer?> getCustomerbyId(String ID) async {
   return null;
 }
 
-Future<ApplyArticle?> applyArticle(String projectId, String articleId, String appliedBy) async{
+Future<ApplyArticle?> applyArticle(
+    String projectId, String articleId, String appliedBy) async {
   final String postsEndpoint =
-  ApiConstants.baseUrl + ApiConstants.applicationsEndpoint;
+      ApiConstants.baseUrl + ApiConstants.applicationsEndpoint;
   final url = Uri.parse('$postsEndpoint');
   //https://api-dotnet-test.herokuapp.com/api/applications
-  final response= await http.post(url,
+  final response = await http.post(url,
       headers: {
-        "Content-Type" : "application/json",
+        "Content-Type": "application/json",
       },
-      body :jsonEncode({
+      body: jsonEncode({
         "projectId": projectId,
         "articleId": articleId,
         "appliedBy": appliedBy
       }));
 
-  var data =response.body;
+  var data = response.body;
   print(data);
 
-  if(response.statusCode==200){
+  if (response.statusCode == 200) {
     String responseString = response.body;
     applyArticleFromMap(responseString);
-  }else return null;
+  } else
+    return null;
 }
 
+Future<List<ProgressArticle>?> getProgressArticles(
+    int? pageNumber, int pageSize, String userId) async {
+  final String articleProgressEndpoint = ApiConstants.baseUrl +
+      ApiConstants.articleEndpoint +
+      ApiConstants.articleProgressEndpoint;
+  try {
+    final url = Uri.parse(
+        '$articleProgressEndpoint?userID=$userId&pageNumber=$pageNumber&pageSize=$pageSize');
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      var list = progressArticleListFromJson(response.body);
+      return list;
+    } else
+      return null;
+  } catch (e) {
+    return null;
+  }
+  return null;
+}
 
+Future<List<FeedbackList>?> getProgressArticlesFeedback(
+    String articleId) async {
+  final String articleProgressEndpoint = ApiConstants.baseUrl +
+      ApiConstants.articleEndpoint +
+      ApiConstants.articleProgressEndpoint;
+  try {
+    final url = Uri.parse('$articleProgressEndpoint/$articleId');
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      var list = articleFeedbackFromJson(response.body);
+      var feedbackList = list.elementAt(0).feedbackList;
+      return feedbackList;
+    } else
+      return null;
+  } catch (e) {
+    return null;
+  }
+  return null;
+}
 
+Future<List<FeedbackCriterion>?> getFeedbackDetailByFeedbackId(
+    String feedbackId) async {
+  final String articleFeedbackEndpoint =
+      ApiConstants.baseUrl + ApiConstants.feedbacksEndpoint;
+  try {
+    final url = Uri.parse('$articleFeedbackEndpoint/$feedbackId');
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      var list = feedbackDetailFromJson(response.body);
+      var feedbackList = list.feedbackCriteria;
+      return feedbackList;
+    } else
+      return null;
+  } catch (e) {
+    return null;
+  }
+}
 
+Future<Articles?> getArticleDetail(String articleId) async {
+  final String articleDetailEndpoint =
+      ApiConstants.baseUrl + ApiConstants.articleEndpoint;
+  try {
+    final url = Uri.parse('$articleDetailEndpoint/$articleId');
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      var articleDetail = articlesFromJson(response.body);
+      return articleDetail;
+    } else {
+      return null;
+    }
+  } catch (e) {
+    return null;
+  }
+}
