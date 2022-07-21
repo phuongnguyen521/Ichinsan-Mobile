@@ -32,7 +32,7 @@ class TranslatorApplication {
   DateTime? appliedOn;
   String? status;
   String? articleName;
-  int? salary;
+  double? salary;
   String? languageFromName;
   String? languageToName;
 
@@ -46,7 +46,7 @@ class TranslatorApplication {
     DateTime? appliedOn,
     String? status,
     String? articleName,
-    int? salary,
+    double? salary,
     String? languageFromName,
     String? languageToName,
   }) =>
@@ -65,34 +65,38 @@ class TranslatorApplication {
         languageToName: languageToName ?? this.languageToName,
       );
 
-  factory TranslatorApplication.fromJson(Map<String?, dynamic> json) =>
+  factory TranslatorApplication.fromJson(Map<String, dynamic> json) =>
       TranslatorApplication(
-        id: json["id"],
-        profileId: json["profileId"],
-        projectId: json["projectId"],
-        articleId: json["articleId"],
-        applyBy: json["applyBy"],
-        appliedBy: json["appliedBy"],
-        appliedOn: DateTime?.parse(json["appliedOn"]),
-        status: json["status"],
-        articleName: json["articleName"],
-        salary: json["salary"],
-        languageFromName: json["languageFromName"],
-        languageToName: json["languageToName"],
+        id: json["id"] == null ? null : json["id"],
+        profileId: json["profileId"] == null ? "" : json["profileId"],
+        projectId: json["projectId"] == null ? null : json["projectId"],
+        articleId: json["articleId"] == null ? null : json["articleId"],
+        applyBy: json["applyBy"] == null ? null : json["applyBy"],
+        appliedBy: json["appliedBy"] == null ? null : json["appliedBy"],
+        appliedOn: json["appliedOn"] == null
+            ? null
+            : DateTime.parse(json["appliedOn"]),
+        status: json["status"] == null ? null : json["status"],
+        articleName: json["articleName"] == null ? null : json["articleName"],
+        salary: json["salary"] == null ? null : json["salary"].toDouble(),
+        languageFromName:
+            json["languageFromName"] == null ? null : json["languageFromName"],
+        languageToName:
+            json["languageToName"] == null ? null : json["languageToName"],
       );
 
-  Map<String?, dynamic> toJson() => {
-        "id": id,
+  Map<String, dynamic> toJson() => {
+        "id": id == null ? null : id,
         "profileId": profileId,
-        "projectId": projectId,
-        "articleId": articleId,
-        "applyBy": applyBy,
-        "appliedBy": appliedBy,
-        "appliedOn": appliedOn!.toIso8601String(),
-        "status": status,
-        "articleName": articleName,
-        "salary": salary,
-        "languageFromName": languageFromName,
-        "languageToName": languageToName,
+        "projectId": projectId == null ? null : projectId,
+        "articleId": articleId == null ? null : articleId,
+        "applyBy": applyBy == null ? null : applyBy,
+        "appliedBy": appliedBy == null ? null : appliedBy,
+        "appliedOn": appliedOn,
+        "status": status == null ? null : status,
+        "articleName": articleName == null ? null : articleName,
+        "salary": salary == null ? null : salary,
+        "languageFromName": languageFromName == null ? null : languageFromName,
+        "languageToName": languageToName == null ? null : languageToName,
       };
 }

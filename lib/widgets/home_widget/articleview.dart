@@ -34,21 +34,22 @@ class ArticleViewState extends State<ArticleView> {
   bool colorOn = false;
   bool textOn = false;
   bool isRole = false;
-  bool isApplied=false;
+  bool isApplied = false;
 
   late User user;
   bool isNull = true;
   late Reference file;
   ApplyArticle? _dataModel;
-  String userid = '';   // e28f6f7b-fd90-4f80-a621-03139163da05
-  String userrole=''; //Translator
+  String userid = ''; // e28f6f7b-fd90-4f80-a621-03139163da05
+  String userrole = ''; //Translator
 
   List<ApplyCheck> applycheckList = <ApplyCheck>[];
   List<ApplyCheck> checkerList = <ApplyCheck>[];
   @override
   void initState() {
     super.initState();
-    file =FirebaseStorage.instance.ref('${ApiConstants.firebaseFile}/${widget.articles.originalContent}');
+    file = FirebaseStorage.instance
+        .ref('${ApiConstants.firebaseFile}/${widget.articles.originalContent}');
 
     try {
       user = FirebaseAuth.instance.currentUser!;
@@ -56,9 +57,8 @@ class ArticleViewState extends State<ArticleView> {
     } catch (e) {
       isNull = true;
       print(e);
-    }finally{
+    } finally {
       SetData();
-
     }
   }
 
@@ -66,7 +66,6 @@ class ArticleViewState extends State<ArticleView> {
   void dispose() {
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -90,12 +89,22 @@ class ArticleViewState extends State<ArticleView> {
                   Container(
                     child: Row(
                       children: [
-                        IconButton(onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CustomerDetail(customerID: widget.articles.customerId.toString(),customername: widget.articles.customerName.toString(),)));
-                        },
+                        IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CustomerDetail(
+                                            customerID: widget
+                                                .articles.customerId
+                                                .toString(),
+                                            customername: widget
+                                                .articles.customerName
+                                                .toString(),
+                                          )));
+                            },
                             icon: Icon(Icons.account_circle),
-                            iconSize: 40
-                        ),
+                            iconSize: 40),
                         Container(
                           width: size.width * 0.5,
                           child: Text(widget.articles.customerName.toString(),
@@ -123,9 +132,15 @@ class ArticleViewState extends State<ArticleView> {
                 ],
               ),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => ProjectDetail(projectID: widget.articles.projectId.toString(),projectName:widget.articles.projectName.toString() ,)));
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProjectDetail(
+                                projectID: widget.articles.projectId.toString(),
+                                projectName:
+                                    widget.articles.projectName.toString(),
+                              )));
                 },
                 child: Row(
                   children: [
@@ -186,11 +201,13 @@ class ArticleViewState extends State<ArticleView> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Row(children: <Widget>[
-                  IchinsanCommon.getLanguageIcon(widget.articles.languageFrom),
+                  IchinsanCommon.getLanguageIcon(
+                      widget.articles.languageFrom.toString()),
                   const SizedBox(width: 5),
                   const Icon(Icons.arrow_right, size: 50),
                   const SizedBox(width: 5),
-                  IchinsanCommon.getLanguageIcon(widget.articles.languageTo),
+                  IchinsanCommon.getLanguageIcon(
+                      widget.articles.languageTo.toString()),
                 ]),
               ),
               Row(
@@ -200,8 +217,7 @@ class ArticleViewState extends State<ArticleView> {
                           color: NowUIColors.text,
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
-                  Text(
-                    IchinsanCommon.returnDate(widget.articles.deadline),
+                  Text(IchinsanCommon.returnDate(widget.articles.deadline),
                       style: const TextStyle(
                         color: NowUIColors.primary,
                         fontSize: 20,
@@ -225,10 +241,9 @@ class ArticleViewState extends State<ArticleView> {
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold)),
                       ),
-
                       IconButton(
-                          icon: Icon(Icons.download_rounded),
-                        onPressed:() => downloadFile(file),
+                        icon: Icon(Icons.download_rounded),
+                        onPressed: () => downloadFile(file),
                       )
                     ],
                   ),
@@ -249,91 +264,99 @@ class ArticleViewState extends State<ArticleView> {
               SizedBox(height: 10),
               Container(
                 child: (userrole == 'Translator')
-                ? isApplied ?
-                Container(
-                  width: size.width,
-                  color: NowUIColors.muted ,
-                  child: TextButton(
-                    onPressed: () async {
-                      if(isNull){
-                        Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => SignIn()));
-                      }else{
-                        if(isApplied){
-                          textOn=true;
-                          colorOn=true;
-                        }else{
-                          ApplyArticle? data = await applyArticle(widget.articles.projectId, widget.articles.id,userid.toString());
-                          if(data != null){
-                            setState((){
-                              colorOn = true;
-                              textOn = true;
-                              _dataModel=data;
-                            });
-                          }else{
-                            setState((){
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Fail to Apply')));
-                              colorOn = false;
-                              textOn = false;
-                            });
-                          }
-                        }
-
-                      }
-                    },
-                    child:
-                         const Text("Applied",
-                            style: TextStyle(
-                              color: NowUIColors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ))
-
-                  ),
-                )
-                : Container(
-                  width: size.width,
-                  color: NowUIColors.primary ,
-                  child: TextButton(
-                      onPressed: () async {
-                        if(isNull){
-                          Navigator.push(
-                              context, MaterialPageRoute(builder: (context) => SignIn()));
-                        }else{
-                          if(isApplied){
-                            textOn=true;
-                            colorOn=true;
-                          }else{
-                            ApplyArticle? data = await applyArticle(widget.articles.projectId, widget.articles.id,userid.toString());
-                            if(data != null){
-                              setState((){
-                                //colorOn = true;
-                                //textOn = true;
-                                isApplied=true;
-                                _dataModel=data;
-                              });
-                            }else{
-                              setState((){
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Fail to Apply')));
-                                colorOn = false;
-                                textOn = false;
-                              });
-                            }
-                          }
-
-                        }
-                      },
-                      child:
-                      const Text("Apply",
-                          style: TextStyle(
-                            color: NowUIColors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ))
-
-                  ),
-                )
-                : Container(),
+                    ? isApplied
+                        ? Container(
+                            width: size.width,
+                            color: NowUIColors.muted,
+                            child: TextButton(
+                                onPressed: () async {
+                                  if (isNull) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => SignIn()));
+                                  } else {
+                                    if (isApplied) {
+                                      textOn = true;
+                                      colorOn = true;
+                                    } else {
+                                      ApplyArticle? data = await applyArticle(
+                                          widget.articles.projectId.toString(),
+                                          widget.articles.id.toString(),
+                                          userid.toString());
+                                      if (data != null) {
+                                        setState(() {
+                                          colorOn = true;
+                                          textOn = true;
+                                          _dataModel = data;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content:
+                                                      Text('Fail to Apply')));
+                                          colorOn = false;
+                                          textOn = false;
+                                        });
+                                      }
+                                    }
+                                  }
+                                },
+                                child: const Text("Applied",
+                                    style: TextStyle(
+                                      color: NowUIColors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ))),
+                          )
+                        : Container(
+                            width: size.width,
+                            color: NowUIColors.primary,
+                            child: TextButton(
+                                onPressed: () async {
+                                  if (isNull) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => SignIn()));
+                                  } else {
+                                    if (isApplied) {
+                                      textOn = true;
+                                      colorOn = true;
+                                    } else {
+                                      ApplyArticle? data = await applyArticle(
+                                          widget.articles.projectId.toString(),
+                                          widget.articles.id.toString(),
+                                          userid.toString());
+                                      if (data != null) {
+                                        setState(() {
+                                          //colorOn = true;
+                                          //textOn = true;
+                                          isApplied = true;
+                                          _dataModel = data;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content:
+                                                      Text('Fail to Apply')));
+                                          colorOn = false;
+                                          textOn = false;
+                                        });
+                                      }
+                                    }
+                                  }
+                                },
+                                child: const Text("Apply",
+                                    style: TextStyle(
+                                      color: NowUIColors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ))),
+                          )
+                    : Container(),
               )
             ],
           ),
@@ -342,61 +365,47 @@ class ArticleViewState extends State<ArticleView> {
     );
   }
 
-
-
   Future downloadFile(Reference ref) async {
     final url = await ref.getDownloadURL();
 
     final dir = await getApplicationDocumentsDirectory();
     //return dir.path;
-    final file ='${dir.path}/${ref.name}';
+    final file = '${dir.path}/${ref.name}';
 
     //await ref.writeToFile(file);
     await Dio().download(url, file);
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Downloaded ${ref.name}')));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Downloaded ${ref.name}')));
   }
 
-  SetData(){
+  SetData() {
     getaccount();
   }
   /*checkData(){
     checkApplied();
   }*/
 
-   void getaccount() async {
-    var account = await DataPersistency.getPreferences(Ichinsan_account_preference);
+  void getaccount() async {
+    var account =
+        await DataPersistency.getPreferences(Ichinsan_account_preference);
     if (account != null) {
       userid = account.id.toString();
       userrole = account.role.toString();
-      ApplyChecker(1,30,userid).then((value) {
+      ApplyChecker(1, 30, userid).then((value) {
         setState(() {
           applycheckList.addAll(value);
-          String text=widget.articles.id.toString();
+          String text = widget.articles.id.toString();
           checkerList = applycheckList.where((list) {
             var articles = list.articleId.toString();
             return articles.contains(text);
           }).toList();
 
-          if(checkerList.isNotEmpty){
-            isApplied=true;
+          if (checkerList.isNotEmpty) {
+            isApplied = true;
           }
         });
       });
     }
   }
-  /*void checkApplied(){
-    for(var i=1; i<= applycheckList.length;i++){
-      if(applycheckList[i].articleId == widget.articles.id){
-        textOn=true;
-        colorOn=true;
-        isApplied=true;
-        setState(() {
-
-        });
-      }
-    }
-  }*/
-
-
 }

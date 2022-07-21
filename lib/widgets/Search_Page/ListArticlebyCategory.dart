@@ -20,16 +20,15 @@ class ListArticlesbyCategoryState extends State<ListArticlesbyCategory> {
   List<Articles> list = <Articles>[];
   List<Articles> display_list = <Articles>[];
 
-
   @override
   void initState() {
     // TODO: inplement initState
-    fetchArticles(1,5).then((value) {
+    fetchArticles(1, 5).then((value) {
       setState(() {
         list.addAll(value);
         String text = widget.category.toLowerCase();
         display_list = list.where((list) {
-          var category = list.categoryName.toLowerCase();
+          var category = list.categoryName!.toLowerCase();
           return category.contains(text);
         }).toList();
       });
@@ -83,6 +82,4 @@ class ListArticlesbyCategoryState extends State<ListArticlesbyCategory> {
           );
         });
   }
-
-
 }

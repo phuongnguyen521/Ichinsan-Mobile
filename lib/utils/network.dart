@@ -320,6 +320,7 @@ Future<Articles?> getArticleDetail(String articleId) async {
       return null;
     }
   } catch (e) {
+    log(e);
     return null;
   }
 }

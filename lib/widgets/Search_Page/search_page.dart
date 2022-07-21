@@ -23,10 +23,10 @@ class SearchPageState extends State<SearchPage> {
   List<Articles> list = <Articles>[];
   List<Articles> display_list = <Articles>[];
   /*FetchArticles _list = FetchArticles();*/
-  late String sFilter='';
+  late String sFilter = '';
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     if (widget.filter == null) {
       fetchArticles(1, 5).then((value) {
@@ -46,9 +46,9 @@ class SearchPageState extends State<SearchPage> {
       var sFrom = widget.filter!.salaryFrom.toDouble() > 0
           ? '&from=${widget.filter?.salaryFrom.toString()}'
           : '';
-      var sTo =
-          widget.filter!.salaryTo.toDouble() > 0
-              ? '&to=${widget.filter?.salaryTo}' : '';
+      var sTo = widget.filter!.salaryTo.toDouble() > 0
+          ? '&to=${widget.filter?.salaryTo}'
+          : '';
       var datePost = widget.filter!.datePost.isNotEmpty
           ? '&datePost=${widget.filter?.datePost.toString()}'
           : '';
@@ -118,7 +118,7 @@ class SearchPageState extends State<SearchPage> {
                         text = text.toLowerCase();
                         setState(() {
                           display_list = list.where((list) {
-                            var title = list.name.toLowerCase();
+                            var title = list.name!.toLowerCase();
                             return title.contains(text);
                           }).toList();
                         });
@@ -160,8 +160,8 @@ class SearchPageState extends State<SearchPage> {
         cta: "Apply",
         category: display_list[index].categoryName.toString(),
         title: display_list[index].name.toString(),
-        languagefrom: display_list[index].languageFrom,
-        languageto: display_list[index].languageTo,
+        languagefrom: display_list[index].languageFrom.toString(),
+        languageto: display_list[index].languageTo.toString(),
         coin: display_list[index].fee.toString(),
         deadline: IchinsanCommon.returnDate(display_list[index].deadline),
         description: display_list[index].description.toString(),

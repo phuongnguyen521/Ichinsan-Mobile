@@ -26,7 +26,7 @@ class ListbyTitleState extends State<ListbyTitle> {
         list.addAll(value);
         String text = widget.check.toLowerCase();
         display_list = list.where((list) {
-          var category = list.categoryName.toLowerCase();
+          var category = list.categoryName!.toLowerCase();
           return category.contains(text);
         }).toList();
       });
